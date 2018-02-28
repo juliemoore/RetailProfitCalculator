@@ -1,2 +1,4 @@
 # RetailProfitCalculator
-This is an Android app that calculates common retail profit formulas and stores the data in a database.
+This is an Android app that calculates common retail profit formulas and stores the data in a database for future use. The user can add, edit or delete the data and a summary screen will display the results.
+The initial layout of the project is separated into four Activities. The first Activity is a simple Splash Activity with some animation for 5 seconds. The Main Activity includes a CardView for the user to Add or modify a store name and number. It also includes a RecyclerView that displays all the stores in the database. When the user adds or modifies a store, a new Activity Screen appears where the user can enter the required formula data to make the calculations. Not all of the user input is required, such as Retail Linear Feet of Sales. The user can then tap a calculate button that will display a summary of the calculated formulas.
+The app is compatible for portrait/landscape/x-large modes and translates for Spanish locales.
