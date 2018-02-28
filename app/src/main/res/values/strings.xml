@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Retail Profit Calculator</string>
+    <string name="background">Background</string>
+    <string name="logo">Logo</string>
+    <string name="calculator">Calculator</string>
+    <string name="store_list">Store List</string>
+    <string name="new_store">New Store</string>
+    <string name="store_name">Store Name</string>
+    <string name="store_number">Store Number</string>
+    <string name="welcome">Welcome</string>
+    <string name="search">Search</string>
+    <string name="calculate">Calculate</string>
+    <string name="profitability_summary">Profitability Summary</string>
+    <string name="save">Save</string>
+    <string name="add">Add</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
+
+    <!--Formula names-->
+    <string name="cost_of_goods">Cost of Goods</string>
+    <string name="selling_price">Selling Price</string>
+    <string name="mark_up_dollars">Mark-Up $</string>
+    <string name="mark_up_percent">Mark-Up %</string>
+    <string name="gm_dollars">Margen Bruto $</string>
+    <string name="gm_percent">Gross Margin %</string>
+    <string name="inventory_turnover">Inventory Turnover</string>
+    <string name="weeks_supply_of_inventory">Weeks Supply of Inventory</string>
+    <string name="gmroi">GMROI</string>
+    <string name="sales_per_feet">Sales Per Linear Feet</string>
+    <string name="gm_linear_feet">Gross Margin $ Per Linear Feet</string>
+    <string name="annual_units_sold">Annual units sold</string>
+    <string name="ave_weekly_inventory">Ave Weekly Inventory</string>
+    <string name="linear_ft_sales_floor">Linear Feet of Sales Floor</string>
+
+    <!--Array of Formula names-->
+    <string-array name="formulaNames">
+        <item>Cost of Goods</item>
+        <item>Selling Price</item>
+        <item>Mark-Up $</item>
+        <item>Mark-Up %</item>
+        <item>Gross Margin $</item>
+        <item>Gross Margin %</item>
+        <item>Inventory Turnover</item>
+        <item>Weeks Supply of Inventory</item>
+        <item>GMROI</item>
+        <item>Sales per Linear Feet</item>
+        <item>GM $'s per Linear Feet</item>
+    </string-array>
+
+    <!--Array of store names/numbers for testing purposes-->
+    <string-array name="stores">
+        <item>7-Eleven</item>
+        <item>Uncle Bob's</item>
+        <item>Kip's Chevron</item>
+        <item>BB Exxon</item>
+        <item>Super 7</item>
+        <item>Country Joe's</item>
+    </string-array>
+
+    <string-array name="storeNumbers">
+        <item>48</item>
+        <item>72</item>
+        <item>6</item>
+        <item>1040</item>
+        <item>4</item>
+        <item>33</item>
+    </string-array>
+</resources>

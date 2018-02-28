@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Calculadora de Ganancias Minoristas</string>
+    <string name="background">Fondo</string>
+    <string name="logo">Logo</string>
+    <string name="calculator">Calculadora</string>
+    <string name="store_list">Lista de la Tienda</string>
+    <string name="new_store">Nueva Tienda</string>
+    <string name="store_name">Nombre de la Tienda</string>
+    <string name="store_number">Número de Tienda</string>
+    <string name="welcome">Bienvenido</string>
+    <string name="search">Buscar</string>
+    <string name="calculate">Calcular</string>
+    <string name="profitability_summary">Resumen de Rentabilidad</string>
+    <string name="save">Salvar</string>
+    <string name="add">añadir</string>
+    <string name="edit">Editar</string>
+    <string name="delete">Borrar</string>
+
+    <!--Formula names-->
+    <string name="cost_of_goods">Coste de Bienes</string>
+    <string name="selling_price">Precio de Venta</string>
+    <string name="mark_up_dollars">Margen $</string>
+    <string name="mark_up_percent">Margen %</string>
+    <string name="gm_dollars">Margen Bruto $</string>
+    <string name="gm_percent">Margen Bruto %</string>
+    <string name="inventory_turnover">Volumen de Ventas de Inventario</string>
+    <string name="weeks_supply_of_inventory">Semanas de Suministro de Inventario</string>
+    <string name="gmroi">GMROI</string>
+    <string name="sales_per_feet">Ventas por Pies Lineales</string>
+    <string name="gm_linear_feet">Margen Bruto $ por Pies Lineales</string>
+    <string name="annual_units_sold">Unidades Anuales Vendidas</string>
+    <string name="ave_weekly_inventory">Inventario Semanal de Ave</string>
+    <string name="linear_ft_sales_floor">Pies Lineales de Piso de Ventas</string>
+
+    <!--Array of Formula names-->
+    <string-array name="formulaNames">
+        <item>Coste de Bienes</item>
+        <item>Precio de Venta</item>
+        <item>Margen $</item>
+        <item>Margen %</item>
+        <item>Margen Bruto $</item>
+        <item>Margen Bruto %</item>
+        <item>Volumen de Ventas de Inventario</item>
+        <item>Semanas de Suministro de Inventario</item>
+        <item>GMROI</item>
+        <item>Ventas por Pies Lineales</item>
+        <item>Margen Bruto $ por Pies Lineales</item>
+    </string-array>
+
+    <string-array name="stores">
+        <item>7-Eleven</item>
+        <item>Uncle Bob's</item>
+        <item>Kip's Chevron</item>
+        <item>BB Exxon</item>
+        <item>Super 7</item>
+        <item>Country Joe's</item>
+    </string-array>
+
+    <string-array name="storeNumbers">
+        <item>48</item>
+        <item>72</item>
+        <item>6</item>
+        <item>1040</item>
+        <item>4</item>
+        <item>33</item>
+    </string-array>
+</resources>
