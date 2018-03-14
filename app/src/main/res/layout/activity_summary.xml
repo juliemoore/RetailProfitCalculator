@@ -17,7 +17,7 @@
         <include
             layout="@layout/layout_summary"
             android:layout_width="match_parent"
-            android:layout_height="400dp" />
+            android:layout_height="500dp" />
     </android.support.v7.widget.CardView>
 
     <LinearLayout

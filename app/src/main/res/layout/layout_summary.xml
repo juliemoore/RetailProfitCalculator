@@ -8,75 +8,63 @@
     android:id="@+id/summaryLayout"
     android:background="@color/colorPrimaryLight">
 
-    <LinearLayout
+    <android.support.constraint.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/secondColorAccent">
+
+    <TextView
+        android:id="@+id/summaryTextView"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight=".5"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/profitability_summary"
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <android.support.constraint.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/secondColorAccent">
+    <TextView
+        android:id="@+id/storeNameTextView3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/store_name"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toStartOf="@+id/storeNumberTextView3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/summaryTextView" />
 
-            <android.support.constraint.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/secondColorAccent">
+    <TextView
+        android:id="@+id/storeNumberTextView3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/store_number"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/summaryTextView" />
 
-                <TextView
-                    android:id="@+id/summaryTextView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
-                    android:text="@string/profitability_summary"
-                    android:textAlignment="center"
-                    android:textColor="#FFFFFF"
-                    android:textSize="24sp"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toStartOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+    <ListView
+        android:id="@+id/summaryListView"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@+id/storeNameTextView3" />
 
-                <TextView
-                    android:id="@+id/storeNameTextView3"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
-                    android:text="@string/store_name"
-                    android:textColor="#FFFFFF"
-                    android:textSize="18sp"
-                    app:layout_constraintEnd_toStartOf="@+id/storeNumberTextView3"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/summaryTextView" />
+    </android.support.constraint.ConstraintLayout>
 
-                <TextView
-                    android:id="@+id/storeNumberTextView3"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginRight="16dp"
-                    android:layout_marginTop="16dp"
-                    android:text="@string/store_number"
-                    android:textColor="#FFFFFF"
-                    android:textSize="18sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/summaryTextView" />
 
-                <ListView
-                    android:id="@+id/summaryListView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    app:layout_constraintTop_toBottomOf="@+id/storeNameTextView3" />
-
-            </android.support.constraint.ConstraintLayout>
-
-        </android.support.constraint.ConstraintLayout>
-    </LinearLayout>
 
 </LinearLayout>

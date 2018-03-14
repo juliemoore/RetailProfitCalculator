@@ -27,8 +27,8 @@ public class FormulaActivity extends AppCompatActivity {
 
     private int getImg(int index) {
         switch (index) {
-            case 0: return -1;
-            case 1: return -1;
+            case 0: return R.drawable.formulasquare;
+            case 1: return R.drawable.formulasquare;
             case 2: return R.drawable.mark_up_dollars;
             case 3: return R.drawable.mark_up_percentage;
             case 4: return R.drawable.gm_dollars;

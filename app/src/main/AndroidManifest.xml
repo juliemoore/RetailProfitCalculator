@@ -30,7 +30,6 @@
         <activity android:name=".AddStoreActivity" />
         <activity android:name=".ModifyStoreActivity" />
         <activity android:name=".FormulaActivity"></activity>
-        <activity android:name=".SummaryAdapterWithRecyclerView" />
     </application>
 
 </manifest>

@@ -16,52 +16,46 @@ import java.util.Map;
  */
 
 public class SummaryAdapter extends BaseAdapter {
-    LayoutInflater mInflator;
-    List<Formula> formulas;
-    List<String> formulaName;
-    List<String> formulaAmount;
-    Context context;
 
-    public SummaryAdapter(Context c, List<String> formulaName, List<String> formulaAmount) {
-        mInflator = (LayoutInflater) c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        formulaName = new ArrayList();
-        formulaAmount = new ArrayList();
-        this.context = c;
+    LayoutInflater mInflater;
+    String[] formulaNames;
+    String[] formulaAmounts;
+
+    public SummaryAdapter(Context c, String[] formulaNames, String[] formulaAmounts) {
+        this.formulaNames = formulaNames;
+        this.formulaAmounts = formulaAmounts;
+        mInflater = (LayoutInflater) c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     @Override
     public int getCount() {
-        return formulas.size();
+        return formulaNames.length;
     }
 
     @Override
-    public Object getItem(int position) {
-        return formulaName.get(position);
-    }
-
-    public Object getFormula(int position) {return formulaAmount.get(position);}
-
-    @Override
-    public long getItemId(int position) {
-        return position;
+    public Object getItem(int i) {
+        return formulaNames[i];
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        if(convertView==null){
-            mInflator = LayoutInflater.from(this.context);
-            convertView = mInflator.inflate(R.layout.layout_formula_list,null);
-        }
-
-        View view = mInflator.inflate(R.layout.layout_summary, null);
-        TextView formulaNameTextView = view.findViewById(R.id.formulaNameTextView);
-        TextView formulaTextView= view.findViewById(R.id.formulaTextView);
-
-
-        formulaNameTextView.setText(formulaName.get(position));
-        formulaTextView.setText(formulaAmount.get(position).toString());
-
-        return view;
+    public long getItemId(int i) {
+        return i;
     }
 
-} // End SummaryAdapter class
+    @Override
+    public View getView(int i, View view, ViewGroup viewGroup) {
+
+        View v = mInflater.inflate(R.layout.layout_formula_list, null);
+        TextView formulaNameTextView = v.findViewById(R.id.formulaNameTextView);
+        TextView formulaTextView = v.findViewById(R.id.formulaTextView);
+
+        String formulaName = formulaNames[i];
+        String formulaAmount = formulaAmounts[i];
+
+
+        formulaNameTextView.setText(formulaName);
+        formulaTextView.setText(formulaAmount);
+
+        return v;
+    }
+}
