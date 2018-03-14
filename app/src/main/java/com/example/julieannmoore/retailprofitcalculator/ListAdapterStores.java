@@ -18,23 +18,23 @@ public class ListAdapterStores extends BaseAdapter {
 
     private static final String TAG = ListAdapterStores.class.getSimpleName();
 
-    List<Store> store;
+    List<Store> stores;
     Context context;
     LayoutInflater layoutInflater;
 
-    public ListAdapterStores(Context context,List<Store> people){
+    public ListAdapterStores(Context context,List<Store> stores){
         this.context = context;
-        this.store = store;
+        this.stores = stores;
     }
 
     @Override
     public int getCount() {
-        return store.size();
+        return stores.size();
     }
 
     @Override
     public Object getItem(int i) {
-        return store.get(i);
+        return stores.get(i);
     }
 
     @Override
@@ -50,20 +50,20 @@ public class ListAdapterStores extends BaseAdapter {
             layoutInflater = LayoutInflater.from(this.context);
 
             view = layoutInflater.inflate(R.layout.layout_store_list,null);
-            storeViewHolder=new StoreViewHolder();
+            storeViewHolder = new StoreViewHolder();
 
-            storeViewHolder.textViewStoreName = (TextView)view.findViewById(R.id.textViewStoreName);
-            storeViewHolder.textViewStoreNumber=(TextView)view.findViewById(R.id.textViewStoreNumber);
+            storeViewHolder.textViewStoreName = view.findViewById(R.id.textViewStoreName);
+            storeViewHolder.textViewStoreNumber = view.findViewById(R.id.textViewStoreNumber);
 
             view.setTag(storeViewHolder);
         }else{
             storeViewHolder = (StoreViewHolder)view.getTag();
         }
 
-        final Store person = store.get(i);
+        final Store store = stores.get(i);
 
-        storeViewHolder.textViewStoreName.setText(person.getStoreName());
-        storeViewHolder.textViewStoreNumber.setText(person.getStoreNumber());
+        storeViewHolder.textViewStoreName.setText(store.getStoreName());
+        storeViewHolder.textViewStoreNumber.setText(store.getStoreNumber());
         Log.i(TAG,"Index: "+i+" : "+view);
 
         return view;

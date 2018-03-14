@@ -17,28 +17,29 @@ import java.util.Map;
 
 public class SummaryAdapter extends BaseAdapter {
     LayoutInflater mInflator;
-    Map<String, String> map;
+    List<Formula> formulas;
     List<String> formulaName;
     List<String> formulaAmount;
     Context context;
 
-    public SummaryAdapter(Context c, Map m) {
+    public SummaryAdapter(Context c, List<String> formulaName, List<String> formulaAmount) {
         mInflator = (LayoutInflater) c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        map = m;
-        formulaName = new ArrayList<String>(map.keySet());
-        formulaAmount = new ArrayList<String>(map.values());
+        formulaName = new ArrayList();
+        formulaAmount = new ArrayList();
         this.context = c;
     }
 
     @Override
     public int getCount() {
-        return map.size();
+        return formulas.size();
     }
 
     @Override
     public Object getItem(int position) {
         return formulaName.get(position);
     }
+
+    public Object getFormula(int position) {return formulaAmount.get(position);}
 
     @Override
     public long getItemId(int position) {
@@ -49,17 +50,18 @@ public class SummaryAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         if(convertView==null){
             mInflator = LayoutInflater.from(this.context);
-            convertView=mInflator.inflate(R.layout.layout_formula_list,null);
+            convertView = mInflator.inflate(R.layout.layout_formula_list,null);
         }
 
-        View v = mInflator.inflate(R.layout.layout_summary, null);
-        TextView formulaNameTextView = (TextView) v.findViewById(R.id.textViewFormulaName);
-        TextView formulaAmountTextView = (TextView) v.findViewById(R.id.textViewFormula);
+        View view = mInflator.inflate(R.layout.layout_summary, null);
+        TextView formulaNameTextView = view.findViewById(R.id.formulaNameTextView);
+        TextView formulaTextView= view.findViewById(R.id.formulaTextView);
+
 
         formulaNameTextView.setText(formulaName.get(position));
-        formulaAmountTextView.setText(formulaAmount.get(position).toString());
+        formulaTextView.setText(formulaAmount.get(position).toString());
 
-        return v;
+        return view;
     }
 
-} // End ItemAdapter class
+} // End SummaryAdapter class

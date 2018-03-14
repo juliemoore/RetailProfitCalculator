@@ -1,10 +1,12 @@
 package com.example.julieannmoore.retailprofitcalculator;
 
+import java.io.Serializable;
+
 /**
  * Created by Julie Moore on 2/25/2018.
  */
 
-public class Store  {
+public class Store implements Serializable {
 
     private String storeName, storeNumber;
 
@@ -33,5 +35,12 @@ public class Store  {
 
     public void setStoreNumber(String storeNumber) {
         this.storeNumber = storeNumber;
+    }
+
+    private Store getStore(String storeName, String storeNumber){
+        Store stores = new Store();
+        stores.storeName = storeName;
+        stores.storeNumber = storeNumber;
+        return stores;
     }
 }

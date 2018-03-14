@@ -16,6 +16,7 @@
     <string name="add">añadir</string>
     <string name="edit">Editar</string>
     <string name="delete">Borrar</string>
+    <string name="modify">Modificar</string>
 
     <!--Formula names-->
     <string name="cost_of_goods">Coste de Bienes</string>

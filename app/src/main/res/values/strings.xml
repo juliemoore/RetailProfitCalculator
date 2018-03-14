@@ -14,8 +14,9 @@
     <string name="profitability_summary">Profitability Summary</string>
     <string name="save">Save</string>
     <string name="add">Add</string>
-    <string name="edit">Edit</string>
+    <string name="edit" translatable="false">Edit</string>
     <string name="delete">Delete</string>
+    <string name="modify">Modify</string>
 
     <!--Formula names-->
     <string name="cost_of_goods">Cost of Goods</string>
@@ -46,6 +47,20 @@
         <item>GMROI</item>
         <item>Sales per Linear Feet</item>
         <item>GM $'s per Linear Feet</item>
+    </string-array>
+
+    <string-array name="formulaAmounts">
+        <item>$8.88</item>
+        <item>$8.88</item>
+        <item>$8.88</item>
+        <item>88%</item>
+        <item>$8.88</item>
+        <item>88%</item>
+        <item>8.8</item>
+        <item>8</item>
+        <item>$888,888.88</item>
+        <item>$88,888.88</item>
+        <item>$88.88</item>
     </string-array>
 
     <!--Array of store names/numbers for testing purposes-->

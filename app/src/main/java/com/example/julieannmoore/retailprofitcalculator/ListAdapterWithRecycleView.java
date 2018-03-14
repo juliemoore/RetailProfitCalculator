@@ -1,6 +1,9 @@
 package com.example.julieannmoore.retailprofitcalculator;
 
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -46,6 +49,37 @@ public class ListAdapterWithRecycleView extends RecyclerView.Adapter<ListAdapter
         view.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
+                    int position = storeViewHolder.getAdapterPosition();
+                    Toast.makeText(context,"Item at position "+position+" deleted",Toast.LENGTH_SHORT).show();
+                    storeList.remove(position);
+                    notifyDataSetChanged();
+                    if(storeModifier!=null){storeModifier.onStoreDeleted(position);}
+                    return true;
+                }
+        });
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // This toggles the background color and text of the store list recyclerviews when clicked.
+                int colorName = -1;
+                int textColor = 1979711488;
+                int color = storeViewHolder.textViewStoreName.getCurrentTextColor();
+
+                if(color != colorName) {
+                    view.setBackgroundColor(Color.parseColor("#C43C00"));
+                    storeViewHolder.textViewStoreName.setTextColor(Color.parseColor("#FFFFFF"));
+                    storeViewHolder.textViewStoreNumber.setTextColor(Color.parseColor("#FFFFFF"));
+                } else {
+                    view.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                    storeViewHolder.textViewStoreName.setTextColor(textColor);
+                    storeViewHolder.textViewStoreNumber.setTextColor(textColor);
+                }
+
+            }
+        });
+        /* view.setOnSwipe(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
                 int position = storeViewHolder.getAdapterPosition();
                 Toast.makeText(context,"Item at position "+position+" deleted",Toast.LENGTH_SHORT).show();
                 storeList.remove(position);
@@ -54,14 +88,7 @@ public class ListAdapterWithRecycleView extends RecyclerView.Adapter<ListAdapter
                 return true;
             }
         });
-        view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(storeModifier!=null){
-                    storeModifier.onStoreSelected(storeViewHolder.getAdapterPosition());
-                }
-            }
-        });
+        */
         Log.i(TAG,"onCreateViewHolder invoked");
         return storeViewHolder;
     }

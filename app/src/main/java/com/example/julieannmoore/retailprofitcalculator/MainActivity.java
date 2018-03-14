@@ -1,12 +1,19 @@
 package com.example.julieannmoore.retailprofitcalculator;
 
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.IdRes;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.view.GestureDetector;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -14,37 +21,54 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements ListAdapterWithRecycleView.StoreModifier {
+public class MainActivity extends AppCompatActivity implements ListAdapterWithRecycleView.StoreModifier{
 
+    public static final String EXTRA_STORE = "com.example.julieannmoore.STORE";
     private RecyclerView recyclerView;
     AppUtility appUtility;
 
     ListAdapterWithRecycleView listAdapterWithRecycleView;
-
-    private EditText editTextStoreName, editTextStoreNumber;
-    private Button buttonAdd;
+    private FloatingActionButton fab1;
 
     List<Store> stores;
-    int modificationIndex=-1;
+    private Context context;
 
-    String storeName, storeNumber;
+    EditText editTextStoreName, editTextStoreNumber;
 
     LinearLayoutManager linearLayoutManager;
-    GridLayoutManager gridLayoutManager;
-    StaggeredGridLayoutManager staggeredGridLayoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        context = getApplicationContext();
+
+        FloatingActionButton fab1 = findViewById(R.id.fab1);
+        fab1 = findViewById(R.id.fab1);
+        fab1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, AddStoreActivity.class));
+            }
+        });
+
+        FloatingActionButton fab2 = findViewById(R.id.fab2);
+        fab2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, StoreDataActivity.class));
+            }
+        });
         appUtility=AppUtility.getAppUtility(getApplicationContext());
-        initStoreInputForm();
-        recyclerView =(RecyclerView) findViewById(R.id.recycleListView);
+
+        recyclerView =findViewById(R.id.recycleListView);
 
         stores = appUtility.getStores();
 
@@ -52,97 +76,22 @@ public class MainActivity extends AppCompatActivity implements ListAdapterWithRe
         listAdapterWithRecycleView.setStoreModifier(this);
 
         linearLayoutManager=new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
-        gridLayoutManager = new GridLayoutManager(this,2,GridLayoutManager.VERTICAL,false);
-
-        staggeredGridLayoutManager = new StaggeredGridLayoutManager(3,StaggeredGridLayoutManager.HORIZONTAL);
-
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(listAdapterWithRecycleView);
     }
 
-    private void initStoreInputForm(){
-        editTextStoreName = (EditText)findViewById(R.id.editTextStoreName);
-        editTextStoreNumber = (EditText)findViewById(R.id.editTextStoreNumber);
-
-        buttonAdd = (Button)findViewById(R.id.buttonAdd);
-        buttonAdd.setTag("Add");
-
-
-        buttonAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                storeName = editTextStoreName.getText().toString();
-                storeNumber = editTextStoreNumber.getText().toString();
-                Store store = null;
-
-                if(isInputDataValid()) {
-                    store = new Store(storeName, storeNumber);
-                }else{
-                    Toast.makeText(MainActivity.this,"Input Invalid",Toast.LENGTH_LONG).show();
-                }
-
-                String behaviour = (String)buttonAdd.getTag();
-                if(behaviour.equalsIgnoreCase("Add")){
-                    if(store!=null){
-                        stores.add(store);
-                        listAdapterWithRecycleView.notifyDataSetChanged();
-                        recyclerView.scrollToPosition(stores.size()-1);
-                        clearInputForm();
-                    }
-                }else if(behaviour.equalsIgnoreCase("modify")){
-                    if(store!=null){
-                        try{
-                            stores.get(modificationIndex).setStoreName(store.getStoreName());
-                            stores.get(modificationIndex).setStoreNumber(store.getStoreNumber());
-
-                            listAdapterWithRecycleView.notifyItemChanged(modificationIndex);
-                            clearInputForm();
-                            buttonAdd.setTag("Add");
-                            buttonAdd.setText("Add");
-                        }catch (IndexOutOfBoundsException exception){
-                            Toast.makeText(MainActivity.this,"Can't modify, item moved",Toast.LENGTH_LONG ).show();
-                            listAdapterWithRecycleView.notifyDataSetChanged();
-                            clearInputForm();
-                            buttonAdd.setTag("Add");
-                            buttonAdd.setText("Add");
-                        }
-                    }
-                }
-
-            }
-        });
-    }
-
-    private boolean isInputDataValid(){
-        if(AppUtility.isStringEmpty(storeName) || AppUtility.isStringEmpty(storeNumber)){
-            return false;
-        }else{
-            return true;
-        }
-    }
-
-    private void clearInputForm() {
-        editTextStoreName.setText("");
-        editTextStoreNumber.setText("");
-    }
-
+   /** Called when the user selects a store */
     @Override
     public void onStoreSelected(int position) {
-        modificationIndex = position;
-        Store store = stores.get(position);
-        buttonAdd.setTag("Modify");
-        buttonAdd.setText("Modify");
 
-        editTextStoreName.setText(store.getStoreName());
-        editTextStoreNumber.setText(store.getStoreNumber());
+        Store store = stores.get(position);
+
     }
+
 
     @Override
     public void onStoreDeleted(int position) {
-        buttonAdd.setTag("Add");
-        buttonAdd.setText("Add");
-        clearInputForm();
+
     }
 
 }
