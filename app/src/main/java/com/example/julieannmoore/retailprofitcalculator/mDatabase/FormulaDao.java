@@ -16,7 +16,7 @@ import java.util.List;
 
 @Dao
 public interface FormulaDao {
-    @Query("SELECT * FROM Constants.TABLE_NAME_FORMULA")
+    @Query("SELECT * FROM formulas")
     public List<Formula> getFormulas();
 
     @Insert

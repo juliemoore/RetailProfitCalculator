@@ -46,7 +46,7 @@ public class SummaryActivity extends Activity {
         editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, StoreDataActivity.class);
+                Intent intent = new Intent(context, AddProductActivity.class);
                 startActivity(intent);
             }
         });

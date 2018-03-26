@@ -2,6 +2,8 @@ package com.example.julieannmoore.retailprofitcalculator.mData;
 
 import android.content.Context;
 
+import com.example.julieannmoore.retailprofitcalculator.R;
+
 import java.util.ArrayList;
 import java.util.List;
 

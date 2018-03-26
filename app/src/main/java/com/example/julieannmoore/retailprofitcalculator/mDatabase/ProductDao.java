@@ -17,10 +17,10 @@ import java.util.List;
 @Dao
 public interface ProductDao {
 
-    @Query("SELECT * FROM Constants.TABLE_NAME_PRODUCT")
+    @Query("SELECT * FROM products")
     public List<Product> getProducts();
 
-    @Query("SELECT * FROM Constants.TABLE_NAME_PRODUCT WHERE product_name LIKE :name LIMIT 1")
+    @Query("SELECT * FROM products WHERE product_name LIKE :name LIMIT 1")
     Product findByName(String name);
 
     @Insert

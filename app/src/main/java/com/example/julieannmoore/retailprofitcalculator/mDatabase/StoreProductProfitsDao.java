@@ -17,7 +17,7 @@ import java.util.List;
 @Dao
 public interface StoreProductProfitsDao {
 
-    @Query("SELECT * FROM Constants.TABLE_NAME_STOREPRODUCTPROFITS")
+    @Query("SELECT * FROM store__product_profits")
     public List<StoreProductProfits> getStoreProductProfits();
 
     @Insert

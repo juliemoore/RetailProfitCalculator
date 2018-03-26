@@ -11,6 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.julieannmoore.retailprofitcalculator.mData.Formula;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,7 +43,7 @@ public class SummaryAdapterWithRecyclerView extends RecyclerView.Adapter<Summary
 
     @Override
     public FormulaViewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
-        view= LayoutInflater.from(context).inflate(R.layout.layout_formula_list,parent,false);
+        view= LayoutInflater.from(context).inflate(R.layout.layout_list_item,parent,false);
         formulaViewHolder = new FormulaViewHolder(view);
         position = formulaViewHolder.getAdapterPosition();
         formulas = new ArrayList();
@@ -71,7 +74,7 @@ public class SummaryAdapterWithRecyclerView extends RecyclerView.Adapter<Summary
     public void onBindViewHolder(final FormulaViewHolder holder, int position) {
         final Formula formula = new Formula();
         holder.formulaNameTextView.setText(formula.getFormulaName());
-        holder.formulaTextView.setText(formula.getFormulaAmount());
+        holder.formulaTextView.setText(formula.getFormulaId());
         position = formulaViewHolder.getAdapterPosition();
 
 
@@ -91,8 +94,8 @@ public class SummaryAdapterWithRecyclerView extends RecyclerView.Adapter<Summary
 
         public FormulaViewHolder(View view){
             super(view);
-            formulaNameTextView = view.findViewById(R.id.formulaNameTextView);
-            formulaTextView = view.findViewById(R.id.formulaTextView);
+            formulaNameTextView = view.findViewById(R.id.textView2);
+            formulaTextView = view.findViewById(R.id.textView1);
         }
     }
 }

@@ -12,37 +12,37 @@ import android.arch.persistence.room.Entity;
 public class StoreProductProfits {
 
     @ColumnInfo(name = "storeId")
-    int mStoreId;
+    private int mStoreId;
 
     @ColumnInfo (name = "productId")
-    int mProductId;
+    private int mProductId;
 
     @ColumnInfo (name = "mark_up_dollars")
-    double mMarkUpDollars = 0;
+    private double mMarkUpDollars = 0;
 
     @ColumnInfo (name = "mark_up_percent")
-    double mMarkUpPercent = 0;
+    private double mMarkUpPercent = 0;
 
     @ColumnInfo (name = "gm_dollars")
-    double mGMDollars = 0;
+    private double mGMDollars = 0;
 
     @ColumnInfo (name = "gm_percent")
-    double mGMPercent = 0;
+    private double mGMPercent = 0;
 
     @ColumnInfo (name = "inventory_turnover")
-    double mInventoryTurnover = 0;
+    private double mInventoryTurnover = 0;
 
     @ColumnInfo (name = "weeks_supply_of_inventory")
-    double mWeeksSupplyOfInventory = 0;
+    private double mWeeksSupplyOfInventory = 0;
 
     @ColumnInfo (name = "GMROI")
-    double mGMROI = 0;
+    private double mGMROI = 0;
 
     @ColumnInfo (name = "sales_per_feet")
-    double mSalesPerFeet = 0;
+    private double mSalesPerFeet = 0;
 
     @ColumnInfo (name = "gm_dollars_per_feet")
-    double mGMDollarsPerFeet = 0;
+    private double mGMDollarsPerFeet = 0;
 
     public int getStoreId() {
         return mStoreId;
@@ -113,23 +113,23 @@ public class StoreProductProfits {
         return mGMROI;
     }
 
-    public void setmGMROI(double mGMROI) {
+    public void setGMROI(double mGMROI) {
         this.mGMROI = mGMROI;
     }
 
-    public double getmSalesPerFeet() {
+    public double getSalesPerFeet() {
         return mSalesPerFeet;
     }
 
-    public void setmSalesPerFeet(double mSalesPerFeet) {
+    public void setSalesPerFeet(double mSalesPerFeet) {
         this.mSalesPerFeet = mSalesPerFeet;
     }
 
-    public double getmGMDollarsPerFeet() {
+    public double getGMDollarsPerFeet() {
         return mGMDollarsPerFeet;
     }
 
-    public void setmGMDollarsPerFeet(double mGMDollarsPerFeet) {
+    public void setGMDollarsPerFeet(double mGMDollarsPerFeet) {
         this.mGMDollarsPerFeet = mGMDollarsPerFeet;
     }
 

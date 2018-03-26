@@ -45,9 +45,9 @@ public class SummaryAdapter extends BaseAdapter {
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
 
-        View v = mInflater.inflate(R.layout.layout_formula_list, null);
-        TextView formulaNameTextView = v.findViewById(R.id.formulaNameTextView);
-        TextView formulaTextView = v.findViewById(R.id.formulaTextView);
+        View v = mInflater.inflate(R.layout.layout_list_item, null);
+        TextView formulaNameTextView = v.findViewById(R.id.textView1);
+        TextView formulaTextView = v.findViewById(R.id.textView2);
 
         String formulaName = formulaNames[i];
         String formulaAmount = formulaAmounts[i];

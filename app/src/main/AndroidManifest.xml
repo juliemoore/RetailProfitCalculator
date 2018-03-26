@@ -25,14 +25,11 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".StoreDataActivity" />
         <activity android:name=".SummaryActivity" android:parentActivityName=".AddProductActivity" />
         <activity android:name=".AddStoreActivity" android:parentActivityName=".MainActivity" />
-        <activity android:name=".ModifyStoreActivity" android:parentActivityName=".StoreListActivity" />
         <activity android:name=".FormulaActivity" android:parentActivityName=".SummaryActivity" />
         <activity android:name=".StoreListActivity" android:parentActivityName=".MainActivity" />
         <activity android:name=".UpdateStoreActivity" android:parentActivityName=".StoreListActivity" />
-        <activity android:name=".DeleteStoreActivity" android:parentActivityName=".StoreListActivity" />
         <activity android:name=".ProductListActivity" android:parentActivityName=".StoreListActivity" />
         <activity android:name=".AddProductActivity" android:parentActivityName=".ProductListActivity"></activity>
     </application>

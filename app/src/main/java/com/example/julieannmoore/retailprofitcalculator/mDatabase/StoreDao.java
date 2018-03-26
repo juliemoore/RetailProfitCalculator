@@ -17,10 +17,10 @@ import java.util.List;
 @Dao
 public interface StoreDao {
 
-    @Query("SELECT * FROM Constants.TABLE_NAME_STORE")
+    @Query("SELECT * FROM stores")
     public List<Store> getStores();
 
-    @Query("SELECT * FROM Constants.TABLE_NAME_STORE WHERE store_name LIKE :name AND "
+    @Query("SELECT * FROM stores WHERE store_name LIKE :name AND "
             + "store_number LIKE :number LIMIT 1")
     Store findByNameAndNumber(String name, String number);
 

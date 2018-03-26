@@ -116,7 +116,7 @@
     </item>
     <item>
         <shape android:shape="oval">
-            <solid android:color="@color/secondColorPrimary"/>
+            <solid android:color="@color/secondColorAccent"/>
         </shape>
     </item>
 </layer-list>
