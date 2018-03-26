@@ -19,7 +19,7 @@ allprojects {
     repositories {
         google()
         jcenter()
-        maven { url "https://repo.example.com/maven2" }
+        maven { url "https://maven.google.com" }
     }
 }
 

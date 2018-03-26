@@ -27,9 +27,7 @@
     <string name="update_store">Update Store</string>
     <string name="add_data">Add or Edit Product Data</string>
     <string name="edit_data">Edit Product</string>
-    <string name="delete_data">Delete Product</string>
-    <string name="empty_store_list">No Stores Found, Let\'s Add Some!</string>
-    <string name="empty_product_list">No Products Found, Let\'s Add Some!</string>
+    <string name="delete_data">Delet Product</string>
     <string name="summary">Retail Profitability Summary</string>
     <string name="formulas">Profitability Formulas</string>
 

@@ -23,8 +23,6 @@
     <string name="view_store">Ver Tienda</string>
     <string name="update_store">Actualizar Tienda</string>
     <string name="delete_store">Eliminar Tienda</string>
-    <string name="empty_store_list">¡No se encontraron tiendas, vamos a agregar algunas!</string>
-    <string name="empty_product_list">¡No se encontraron productos, vamos a agregar algunas!</string>
     <string name="add_data">Agregar Datos del Producto</string>
     <string name="edit_data">Editar Datos del Producto</string>
     <string name="delete_data">Eliminar Datos del Productos</string>

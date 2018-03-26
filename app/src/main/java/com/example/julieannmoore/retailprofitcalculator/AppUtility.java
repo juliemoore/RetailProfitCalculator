@@ -2,6 +2,8 @@ package com.example.julieannmoore.retailprofitcalculator;
 
 import android.content.Context;
 
+import com.example.julieannmoore.retailprofitcalculator.mData.Store;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -22,6 +24,7 @@ public class AppUtility {
     private List<Store> stores;
 
     private static AppUtility appUtility;
+    private String storeName, storeNumber;
 
     private AppUtility(Context context){
         this.context=context;
@@ -30,7 +33,9 @@ public class AppUtility {
 
         stores = new ArrayList<Store>();
         for(int i=0;i<storeNames.length;i++){
-            Store store = new Store(storeNames[i],storeNumbers[i]);
+            storeName = storeNames[i];
+            storeNumber = storeNumbers[i];
+            Store store = new Store(i, storeName, storeNumber);
             stores.add(store);
         }
     }

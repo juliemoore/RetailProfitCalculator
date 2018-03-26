@@ -6,13 +6,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@drawable/gradient"
-    tools:context="com.example.julieannmoore.retailprofitcalculator.AddStoreActivity">
+    tools:context="com.example.julieannmoore.retailprofitcalculator.UpdateStoreActivity">
 
     <TextView
-        android:id="@+id/deleteStoreTextView"
+        android:id="@+id/tv_update_store"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/add_store"
+        android:text="@string/update_store"
         android:textAlignment="center"
         android:textSize="22sp"
         android:padding="18dp"
@@ -41,3 +41,5 @@
         android:src="@drawable/formulasquare"/>
 
 </LinearLayout>
+
+

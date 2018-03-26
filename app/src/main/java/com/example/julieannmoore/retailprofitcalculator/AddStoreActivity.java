@@ -1,90 +1,98 @@
 package com.example.julieannmoore.retailprofitcalculator;
 
-import android.app.Activity;
+
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.support.design.widget.TextInputEditText;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 
-import java.util.List;
+import com.example.julieannmoore.retailprofitcalculator.mData.Store;
+import com.example.julieannmoore.retailprofitcalculator.mDatabase.AppDatabase;
 
-public class AddStoreActivity extends Activity {
+import java.io.Serializable;
+import java.lang.ref.WeakReference;
 
-    AppUtility appUtility;
+public class AddStoreActivity extends AppCompatActivity {
 
-    ListAdapterWithRecycleView listAdapterWithRecycleView;
-
-    private EditText editTextStoreName, editTextStoreNumber;
-    private Button buttonAdd;
-
-    List<Store> stores;
-    int modificationIndex=-1;
-
-    String storeName, storeNumber;
-
-    LinearLayoutManager linearLayoutManager;
-    GridLayoutManager gridLayoutManager;
-    StaggeredGridLayoutManager staggeredGridLayoutManager;
+    private TextInputEditText mStoreName, mStoreNumber;
+    private AppDatabase mDatabase;
+    private Store store;
+    private boolean update;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_store);
 
-        appUtility=AppUtility.getAppUtility(getApplicationContext());
+        mStoreName = findViewById(R.id.et_store_name);
+        mStoreNumber = findViewById(R.id.et_store_number);
+        mDatabase = AppDatabase.getInstance(AddStoreActivity.this);
+        Button mButton = findViewById(R.id.bn_add);
 
-        stores = appUtility.getStores();
-        initStoreInputForm();
-
-    }
-
-    private void initStoreInputForm(){
-        editTextStoreName = findViewById(R.id.editTextStoreName);
-        editTextStoreNumber = findViewById(R.id.editTextStoreNumber);
-
-        buttonAdd = findViewById(R.id.buttonAdd);
-        buttonAdd.setTag("Add");
-
-
-        buttonAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                storeName = editTextStoreName.getText().toString();
-                storeNumber = editTextStoreNumber.getText().toString();
-                Store store = null;
-
-                if(isInputDataValid()) {
-                    store = new Store(storeName, storeNumber);
-                    stores.add(store);
-                    String newStore = storeName;
-                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        if ( (store = (Store) getIntent().getSerializableExtra("store"))!=null ){
+            mButton.setText(getString(R.string.update));
+            setTitle(getString(R.string.update_store));
+            update = true;
+            mButton.setText(getString(R.string.update));
+            mStoreName.setText(store.getStoreName());
+            mStoreNumber.setText(store.getStoreNumber());
+            mButton.setOnClickListener(new View.OnClickListener() {
+                @Override public void onClick(View view) {
+                    store.setStoreName(mStoreName.getText().toString());
+                    store.setStoreNumber(mStoreNumber.getText().toString());
+                    mDatabase.getStoreDao().updateStore(store);
+                    Intent intent = new Intent(AddStoreActivity.this, StoreListActivity.class);
                     startActivity(intent);
-
-                }else{
-                    Toast.makeText(AddStoreActivity.this,"Input Invalid",Toast.LENGTH_LONG).show();
                 }
+            });
+        }
+
+        mButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Fetch data and create store object
+                store = new Store(0, mStoreName.getText().toString(),
+                        mStoreNumber.getText().toString());
+
+                // create worker thread to insert data into database
+                new InsertTask(AddStoreActivity.this, store).execute();
             }
         });
     }
 
+    private void setResult(Store store, int flag){
+        setResult(flag, new Intent().putExtra("store", (Serializable) store));
+        finish();
+    }
 
+    private static class InsertTask extends AsyncTask<Void,Void,Boolean> {
 
-    private boolean isInputDataValid(){
-        if(AppUtility.isStringEmpty(storeName) || AppUtility.isStringEmpty(storeNumber)){
-            return false;
-        }else{
+        private WeakReference<AddStoreActivity> activityReference;
+        private Store store;
+
+        // only retain a weak reference to the activity
+        InsertTask(AddStoreActivity context, Store store) {
+            activityReference = new WeakReference<AddStoreActivity>(context);
+            this.store = store;
+        }
+
+        @Override
+        protected Boolean doInBackground(Void... voids) {
+            activityReference.get().mDatabase.getStoreDao().insertStore(store);
             return true;
+        }
+
+        // onPostExecute runs on main thread
+        @Override
+        protected void onPostExecute(Boolean bool) {
+            if (bool){
+                activityReference.get().setResult(store, 1);
+            }
         }
     }
 
-    private void clearInputForm() {
-        editTextStoreName.setText("");
-        editTextStoreNumber.setText("");
-    }
 }
