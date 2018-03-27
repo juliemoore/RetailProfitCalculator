@@ -25,8 +25,8 @@
     <string name="delete_store">Eliminar Tienda</string>
     <string name="empty_store_list">¡No se encontraron tiendas, vamos a agregar algunas!</string>
     <string name="empty_product_list">¡No se encontraron productos, vamos a agregar algunas!</string>
-    <string name="add_data">Agregar Datos del Producto</string>
-    <string name="edit_data">Editar Datos del Producto</string>
+    <string name="update_product">Actualizar un Producto</string>
+    <string name="add_product">Agregue un Producto</string>
     <string name="delete_data">Eliminar Datos del Productos</string>
     <string name="summary">Resumen de Rentabilidad Minorista</string>
     <string name="formulas">Fórmulas de Rentabilidad</string>

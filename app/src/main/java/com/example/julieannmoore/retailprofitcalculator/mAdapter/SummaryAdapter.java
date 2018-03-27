@@ -1,4 +1,4 @@
-package com.example.julieannmoore.retailprofitcalculator;
+package com.example.julieannmoore.retailprofitcalculator.mAdapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,12 +7,10 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import com.example.julieannmoore.retailprofitcalculator.R;
 
 /**
- * Created by msjul on 2/25/2018.
+ * Created by Julie Moore on 2/25/2018.
  */
 
 public class SummaryAdapter extends BaseAdapter {

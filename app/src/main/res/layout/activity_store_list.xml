@@ -6,38 +6,15 @@
     android:orientation="vertical"
     tools:context="com.example.julieannmoore.retailprofitcalculator.StoreListActivity">
 
-    <TextView
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/store_list_title"
-        android:text="@string/store_list"
-        android:textAlignment="center"
-        android:textSize="32sp"
-        android:padding="8dp"
-        android:background="@color/secondColorAccent"/>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/store_list_message"
-        android:text="@string/empty_store_list"
-        android:textAlignment="center"
-        android:backgroundTint="@color/secondColorLight"
-        android:textSize="32sp"
-        android:padding="48dp"
+        android:layout_height="300dp">
 
-        android:background="@color/secondColorAccent"/>
-
-    <android.support.v7.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:layout_weight="1"
-        android:id="@+id/cardView">
-        <include
-            layout="@layout/layout_list_view"
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </android.support.v7.widget.CardView>
+            android:layout_height="400dp"
+            android:id="@+id/store_info"/>
+    </ScrollView>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -55,7 +32,6 @@
             android:layout_marginBottom="24dp"
             android:layout_marginRight="24dp"
             android:layout_margin="5dp"
-            android:background="@drawable/orange_fab"
             android:clickable="true"
             android:src="@drawable/ic_add_black_24dp"
             />

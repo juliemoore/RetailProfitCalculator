@@ -4,8 +4,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/secondColorLight"
+    android:background="@drawable/mybutton"
     tools:context="com.example.julieannmoore.retailprofitcalculator.FormulaActivity">
+
+    <TextView
+        android:id="@+id/tx_formula_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/formulas"
+        android:textAlignment="center"
+        android:textSize="28sp"
+        android:layout_marginTop="24dp"
+        android:padding="18dp"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:paddingRight="48dp"
+        android:paddingLeft="48dp"/>
 
     <ImageView
         android:id="@+id/imageView"

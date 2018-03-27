@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.LinearLayoutCompat
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:padding="28dp"
+        android:text="Make a selection"
+        android:textSize="32sp"
+        android:textAlignment="center"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/bn_update_store"
+            android:layout_weight="1"
+            android:padding="8dp"
+            android:textSize="18sp"
+            android:text="@string/update"
+            android:background="@drawable/mybutton"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/bn_delete_store"
+            android:layout_weight="1"
+            android:padding="8dp"
+            android:textSize="18sp"
+            android:text="@string/update"
+            android:background="@drawable/mybutton"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/bn_view_products"
+            android:layout_weight="1"
+            android:padding="8dp"
+            android:textSize="18sp"
+            android:text="@string/update"
+            android:background="@drawable/mybutton"/>
+    </LinearLayout>
+</android.support.v7.widget.LinearLayoutCompat>

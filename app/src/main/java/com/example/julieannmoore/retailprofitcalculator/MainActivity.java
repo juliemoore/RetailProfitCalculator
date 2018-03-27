@@ -30,31 +30,30 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button bnAddStore, bnViewStore;
+    Button mAddStore, mViewStore;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        bnAddStore = findViewById(R.id.bn_add_store);
-        bnViewStore = findViewById(R.id.bn_view_store);
+        mAddStore = findViewById(R.id.bn_add_store);
+        mViewStore = findViewById(R.id.bn_view_store);
 
-        bnAddStore.setOnClickListener(new View.OnClickListener() {
+        mAddStore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, AddStoreActivity.class);
-                startActivity(intent);
-
+                Intent addStoreIntent = new Intent(MainActivity.this, AddStoreActivity.class);
+                startActivity(addStoreIntent);
             }
         });
 
-        bnViewStore.setOnClickListener(new View.OnClickListener() {
+        mViewStore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, StoreListActivity.class);
-                startActivity(intent);
+                Intent viewStoreIntent = new Intent(MainActivity.this, StoreListActivity.class);
+                startActivity(viewStoreIntent);
             }
         });
-
     }
 }

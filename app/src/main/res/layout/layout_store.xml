@@ -4,50 +4,39 @@
     android:layout_height="wrap_content"
     android:background="@color/secondColorAccent">
 
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/txtInput"
+    <EditText
+        android:id="@+id/editTextStoreName"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:inputType="textPersonName"
+        android:hint="@string/store_name" />
 
-        <android.support.design.widget.TextInputEditText
-            android:inputType="text"
-            android:id="@+id/et_store_name"
-            android:singleLine="true"
+        <EditText
+            android:id="@+id/editTextStoreNumber"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/store_name"
-            android:layout_marginTop="8dp"
+            android:layout_below="@+id/editTextStoreName"
+            android:layout_marginTop="16dp"
             android:layout_marginLeft="16dp"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
-            android:layout_marginBottom="24dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"/>
-
-        <android.support.design.widget.TextInputEditText
-            android:inputType="text"
-            android:id="@+id/et_store_number"
-            android:hint="@string/store_number"
-            android:singleLine="true"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginBottom="24dp"/>
-    </android.support.design.widget.TextInputLayout>
+            android:layout_marginBottom="36dp"
+            android:inputType="textPersonName"
+            android:hint="@string/store_number"/>
 
     <Button
         android:id="@+id/bn_add"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/txtInput"
         android:background="@drawable/gray_button"
         android:text="@string/add"
         android:textColor="#FFFFFF"
-        android:textSize="18dp" />
+        android:textSize="18dp"
+        android:layout_below="@+id/editTextStoreNumber"
+        android:onClick="addStore"/>
 </RelativeLayout>

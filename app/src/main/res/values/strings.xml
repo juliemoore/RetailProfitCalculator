@@ -25,8 +25,8 @@
     <string name="view_store">View Store</string>
     <string name="delete_store">Delete Store</string>
     <string name="update_store">Update Store</string>
-    <string name="add_data">Add or Edit Product Data</string>
-    <string name="edit_data">Edit Product</string>
+    <string name="update_product">Update Product</string>
+    <string name="add_product">Add Product</string>
     <string name="delete_data">Delete Product</string>
     <string name="empty_store_list">No Stores Found, Let\'s Add Some!</string>
     <string name="empty_product_list">No Products Found, Let\'s Add Some!</string>

@@ -44,6 +44,25 @@ public class StoreProductProfits {
     @ColumnInfo (name = "gm_dollars_per_feet")
     private double mGMDollarsPerFeet = 0;
 
+    public StoreProductProfits(int mStoreId, int mProductId, double mMarkUpDollars,
+                               double mMarkUpPercent, double mGMDollars, double mGMPercent,
+                               double mInventoryTurnover, double mWeeksSupplyOfInventory,
+                               double mGMROI, double mSalesPerFeet, double mGMDollarsPerFeet) {
+        this.mStoreId = mStoreId;
+        this.mProductId = mProductId;
+        this.mMarkUpDollars = mMarkUpDollars;
+        this.mMarkUpPercent = mMarkUpPercent;
+        this.mGMDollars = mGMDollars;
+        this.mGMPercent = mGMPercent;
+        this.mInventoryTurnover = mInventoryTurnover;
+        this.mWeeksSupplyOfInventory = mWeeksSupplyOfInventory;
+        this.mGMROI = mGMROI;
+        this.mSalesPerFeet = mSalesPerFeet;
+        this.mGMDollarsPerFeet = mGMDollarsPerFeet;
+    }
+
+    public StoreProductProfits() {}
+
     public int getStoreId() {
         return mStoreId;
     }
@@ -59,7 +78,6 @@ public class StoreProductProfits {
     public void setProductId(int mProductId) {
         this.mProductId = mProductId;
     }
-
 
     public double getMarkUpDollars() {
         return mMarkUpDollars;

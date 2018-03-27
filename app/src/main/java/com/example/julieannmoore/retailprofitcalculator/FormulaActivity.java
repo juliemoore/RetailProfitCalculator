@@ -10,6 +10,7 @@ import android.widget.ImageView;
 
 public class FormulaActivity extends AppCompatActivity {
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,7 +62,6 @@ public class FormulaActivity extends AppCompatActivity {
         options.inJustDecodeBounds = false;
         Bitmap scaledImg = BitmapFactory.decodeResource(getResources(), pic, options);
         img.setImageBitmap(scaledImg);
-
 
     }
 }
