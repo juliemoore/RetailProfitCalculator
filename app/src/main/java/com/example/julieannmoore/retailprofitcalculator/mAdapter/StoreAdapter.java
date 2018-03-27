@@ -2,7 +2,6 @@ package com.example.julieannmoore.retailprofitcalculator.mAdapter;
 
 import android.content.Context;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -21,72 +20,47 @@ import java.util.List;
 public class StoreAdapter extends BaseAdapter {
 
     private static final String TAG = StoreAdapter.class.getSimpleName();
+    List<Store> mStoreList;
+    Context mContext;
 
-    List<Store> stores;
-    Context context;
-    LayoutInflater layoutInflater;
-
+    //Constructor
     public StoreAdapter(Context context, List<Store> stores) {
-        this.context = context;
-        this.stores = stores;
+        mContext = context;
+        mStoreList = stores;
     }
 
     @Override
     public int getCount() {
-        return stores.size();
+        return mStoreList.size();
     }
 
     @Override
-    public Object getItem(int i) {
-        if (stores.size() <= 0) {
-            Toast.makeText(context, "There are no stores in the list", Toast.LENGTH_SHORT).show();
-            return stores;
+    public Object getItem(int position) {
+        if (mStoreList.size() <= 0) {
+            Toast.makeText(mContext, "There are no stores in the list", Toast.LENGTH_SHORT).show();
+            return mStoreList;
         }
-        return stores.get(i);
+        return mStoreList.get(position);
     }
 
     @Override
-    public long getItemId(int i) {
-        int storeId = 0;
-        if (stores.size() <= 0) {
-            Toast.makeText(context, "There are no stores in the list", Toast.LENGTH_SHORT).show();
-            return i;
-        } else {
-            Store store = stores.get(i);
-            storeId = store.getStoreId();
-        }
-        return storeId;
+    public long getItemId(int position) {
+        return position;
     }
 
     @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
-        StoreViewHolder storeViewHolder;
+    public View getView(int position, View convertView, ViewGroup parent) {
+        View view = View.inflate(mContext, R.layout.layout_list_item, null);
+        TextView textViewStoreName = view.findViewById(R.id.textView1);
+        TextView textViewStoreNumber = view.findViewById(R.id.textView2);
+        // Set text for TextView
+        textViewStoreName.setText(mStoreList.get(position).getStoreName());
+        textViewStoreNumber.setText(mStoreList.get(position).getStoreNumber());
 
-        if (view == null) {
-            layoutInflater = LayoutInflater.from(this.context);
-
-            view = layoutInflater.inflate(R.layout.layout_list_item, null);
-            storeViewHolder = new StoreViewHolder();
-
-            storeViewHolder.textViewStoreName = (TextView) view.findViewById(R.id.textView1);
-            storeViewHolder.textViewStoreNumber = (TextView) view.findViewById(R.id.textView2);
-
-            view.setTag(storeViewHolder);
-        } else {
-            storeViewHolder = (StoreViewHolder) view.getTag();
-        }
-
-        final Store store = stores.get(i);
-
-        storeViewHolder.textViewStoreName.setText(store.getStoreName());
-        storeViewHolder.textViewStoreNumber.setText(store.getStoreNumber());
-        Log.i(TAG, "Index: " + i + " : " + view);
+        // Save storeId to tag
+        view.setTag(mStoreList.get(position).getStoreId());
+        Log.i(TAG, "Index: " + position + " : " + view);
 
         return view;
-    }
-
-    private static class StoreViewHolder {
-        public TextView textViewStoreName;
-        public TextView textViewStoreNumber;
     }
 }
