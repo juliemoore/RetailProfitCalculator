@@ -23,7 +23,7 @@ public class AddProductActivity extends AppCompatActivity {
     private Button mButton;
     private AppDatabase mDatabase;
     private Product product;
-    private int storeId, productId = 0;
+    private int storeId, productId;
     private String storeName, storeNumber, productName;
     private double costOfGoods, sellingPrice, annualUnitsSold,
             aveWeeklyInventory, linearFt = 0;
@@ -61,6 +61,7 @@ public class AddProductActivity extends AppCompatActivity {
 
     public void addProduct() {
         Product product= new Product();
+        // Set store id to unique number
         product.setProductId(productId);
         product.setStoreId(1);
         if (mProduct.length() != 0) {

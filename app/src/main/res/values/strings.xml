@@ -23,6 +23,8 @@
     <string name="modify_store">Modify</string>
     <string name="add_store">Add Store</string>
     <string name="view_store">View Store</string>
+    <string name="view">View</string>
+    <string name="selection">Make a selection</string>
     <string name="delete_store">Delete Store</string>
     <string name="update_store">Update Store</string>
     <string name="update_product">Update Product</string>

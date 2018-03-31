@@ -4,13 +4,9 @@ import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
 
-/**
- * Created by Julie Moore on 3/25/2018.
- */
-
-@Entity(tableName = "store__product_profits",
+@Entity(tableName = "summary",
         primaryKeys = {"storeId","productId"})
-public class StoreProductProfits {
+public class Summary {
 
     @ColumnInfo(name = "storeId")
     private int mStoreId;
@@ -47,7 +43,7 @@ public class StoreProductProfits {
 
     // Parameterized constructor
     @Ignore
-    public StoreProductProfits(int mStoreId, int mProductId, double mMarkUpDollars,
+    public Summary(int mStoreId, int mProductId, double mMarkUpDollars,
                                double mMarkUpPercent, double mGMDollars, double mGMPercent,
                                double mInventoryTurnover, double mWeeksSupplyOfInventory,
                                double mGMROI, double mSalesPerFeet, double mGMDollarsPerFeet) {
@@ -64,7 +60,7 @@ public class StoreProductProfits {
         this.mGMDollarsPerFeet = mGMDollarsPerFeet;
     }
 
-    public StoreProductProfits() {}
+    public Summary() {}
 
     public int getStoreId() {
         return mStoreId;
@@ -154,9 +150,10 @@ public class StoreProductProfits {
         this.mGMDollarsPerFeet = mGMDollarsPerFeet;
     }
 
-    public StoreProductProfits(int productId, int storeId) {
+    @Ignore
+    public Summary(int productId, int storeId) {
         mProductId = productId;
         mStoreId = storeId;
     }
-
 }
+

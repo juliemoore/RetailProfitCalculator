@@ -9,52 +9,49 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.julieannmoore.retailprofitcalculator.R;
+import com.example.julieannmoore.retailprofitcalculator.mData.Product;
 import com.example.julieannmoore.retailprofitcalculator.mData.Store;
 
 import java.util.List;
 
-/**
- * Created by Julie Moore on 3/26/2018.
- */
+public class ProductAdapter extends BaseAdapter {
 
-public class StoreAdapter extends BaseAdapter {
-
-    private static final String TAG = StoreAdapter.class.getSimpleName();
-    List<Store> mStoreList;
+    private static final String TAG = ProductAdapter.class.getSimpleName();
+    List<Product> mProductList;
     Context mContext;
 
     //Constructor
-    public StoreAdapter(Context context, List<Store> stores) {
+    public ProductAdapter(Context context, List<Product> products) {
         mContext = context;
-        mStoreList = stores;
+        mProductList = products;
     }
 
-    public void AddItem(Store store) {
-        mStoreList.add(store);
+    public void AddItem(Product product) {
+        mProductList.add(product);
         notifyDataSetChanged();
     }
 
-    public void EditItem(int index, Store store) {
-        mStoreList.set(index, store);
+    public void EditItem(int index, Product product) {
+        mProductList.set(index, product);
         notifyDataSetChanged();
     }
 
     @Override
     public int getCount() {
-        return mStoreList.size();
+        return mProductList.size();
     }
 
     @Override
     public Object getItem(int position) { return null; }
 
-    public Store getStoreItem(int position) {
-        if (mStoreList.size() <= 0) {
-            Toast.makeText(mContext, "There are no stores in the list", Toast.LENGTH_SHORT).show();
+    public Product getProductItem(int position) {
+        if (mProductList.size() <= 0) {
+            Toast.makeText(mContext, "There are no products in the list", Toast.LENGTH_SHORT).show();
         }
-        if (position > mStoreList.size() -1) {
+        if (position > mProductList.size() -1) {
             Toast.makeText(mContext, "Selection out of bounds", Toast.LENGTH_SHORT).show();
         }
-        return mStoreList.get(position);
+        return mProductList.get(position);
     }
 
     @Override
@@ -65,14 +62,14 @@ public class StoreAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View view = View.inflate(mContext, R.layout.layout_list_item, null);
-        TextView textViewStoreName = view.findViewById(R.id.textView1);
+        TextView textViewProduct = view.findViewById(R.id.textView1);
         TextView textViewStoreNumber = view.findViewById(R.id.textView2);
         // Set text for TextView
-        textViewStoreName.setText(mStoreList.get(position).getStoreName());
-        textViewStoreNumber.setText(mStoreList.get(position).getStoreNumber());
+        textViewProduct.setText(mProductList.get(position).getProductName());
+        textViewStoreNumber.setText("");
 
         // Save storeId to tag
-        view.setTag(mStoreList.get(position).getStoreId());
+        view.setTag(mProductList.get(position).getStoreId());
         Log.i(TAG, "Index: " + position + " : " + view);
 
         return view;

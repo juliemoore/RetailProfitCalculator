@@ -23,6 +23,12 @@ public interface ProductDao {
     @Query("SELECT * FROM products WHERE product_name LIKE :name LIMIT 1")
     Product findByName(String name);
 
+    @Query("SELECT * FROM products WHERE store_id LIKE :storeId LIMIT 1")
+    Product findByStoreId(int storeId);
+
+    @Query("SELECT * FROM products WHERE mProductId LIKE :productId LIMIT 1")
+    Product findByProductId(int productId);
+
     @Insert
     public void insertProduct(Product product);
 

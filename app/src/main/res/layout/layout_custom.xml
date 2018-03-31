@@ -1,48 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.LinearLayoutCompat
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<android.support.v7.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="350dp"
+    android:layout_height="250dp"
+    android:layout_gravity="center_horizontal"
+    android:background="@color/secondColorLight"
     android:orientation="vertical">
-    
-    <TextView
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:padding="28dp"
-        android:text="Make a selection"
-        android:textSize="32sp"
-        android:textAlignment="center"/>
+        android:layout_weight=".5">
+
+        <TextView
+            android:id="@+id/storeDialog_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="32dp"
+            android:text="@string/selection"
+            android:textAlignment="center"
+            android:textColor="#FFFFFF"
+            android:textSize="28sp" />
+
+        <TextView
+            android:id="@+id/storeNameTextView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/storeDialog_title"
+            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/store_name"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/storeNumberTextView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/storeNameTextView2"
+            android:layout_alignBottom="@+id/textView1"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/storeDialog_title"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/store_number"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp" />
+    </RelativeLayout>
+
+    <include
+        layout="@layout/layout_list_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight=".25"
         android:orientation="horizontal">
 
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:id="@+id/bn_update_store"
-            android:layout_weight="1"
-            android:padding="8dp"
-            android:textSize="18sp"
-            android:text="@string/update"
-            android:background="@drawable/mybutton"/>
-        <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/mybutton"
+            android:padding="8dp"
+            android:text="@string/update"
+            android:textSize="18sp" />
+
+        <Button
             android:id="@+id/bn_delete_store"
-            android:layout_weight="1"
-            android:padding="8dp"
-            android:textSize="18sp"
-            android:text="@string/update"
-            android:background="@drawable/mybutton"/>
-        <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/bn_view_products"
-            android:layout_weight="1"
+            android:layout_weight=".25"
+            android:background="@drawable/mybutton"
             android:padding="8dp"
-            android:textSize="18sp"
-            android:text="@string/update"
-            android:background="@drawable/mybutton"/>
+            android:text="@string/delete"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/bn_view_products"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/mybutton"
+            android:padding="8dp"
+            android:text="@string/view"
+            android:textSize="18sp" />
     </LinearLayout>
 </android.support.v7.widget.LinearLayoutCompat>

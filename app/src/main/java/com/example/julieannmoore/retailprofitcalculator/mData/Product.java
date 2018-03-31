@@ -3,6 +3,7 @@ package com.example.julieannmoore.retailprofitcalculator.mData;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 
 /**
@@ -40,6 +41,7 @@ public class Product {
     private double mLinearFeet;
 
     // Default constructor
+    @Ignore
     public Product() {
         mProductId = 0;
         mProductName = "";
@@ -51,9 +53,8 @@ public class Product {
         mLinearFeet = 0;
     }
     // Parameterized constructor
-    public Product(int productId, String productName, int storeId, double costOfGoods, double sellingPrice,
+    public Product(String productName, int storeId, double costOfGoods, double sellingPrice,
                    double annualUnitsSold, double aveWeeklyInventory, double linearFeet) {
-        mProductId = productId;
         mProductName = productName;
         mCostOfGoods = costOfGoods;
         mStoreId = storeId;
@@ -118,8 +119,7 @@ public class Product {
         mLinearFeet = linearFeet;
     }
 
-    @Override
-    public boolean equals(Object obj) {
+    public boolean equals(Product obj) {
         if(this == obj) { return true; }
         if(!(obj instanceof Product)) { return false; }
 
@@ -140,7 +140,7 @@ public class Product {
 
     @Override
     public String toString() {
-        return "String( ProductId = " + mProductId + ", ProductName = " + mProductName + ", StoreId = " + mStoreId + ")";
+        return "String(StoreName = " + mStoreId + "\nProductId" + mProductId + "\nProductName = " + mProductName + ")";
     }
 
 }

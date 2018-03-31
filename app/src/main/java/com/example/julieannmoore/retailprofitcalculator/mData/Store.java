@@ -2,8 +2,10 @@ package com.example.julieannmoore.retailprofitcalculator.mData;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 import android.content.Context;
+import android.widget.TextView;
 
 import com.example.julieannmoore.retailprofitcalculator.StoreListActivity;
 
@@ -14,7 +16,7 @@ import java.io.Serializable;
  */
 
 @Entity(tableName = "stores")
-public class Store implements Serializable {
+public class Store {
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "storeId")
@@ -29,6 +31,7 @@ public class Store implements Serializable {
     public Store() {}
 
     // Parameterized constructor
+    @Ignore
     public Store(int storeId, String storeName, String storeNumber) {
         mStoreId = storeId;
         mStoreName = storeName;
@@ -52,8 +55,7 @@ public class Store implements Serializable {
 
     public void setStoreNumber(String storeNumber) { mStoreNumber = storeNumber; }
 
-    @Override
-    public boolean equals(Object obj) {
+    public boolean equals(Store obj) {
         if(this == obj) { return true; }
         if(!(obj instanceof Store)) { return false; }
 
@@ -78,7 +80,7 @@ public class Store implements Serializable {
 
     @Override
     public String toString() {
-        return "String( StoreId = " + mStoreId + ", StoreName = " + mStoreName + ", StoreNumber = " + mStoreNumber + ")";
+        return "StoreId = " + mStoreId + "\nStoreName = " + mStoreName + "\nStoreNumber = " + mStoreNumber;
     }
 
 }

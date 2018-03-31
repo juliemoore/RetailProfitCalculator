@@ -24,6 +24,8 @@ public interface StoreDao {
             + "store_number LIKE :number LIMIT 1")
     Store findByNameAndNumber(String name, String number);
 
+    @Query("SELECT * FROM stores WHERE storeId LIKE :storeId LIMIT 1")
+    Store findByStoreId(int storeId);
 
     @Insert
     public void insertStore(Store store);

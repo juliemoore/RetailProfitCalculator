@@ -21,6 +21,8 @@
     <string name="update">Actualizar</string>
     <string name="add_store">Agregue un Nombre y Número de Tienda</string>
     <string name="view_store">Ver Tienda</string>
+    <string name="view">Ver</string>
+    <string name="selection">Has una elección</string>
     <string name="update_store">Actualizar Tienda</string>
     <string name="delete_store">Eliminar Tienda</string>
     <string name="empty_store_list">¡No se encontraron tiendas, vamos a agregar algunas!</string>

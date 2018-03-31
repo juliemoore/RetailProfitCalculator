@@ -2,6 +2,7 @@ package com.example.julieannmoore.retailprofitcalculator.mData;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 
 /**
@@ -21,6 +22,7 @@ public class Formula {
     @ColumnInfo (name = "image")
     private int mImage;
 
+    @Ignore
     public Formula(int formulaId, String formulaName, int image) {
         mFormulaId = formulaId;
         mFormulaName = formulaName;

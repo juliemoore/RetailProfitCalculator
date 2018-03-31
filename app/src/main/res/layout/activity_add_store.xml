@@ -9,7 +9,7 @@
     tools:context="com.example.julieannmoore.retailprofitcalculator.AddStoreActivity">
 
     <TextView
-        android:id="@+id/tx_add_store"
+        android:id="@+id/tx_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/add_store"
