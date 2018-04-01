@@ -4,9 +4,11 @@ import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
 
+import java.io.Serializable;
+
 @Entity(tableName = "summary",
         primaryKeys = {"storeId","productId"})
-public class Summary {
+public class Summary implements Serializable{
 
     @ColumnInfo(name = "storeId")
     private int mStoreId;

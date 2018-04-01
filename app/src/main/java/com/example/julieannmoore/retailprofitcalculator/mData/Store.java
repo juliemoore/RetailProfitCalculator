@@ -16,7 +16,7 @@ import java.io.Serializable;
  */
 
 @Entity(tableName = "stores")
-public class Store {
+public class Store implements Serializable {
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "storeId")

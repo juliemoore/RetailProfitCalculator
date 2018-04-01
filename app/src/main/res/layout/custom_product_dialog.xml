@@ -5,7 +5,7 @@
     android:layout_width="350dp"
     android:layout_height="250dp"
     android:layout_gravity="center_horizontal"
-    android:background="@color/secondColorLight"
+    android:background="@color/secondColorAccent"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -22,37 +22,20 @@
             android:textAlignment="center"
             android:textColor="#FFFFFF"
             android:textStyle="bold"
-            android:textSize="32sp" />
+            android:textSize="28sp"/>
 
         <TextView
-            android:id="@+id/storeNameTextView2"
-            android:layout_width="wrap_content"
+            android:id="@+id/productNameTextView"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_below="@+id/storeDialog_title"
-            android:layout_marginLeft="16dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:text="@string/store_name"
+            android:layout_margin="8dp"
+            android:text="@string/product"
             android:textColor="#FFFFFF"
-            android:textSize="18sp" />
-
-        <TextView
-            android:id="@+id/storeNumberTextView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/storeNameTextView2"
-            android:layout_alignBottom="@+id/textView1"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_below="@+id/storeDialog_title"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginTop="16dp"
-            android:text="@string/store_number"
-            android:textColor="#FFFFFF"
-            android:textSize="18sp" />
+            android:textSize="24sp"
+            android:textAlignment="center"/>
     </RelativeLayout>
 
     <include
@@ -67,7 +50,7 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/bn_update_store"
+            android:id="@+id/bn_update_product"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -77,7 +60,7 @@
             android:textSize="18sp" />
 
         <Button
-            android:id="@+id/bn_delete_store"
+            android:id="@+id/bn_delete_product"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight=".25"
@@ -87,7 +70,7 @@
             android:textSize="18sp" />
 
         <Button
-            android:id="@+id/bn_view_products"
+            android:id="@+id/bn_view_product"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
