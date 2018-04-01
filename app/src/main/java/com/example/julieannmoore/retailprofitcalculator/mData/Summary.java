@@ -8,7 +8,7 @@ import java.io.Serializable;
 
 @Entity(tableName = "summary",
         primaryKeys = {"storeId","productId"})
-public class Summary implements Serializable{
+public class Summary implements Serializable {
 
     @ColumnInfo(name = "storeId")
     private int mStoreId;

@@ -57,7 +57,8 @@ public class ProductListActivity extends AppCompatActivity implements ProductLis
             mStoreId = mStore.getStoreId();
             storeName = mStore.getStoreName();
             storeNumber = mStore.getStoreNumber();
-            mStoreName.setText(storeName + " #" + storeNumber);
+            mStoreName.setText(storeName);
+            mStoreNumber.setText(storeNumber);
         }
         // Get data from database
         mDatabase = AppDatabase.getInstance(this);
@@ -99,6 +100,7 @@ public class ProductListActivity extends AppCompatActivity implements ProductLis
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ProductListActivity.this, AddProductActivity.class);
+                intent.putExtra("Store", mStore);
                 startActivity(intent);
             }
         });

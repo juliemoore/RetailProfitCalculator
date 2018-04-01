@@ -72,7 +72,7 @@ public class CustomProductDialog extends Dialog implements View.OnClickListener 
             public void onClick(View v) {
                 // intent to add store activity
                 Intent intent = new Intent(mActivity, AddProductActivity.class);
-                intent.putExtra("Update", mItem);
+                intent.putExtra("Product", mItem);
                 mActivity.startActivity(intent);
             }
         });
@@ -89,7 +89,7 @@ public class CustomProductDialog extends Dialog implements View.OnClickListener 
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mActivity, AddProductActivity.class);
-                intent.putExtra("Product", mItem);
+                intent.putExtra("Summary", mItem);
                 mActivity.startActivity(intent);
             }
         });

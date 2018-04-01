@@ -45,15 +45,8 @@ public class Product implements Serializable {
     // Default constructor
     @Ignore
     public Product() {
-        mProductId = 0;
-        mProductName = "";
-        mStoreId = 0;
-        mCostOfGoods = 0;
-        mSellingPrice = 0;
-        mAnnualUnitsSold = 0;
-        mAveWeeklyInventory = 0;
-        mLinearFeet = 0;
     }
+
     // Parameterized constructor
     public Product(String productName, int storeId, double costOfGoods, double sellingPrice,
                    double annualUnitsSold, double aveWeeklyInventory, double linearFeet) {
@@ -75,7 +68,9 @@ public class Product implements Serializable {
         return mProductName;
     }
 
-    public int getStoreId() { return  mStoreId; }
+    public int getStoreId() {
+        return mStoreId;
+    }
 
     public double getCostOfGoods() {
         return mCostOfGoods;
@@ -93,7 +88,9 @@ public class Product implements Serializable {
         return mAveWeeklyInventory;
     }
 
-    public double getLinearFeet() { return mLinearFeet; }
+    public double getLinearFeet() {
+        return mLinearFeet;
+    }
 
     public void setProductId(int productId) {
         mProductId = productId;
@@ -103,7 +100,9 @@ public class Product implements Serializable {
         mProductName = productName;
     }
 
-    public void setStoreId(int storeId) { mStoreId = storeId; }
+    public void setStoreId(int storeId) {
+        mStoreId = storeId;
+    }
 
     public void setCostOfGoods(double costOfGoods) {
         mCostOfGoods = costOfGoods;
@@ -113,36 +112,58 @@ public class Product implements Serializable {
         mSellingPrice = sellingPrice;
     }
 
-    public void setAnnualUnitsSold(double annualUnitsSold) { mAnnualUnitsSold = annualUnitsSold; }
+    public void setAnnualUnitsSold(double annualUnitsSold) {
+        mAnnualUnitsSold = annualUnitsSold;
+    }
 
-    public void setAveWeeklyInventory(double aveWeeklyInventory) { mAveWeeklyInventory = aveWeeklyInventory; }
+    public void setAveWeeklyInventory(double aveWeeklyInventory) {
+        mAveWeeklyInventory = aveWeeklyInventory;
+    }
 
     public void setLinearFeet(double linearFeet) {
         mLinearFeet = linearFeet;
     }
 
     public boolean equals(Product obj) {
-        if(this == obj) { return true; }
-        if(!(obj instanceof Product)) { return false; }
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof Product)) {
+            return false;
+        }
 
         Product castProduct = (Product) obj;
-        if(mProductId != castProduct.mProductId) { return false; }
+        if (mProductId != castProduct.mProductId) {
+            return false;
+        }
 
         // obj mContent = Not Null | mContent = Null // Definately Not Equal
         // obj.mContent = Null | mContent = Not Null // Definately Not Equal
-        if(castProduct.mProductName != null && mProductName == null) { return false; }
-        if(castProduct.mProductName == null && mProductName != null) { return  false; }
+        if (castProduct.mProductName != null && mProductName == null) {
+            return false;
+        }
+        if (castProduct.mProductName == null && mProductName != null) {
+            return false;
+        }
 
         // obj.mContent = Null | mContent = Null // Could Be Equal
         // obj.mContent = Not Null | mContent = Not Null // Could Be Equal
-        if(castProduct.mProductName != null && !castProduct.mProductName.equals(mProductName)) { return false; }
+        if (castProduct.mProductName != null && !castProduct.mProductName.equals(mProductName)) {
+            return false;
+        }
 
+        if (mCostOfGoods != castProduct.mCostOfGoods) {
+            return false;
+        }
+        if (mSellingPrice != castProduct.mSellingPrice) {
+            return false;
+        }
         return true;
     }
+
 
     @Override
     public String toString() {
         return "String(StoreName = " + mStoreId + "\nProductId" + mProductId + "\nProductName = " + mProductName + ")";
     }
-
 }

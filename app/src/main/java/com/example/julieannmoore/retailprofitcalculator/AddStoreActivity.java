@@ -1,6 +1,7 @@
 package com.example.julieannmoore.retailprofitcalculator;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -8,6 +9,7 @@ import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -61,9 +63,17 @@ public class AddStoreActivity extends AppCompatActivity {
             toastMessage("Store added successfully.");
             mStoreName.setText("");
             mStoreNumber.setText("");
-
+            hideKeyboard();
         } else {
             toastMessage("Store name and number are required.");
+        }
+    }
+
+    private void hideKeyboard() {
+        View view = getCurrentFocus();
+        if (view != null) {
+            ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE)).
+                    hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
         }
     }
 

@@ -25,8 +25,8 @@
     <string name="selection">Has una elección</string>
     <string name="update_store">Actualizar Tienda</string>
     <string name="delete_store">Eliminar Tienda</string>
-    <string name="empty_store_list">¡No se encontraron tiendas, vamos a agregar algunas!</string>
-    <string name="empty_product_list">¡No se encontraron productos, vamos a agregar algunas!</string>
+    <string name="empty_store_list">No se encontraron tiendas. ¡Vamos a agregar algunas!</string>
+    <string name="empty_product_list">No se encontraron productos. ¡Vamos a agregar algunas!</string>
     <string name="update_product">Actualizar un Producto</string>
     <string name="add_product">Agregue un Producto</string>
     <string name="delete_data">Eliminar Datos del Productos</string>

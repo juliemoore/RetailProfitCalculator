@@ -21,7 +21,7 @@ public interface ProductDao {
     public List<Product> getProducts();
 
     @Query("SELECT * FROM products WHERE product_name LIKE :name LIMIT 1")
-    Product findByName(String name);
+    public Product findByName(String name);
 
     @Query("SELECT * FROM products WHERE store_id LIKE :storeId LIMIT 1")
     public List<Product> findByStoreId(int storeId);

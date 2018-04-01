@@ -30,8 +30,8 @@
     <string name="update_product">Update Product</string>
     <string name="add_product">Add Product</string>
     <string name="delete_data">Delete Product</string>
-    <string name="empty_store_list">No Stores Found, Let\'s Add Some!</string>
-    <string name="empty_product_list">No Products Found, Let\'s Add Some!</string>
+    <string name="empty_store_list">No Stores Found. Let\'s Add Some!</string>
+    <string name="empty_product_list">No Products Found. Let\'s Add Some!</string>
     <string name="summary">Retail Profitability Summary</string>
     <string name="formulas">Profitability Formulas</string>
 

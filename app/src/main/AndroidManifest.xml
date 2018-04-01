@@ -43,7 +43,8 @@
         <activity
             android:name=".AddProductActivity"
             android:parentActivityName=".ProductListActivity" />
-        <activity android:name=".UpdateStoreActivity"></activity>
+        <activity android:name=".UpdateStoreActivity"
+            android:parentActivityName=".StoreListActivity"></activity>
     </application>
 
 </manifest>
