@@ -47,7 +47,7 @@ public class CustomStoreDialog extends Dialog implements View.OnClickListener {
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             requestWindowFeature(Window.FEATURE_NO_TITLE);
-            setContentView(R.layout.layout_custom);
+            setContentView(R.layout.custom_store_dialog);
 
             mDatabase = AppDatabase.getInstance(mActivity);
             mDatabase.getStoreDao().getStores();

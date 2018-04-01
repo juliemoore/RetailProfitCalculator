@@ -49,16 +49,15 @@ public class ProductListActivity extends AppCompatActivity implements ProductLis
         setContentView(R.layout.activity_product_list);
 
         mTitle = findViewById(R.id.productList_title);
-        mStoreName = findViewById(R.id.textView1);
-        mStoreNumber = findViewById(R.id.textView2);
+        mStoreName = findViewById(R.id.storeNameTextView);
+        mStoreNumber = findViewById(R.id.storeNumberTextView);
 
         // Get Store Data and display in textviews
         if( (mStore = (Store) getIntent().getSerializableExtra("Store")) != null) {
             mStoreId = mStore.getStoreId();
             storeName = mStore.getStoreName();
             storeNumber = mStore.getStoreNumber();
-            mStoreName.setText(storeName);
-            mStoreNumber.setText(storeNumber);
+            mStoreName.setText(storeName + " #" + storeNumber);
         }
         // Get data from database
         mDatabase = AppDatabase.getInstance(this);
