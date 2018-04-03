@@ -8,6 +8,14 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.example.julieannmoore.retailprofitcalculator.R;
+import com.example.julieannmoore.retailprofitcalculator.mData.Formula;
+import com.example.julieannmoore.retailprofitcalculator.mData.FormulaCollection;
+import com.example.julieannmoore.retailprofitcalculator.mData.Product;
+import com.example.julieannmoore.retailprofitcalculator.mData.Store;
+import com.example.julieannmoore.retailprofitcalculator.mData.Summary;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Julie Moore on 2/25/2018.
@@ -15,44 +23,44 @@ import com.example.julieannmoore.retailprofitcalculator.R;
 
 public class SummaryAdapter extends BaseAdapter {
 
-    LayoutInflater mInflater;
-    String[] formulaNames;
-    String[] formulaAmounts;
+    private LayoutInflater mInflater;
+    private FormulaCollection mFormula;
+    private String[] mFormulaNames;
+    private double[] mFormulaAmounts;
 
-    public SummaryAdapter(Context c, String[] formulaNames, String[] formulaAmounts) {
-        this.formulaNames = formulaNames;
-        this.formulaAmounts = formulaAmounts;
-        mInflater = (LayoutInflater) c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    public SummaryAdapter(Context context, String[] formulaNames, double[] formulaAmounts) {
+        mFormulaNames = formulaNames;
+        mFormulaAmounts = formulaAmounts;
+        mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     @Override
     public int getCount() {
-        return formulaNames.length;
+        return mFormulaAmounts.length;
     }
 
     @Override
-    public Object getItem(int i) {
-        return formulaNames[i];
+    public Object getItem(int position) {
+        return mFormulaAmounts[position];
     }
 
     @Override
-    public long getItemId(int i) {
-        return i;
+    public long getItemId(int position) {
+        return position;
     }
 
     @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
+    public View getView(int position, View view, ViewGroup viewGroup) {
 
         View v = mInflater.inflate(R.layout.layout_list_item, null);
         TextView formulaNameTextView = v.findViewById(R.id.textView1);
         TextView formulaTextView = v.findViewById(R.id.textView2);
 
-        String formulaName = formulaNames[i];
-        String formulaAmount = formulaAmounts[i];
-
+        String formulaName = mFormulaNames[position].toString();
+        double formulaAmount = mFormulaAmounts[position];
 
         formulaNameTextView.setText(formulaName);
-        formulaTextView.setText(formulaAmount);
+        formulaTextView.setText(String.valueOf(formulaAmount));
 
         return v;
     }

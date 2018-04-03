@@ -4,7 +4,9 @@ import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
 
 import java.io.Serializable;
 
@@ -15,10 +17,12 @@ import java.io.Serializable;
 @Entity(tableName = "products",
         foreignKeys = @ForeignKey(entity = Store.class,
                 parentColumns = "storeId",
-                childColumns = "store_id"))
+                childColumns = "store_id"),
+                indices = {@Index(value = {"store_id"})})
 public class Product implements Serializable {
 
     @PrimaryKey(autoGenerate = true)
+    @NonNull
     private int mProductId;
 
     @ColumnInfo(name = "product_name")
@@ -43,16 +47,25 @@ public class Product implements Serializable {
     private double mLinearFeet;
 
     // Default constructor
-    @Ignore
     public Product() {
+        mProductId = 0;
+        mProductName = null;
+        mStoreId = 0;
+        mCostOfGoods = 0;
+        mSellingPrice = 0;
+        mAnnualUnitsSold = 0;
+        mAveWeeklyInventory = 0;
+        mLinearFeet = 0;
     }
 
     // Parameterized constructor
-    public Product(String productName, int storeId, double costOfGoods, double sellingPrice,
+    @Ignore
+    public Product(int productId, String productName, int storeId, double costOfGoods, double sellingPrice,
                    double annualUnitsSold, double aveWeeklyInventory, double linearFeet) {
+        mProductId = productId;
         mProductName = productName;
-        mCostOfGoods = costOfGoods;
         mStoreId = storeId;
+        mCostOfGoods = costOfGoods;
         mSellingPrice = sellingPrice;
         mAnnualUnitsSold = annualUnitsSold;
         mAveWeeklyInventory = aveWeeklyInventory;
@@ -164,6 +177,9 @@ public class Product implements Serializable {
 
     @Override
     public String toString() {
-        return "String(StoreName = " + mStoreId + "\nProductId" + mProductId + "\nProductName = " + mProductName + ")";
+        return "String(StoreId: " + mStoreId + "\nProductId: " + mProductId + "\nProductName: " +
+                mProductName + "\nCost of Goods: " + mCostOfGoods + "\nSelling price: " +
+                mSellingPrice + "\nAnnual units sold: " + mAnnualUnitsSold +
+                "\nAve weekly inventory: " + mAveWeeklyInventory + "\nLinear feet: " + mLinearFeet +")";
     }
 }

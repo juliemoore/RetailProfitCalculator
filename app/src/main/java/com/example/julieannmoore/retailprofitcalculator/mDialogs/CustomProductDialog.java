@@ -13,12 +13,16 @@ import com.example.julieannmoore.retailprofitcalculator.AddProductActivity;
 import com.example.julieannmoore.retailprofitcalculator.ProductListActivity;
 import com.example.julieannmoore.retailprofitcalculator.R;
 import com.example.julieannmoore.retailprofitcalculator.StoreListActivity;
+import com.example.julieannmoore.retailprofitcalculator.SummaryActivity;
+import com.example.julieannmoore.retailprofitcalculator.UpdateProductActivity;
 import com.example.julieannmoore.retailprofitcalculator.UpdateStoreActivity;
 import com.example.julieannmoore.retailprofitcalculator.mAdapter.ProductAdapter;
 import com.example.julieannmoore.retailprofitcalculator.mAdapter.StoreAdapter;
 import com.example.julieannmoore.retailprofitcalculator.mData.Product;
 import com.example.julieannmoore.retailprofitcalculator.mData.Store;
+import com.example.julieannmoore.retailprofitcalculator.mData.Summary;
 import com.example.julieannmoore.retailprofitcalculator.mDatabase.AppDatabase;
+import com.example.julieannmoore.retailprofitcalculator.mUtilities.InititializeStoreData;
 import com.example.julieannmoore.retailprofitcalculator.mUtilities.ProductListEventCallbacks;
 import com.example.julieannmoore.retailprofitcalculator.mUtilities.StoreListEventCallbacks;
 
@@ -29,11 +33,10 @@ public class CustomProductDialog extends Dialog implements View.OnClickListener 
     private AppDatabase mDatabase;
     private Product mItem;
     private ProductAdapter mAdapter;
-    private ProductListEventCallbacks mListCallbacks;
     private int mItemId;
     private TextView mProduct, mProductId;
     private Button mUpdateButton, mDeleteButton, mViewButton;
-
+    private ProductListEventCallbacks mListCallbacks;
     public void InitializeProductData(Product item, ProductAdapter adapter, int itemId) {
         mItem = item;
         mAdapter = adapter;
@@ -63,19 +66,22 @@ public class CustomProductDialog extends Dialog implements View.OnClickListener 
         mProduct.setText(mItem.getProductName());
         mProductId.setText("");
 
-        mUpdateButton = findViewById(R.id.bn_update_product);
+        //mUpdateButton = findViewById(R.id.bn_update_product);
         mDeleteButton = findViewById(R.id.bn_delete_product);
         mViewButton = findViewById(R.id.bn_view_product);
 
+        /* This button is voided until able to update/delete works in Summary Activ
         mUpdateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // intent to add store activity
-                Intent intent = new Intent(mActivity, AddProductActivity.class);
+                Intent intent = new Intent(mActivity, UpdateProductActivity.class);
                 intent.putExtra("Product", mItem);
                 mActivity.startActivity(intent);
+
             }
         });
+        */
         mDeleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -88,8 +94,8 @@ public class CustomProductDialog extends Dialog implements View.OnClickListener 
         mViewButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mActivity, AddProductActivity.class);
-                intent.putExtra("Summary", mItem);
+                Intent intent = new Intent(mActivity, SummaryActivity.class);
+                intent.putExtra("Calculate", mItem);
                 mActivity.startActivity(intent);
             }
         });

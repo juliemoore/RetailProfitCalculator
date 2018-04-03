@@ -37,7 +37,6 @@ public class AddStoreActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_store);
 
         mDatabase = AppDatabase.getInstance(this);
-
         mStoreName = findViewById(R.id.editTextStoreName);
         mStoreNumber = findViewById(R.id.editTextStoreNumber);
 
@@ -45,21 +44,20 @@ public class AddStoreActivity extends AppCompatActivity {
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addStore();
-
-                Intent intent = new Intent(AddStoreActivity.this, StoreListActivity.class);
-                startActivity(intent);
+                mStore = addStore(mStore);
+                new InsertStoreTask(AddStoreActivity.this, mStore).execute();
             }
         });
     }
 
-    public void addStore() {
+    public Store addStore(Store store) {
         // Fetch data and create store object
-        mStore = new Store(0, mStoreName.getText().toString(),
-                mStoreNumber.getText().toString());
+        String storeName = mStoreName.getText().toString();
+        String storeNumber = mStoreNumber.getText().toString();
+        mStore = new Store(0, storeName, storeNumber);
 
         if (mStoreName.length() != 0 && mStoreNumber.length() != 0) {
-            mDatabase.getStoreDao().insertStore(mStore);
+            //mDatabase.getStoreDao().insertStore(mStore);
             toastMessage("Store added successfully.");
             mStoreName.setText("");
             mStoreNumber.setText("");
@@ -67,6 +65,7 @@ public class AddStoreActivity extends AppCompatActivity {
         } else {
             toastMessage("Store name and number are required.");
         }
+        return mStore;
     }
 
     private void hideKeyboard() {
@@ -79,6 +78,39 @@ public class AddStoreActivity extends AppCompatActivity {
 
     private void toastMessage(String message){
         Toast.makeText(this,message, Toast.LENGTH_SHORT).show();
+    }
+
+    private void setResult(Store store, int flag) {
+        Intent intent = new Intent(AddStoreActivity.this, StoreListActivity.class);
+        setResult(flag, intent.putExtra("Store", store));
+        startActivity(intent);
+    }
+
+    private static class InsertStoreTask extends AsyncTask<Void, Void, Boolean> {
+        private WeakReference<AddStoreActivity> activityReference;
+        private Store store;
+
+        // only retain a weak reference to the activity
+        InsertStoreTask(AddStoreActivity context, Store store) {
+            activityReference = new WeakReference<>(context);
+            this.store = store;
+        }
+
+        // doInBackground methods runs on a worker thread
+        @Override
+        protected Boolean doInBackground(Void... objs) {
+
+            activityReference.get().mDatabase.getStoreDao().insertStore(store);
+            return true;
+        }
+
+        // onPostExecut runs on main thread
+        @Override
+        protected void onPostExecute(Boolean bool) {
+            if (bool) {
+                activityReference.get().setResult(store, 1);
+            }
+        }
     }
 
 }

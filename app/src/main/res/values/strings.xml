@@ -11,6 +11,7 @@
     <string name="store_number">Store Number</string>
     <string name="product_list">Product List</string>
     <string name="product">Product</string>
+    <string name="product_name">Product Name</string>
     <string name="welcome">Welcome</string>
     <string name="search">Search</string>
     <string name="calculate">Calculate</string>
@@ -55,6 +56,9 @@
     <string-array name="formulaNames">
         <item>Cost of Goods</item>
         <item>Selling Price</item>
+        <item>Annual Units Sold</item>
+        <item>Ave Weekly Inventory</item>
+        <item>Linear Feet of Sales Floor</item>
         <item>Mark-Up $</item>
         <item>Mark-Up %</item>
         <item>Gross Margin $</item>
@@ -65,40 +69,4 @@
         <item>Sales per Linear Feet</item>
         <item>GM $'s per Linear Feet</item>
     </string-array>
-
-    <string-array name="formulaAmounts">
-        <item>$8.88</item>
-        <item>$8.88</item>
-        <item>$8.88</item>
-        <item>88%</item>
-        <item>$8.88</item>
-        <item>88%</item>
-        <item>8.8</item>
-        <item>8</item>
-        <item>$888,888.88</item>
-        <item>$88,888.88</item>
-        <item>$88.88</item>
-    </string-array>
-
-    <!--Array of store names/numbers for testing purposes-->
-    <string-array name="stores">
-        <item>7-Eleven</item>
-        <item>Uncle Bob's</item>
-        <item>Kip's Chevron</item>
-        <item>BB Exxon</item>
-        <item>Super 7</item>
-        <item>Country Joe's</item>
-    </string-array>
-
-    <string-array name="storeNumbers">
-        <item>48</item>
-        <item>72</item>
-        <item>6</item>
-        <item>1040</item>
-        <item>4</item>
-        <item>33</item>
-    </string-array>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

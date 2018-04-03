@@ -1,9 +1,11 @@
 package com.example.julieannmoore.retailprofitcalculator;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,20 +14,21 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.julieannmoore.retailprofitcalculator.mAdapter.ProductAdapter;
-import com.example.julieannmoore.retailprofitcalculator.mAdapter.StoreAdapter;
 import com.example.julieannmoore.retailprofitcalculator.mData.Product;
 import com.example.julieannmoore.retailprofitcalculator.mData.Store;
 import com.example.julieannmoore.retailprofitcalculator.mDatabase.AppDatabase;
 import com.example.julieannmoore.retailprofitcalculator.mDialogs.CustomProductDialog;
-import com.example.julieannmoore.retailprofitcalculator.mDialogs.CustomStoreDialog;
 import com.example.julieannmoore.retailprofitcalculator.mUtilities.ProductListEventCallbacks;
 import com.example.julieannmoore.retailprofitcalculator.mUtilities.StoreListEventCallbacks;
 
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
 public class ProductListActivity extends AppCompatActivity implements ProductListEventCallbacks{
 
@@ -37,6 +40,8 @@ public class ProductListActivity extends AppCompatActivity implements ProductLis
     private AppDatabase mDatabase;
     private List<Product> mProductsList;
     private ProductListEventCallbacks mListCallbacks;
+    private CustomProductDialog mCustomDialog;
+    private View mView;
     private Product listItem;
     private Store mStore;
     private int mStoreId, mItemId;
@@ -48,6 +53,7 @@ public class ProductListActivity extends AppCompatActivity implements ProductLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_list);
 
+        mView = findViewById(android.R.id.content);
         mTitle = findViewById(R.id.productList_title);
         mStoreName = findViewById(R.id.storeNameTextView);
         mStoreNumber = findViewById(R.id.storeNumberTextView);
@@ -62,7 +68,7 @@ public class ProductListActivity extends AppCompatActivity implements ProductLis
         }
         // Get data from database
         mDatabase = AppDatabase.getInstance(this);
-        mProductsList = mDatabase.getProductDao().findByStoreId(mStoreId);
+        mProductsList = new ArrayList<>();
         if (mProductsList.size() == 0) {
             mTitle.setText(getString(R.string.empty_product_list));
         }
@@ -71,7 +77,7 @@ public class ProductListActivity extends AppCompatActivity implements ProductLis
         //Initiate adapter
         mAdapter = new ProductAdapter(getApplicationContext(), mProductsList);
         // Update product list if product updated
-        if( (listItem = (Product) getIntent().getSerializableExtra("Update")) != null) {
+        if( (listItem = (Product) getIntent().getSerializableExtra("UpdateProduct")) != null) {
             mAdapter.EditItem(mItemId, listItem);
             mAdapter.notifyDataSetChanged();
         }
@@ -86,7 +92,6 @@ public class ProductListActivity extends AppCompatActivity implements ProductLis
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // Display dialog box
-                Toast.makeText(getApplicationContext(), "Clicked product id = " + view.getTag(), Toast.LENGTH_SHORT).show();
                 // Get store object and pass to custom dialog
                 if(mListCallbacks == null) { return; }
                 listItem = mAdapter.getProductItem(position);
@@ -110,9 +115,9 @@ public class ProductListActivity extends AppCompatActivity implements ProductLis
         }
     }
 
-
-    private static class RetrieveProductTask extends AsyncTask<Void,Void,List<Product>> {
-
+    // Get Products AsyncTask
+    private class RetrieveProductTask extends AsyncTask<Object, Object, List<Product>> {
+        AppDatabase mDatabase;
         private WeakReference<ProductListActivity> activityReference;
 
         // only retain a weak reference to the activity
@@ -121,14 +126,13 @@ public class ProductListActivity extends AppCompatActivity implements ProductLis
         }
 
         @Override
-        protected List<Product> doInBackground(Void... voids) {
-            if (activityReference.get()!=null)
-                return activityReference.get().mDatabase.getProductDao().getProducts();
-            else
-                return null;
+        protected List<Product> doInBackground(Object... params) {
+            // Open the database
+            mDatabase = AppDatabase.getInstance(ProductListActivity.this);
+
+            return mDatabase.getProductDao().findByStoreId(mStoreId);
         }
 
-        @Override
         protected void onPostExecute(List<Product> products) {
             if (products!=null && products.size()>0 ){
                 activityReference.get().mProductsList.clear();
@@ -142,14 +146,25 @@ public class ProductListActivity extends AppCompatActivity implements ProductLis
     @Override
     public void Select(Product item, ProductAdapter adapter, int itemId) {
         // Create custom dialog
-        CustomProductDialog mCustomDialog = new CustomProductDialog(ProductListActivity.this);
+        mCustomDialog = new CustomProductDialog(ProductListActivity.this);
         mCustomDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         mCustomDialog.InitializeProductData(item, adapter, itemId);
         mCustomDialog.setCancelable(true);
         mCustomDialog.show();
+    }
 
-        Toast.makeText(this, "Selected store is " + item.toString(),
-                Toast.LENGTH_LONG).show();
+    @Override
+    protected void onPause() {
+        super.onPause();
+        this.mView.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+        if ( mCustomDialog!=null && mCustomDialog.isShowing() ){
+            mCustomDialog.cancel();
+        }
     }
 
 }

@@ -5,7 +5,7 @@
     android:layout_width="350dp"
     android:layout_height="250dp"
     android:layout_gravity="center_horizontal"
-    android:background="@color/secondColorLight"
+    android:background="@drawable/gradient_orange"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -80,7 +80,7 @@
             android:id="@+id/bn_delete_store"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight=".25"
+            android:layout_weight="1"
             android:background="@drawable/mybutton"
             android:padding="8dp"
             android:text="@string/delete"

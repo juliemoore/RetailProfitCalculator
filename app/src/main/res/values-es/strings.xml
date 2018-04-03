@@ -10,6 +10,7 @@
     <string name="store_number">Número de Tienda</string>
     <string name="product_list">Lista de Productos</string>
     <string name="product">Producto</string>
+    <string name="product_name">El nombre del producto</string>
     <string name="welcome">Bienvenido</string>
     <string name="search">Buscar</string>
     <string name="calculate">Calcular</string>
@@ -53,6 +54,9 @@
     <string-array name="formulaNames">
         <item>Coste de Bienes</item>
         <item>Precio de Venta</item>
+        <item>Unidades Anuales Vendidas</item>
+        <item>Inventario Semanal de Ave</item>
+        <item>Pies Lineales de Piso de Ventas</item>
         <item>Margen $</item>
         <item>Margen %</item>
         <item>Margen Bruto $</item>

@@ -2,7 +2,6 @@ package com.example.julieannmoore.retailprofitcalculator;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -11,7 +10,6 @@ import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,12 +18,12 @@ import com.example.julieannmoore.retailprofitcalculator.mData.Product;
 import com.example.julieannmoore.retailprofitcalculator.mData.Store;
 import com.example.julieannmoore.retailprofitcalculator.mDatabase.AppDatabase;
 
-import java.lang.ref.WeakReference;
 import java.util.List;
 
-public class AddProductActivity extends AppCompatActivity {
+public class UpdateProductActivity extends AppCompatActivity {
 
     private static final String TAG = AddProductActivity.class.getSimpleName();
+
     private TextView mStoreName, mStoreNumber;
     private TextInputEditText mProductName, mCostOfGoods, mSellingPrice, mAnnualUnitsSold,
             mAveWeeklyInventory, mLinearFt;
@@ -33,9 +31,11 @@ public class AddProductActivity extends AppCompatActivity {
             mAnnualUnitsSoldWrapper, mAveWeeklyInventoryWrapper, mLinearFtWrapper;
     private Button mButton;
     private AppDatabase mDatabase;
+    private ProductAdapter mAdapter;
+    private List<Product> mProducts;
     private Product mProduct;
     private Store mStore;
-    private int storeId;
+    private int storeId, productId;
     private String storeName, storeNumber, productName;
     private double costOfGoods, sellingPrice, annualUnitsSold,
             aveWeeklyInventory, linearFt = 0;
@@ -49,15 +49,13 @@ public class AddProductActivity extends AppCompatActivity {
         mDatabase = AppDatabase.getInstance(this);
         mProduct = new Product();
         initializeView();
-        getStoreData();
+        getProductData();
 
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Fetch and create product object
-                mProduct = addProduct(mProduct);
-
-                Intent intent = new Intent(AddProductActivity.this, SummaryActivity.class);
+                updateProduct();
+                Intent intent = new Intent(UpdateProductActivity.this, SummaryActivity.class);
                 intent.putExtra("Calculate", mProduct);
                 startActivity(intent);
             }
@@ -91,19 +89,49 @@ public class AddProductActivity extends AppCompatActivity {
         mButton = findViewById(R.id.calculateButton);
     }
 
-    private void getStoreData() {
-
+    private void getProductData() {
         // Get Store Data and display in textviews
-        if( (mStore = (Store) getIntent().getSerializableExtra("Store")) != null) {
-            storeId = mStore.getStoreId();
+        if ((mProduct = (Product) getIntent().getSerializableExtra("Product")) != null) {
+            setTitle(getString(R.string.update_product));
+            storeId = mProduct.getStoreId();
+            productId = mProduct.getProductId();
+            mStore = mDatabase.getStoreDao().findByStoreId(storeId);
             storeName = mStore.getStoreName();
             storeNumber = mStore.getStoreNumber();
             mStoreName.setText(storeName);
             mStoreNumber.setText(storeNumber);
+            mProduct.toString();
+
+            if (mProduct.getProductName() != null) {
+                productName = mProduct.getProductName();
+                mProductName.setText(productName);
+            }
+            if (mProduct.getCostOfGoods() > 0) {
+                Double costOfGoods = mProduct.getCostOfGoods();
+                mCostOfGoods.setText(costOfGoods.toString());
+            }
+            if (mProduct.getSellingPrice() > 0) {
+                Double sellingPrice = mProduct.getSellingPrice();
+                mSellingPrice.setText(sellingPrice.toString());
+            }
+            if (mProduct.getAnnualUnitsSold() > 0) {
+                Double annualUnitsSold = mProduct.getAnnualUnitsSold();
+                mAnnualUnitsSold.setText(annualUnitsSold.toString());
+            }
+            if (mProduct.getAveWeeklyInventory() > 0) {
+                Double aveWeeklyInventory = mProduct.getAveWeeklyInventory();
+                mAveWeeklyInventory.setText(aveWeeklyInventory.toString());
+            }
+            if (mProduct.getLinearFeet() > 0) {
+                Double linearFeet = mProduct.getLinearFeet();
+                mLinearFt.setText(linearFeet.toString());
+            }
+            Toast.makeText(this, mStore.toString(), Toast.LENGTH_LONG).show();
         }
     }
 
-    public Product addProduct(Product product) {
+    public void updateProduct() {
+
         if (mProductNameWrapper.getEditText().getText().toString().isEmpty()) {
             mProductNameWrapper.setError("Product name is required.");
             mProductName.requestFocus();
@@ -184,23 +212,20 @@ public class AddProductActivity extends AppCompatActivity {
             isValid = false;
         }
 
-        mProduct = new Product(0, productName, storeId, costOfGoods, sellingPrice,
-                                annualUnitsSold, aveWeeklyInventory, linearFt);
+        mProduct = new Product(productId, productName, storeId, costOfGoods, sellingPrice,
+                annualUnitsSold, aveWeeklyInventory, linearFt);
+        Log.i(TAG, mProduct.toString());
 
         if (isValid == true) {
             hideKeyboard();
-            //Fetch data and create product object
-            mDatabase.getProductDao().insertProduct(mProduct);
-            //mProduct = mDatabase.getProductDao().findByNameAndStoreId(productName, storeId);
-            //mProduct.toString();
-            toastMessage("Product added successfully.");
+            mDatabase.getProductDao().updateProduct(mProduct);
+            toastMessage("Product updated successfully.");
             clear();
-            return mProduct;
+
         } else {
             toastMessage("Invalid data. Try again.");
-            return mProduct;
         }
-    }
+     }
 
     private void clear() {
         // clear text boxes
@@ -223,38 +248,5 @@ public class AddProductActivity extends AppCompatActivity {
 
     private void toastMessage(String message){
         Toast.makeText(this,message, Toast.LENGTH_SHORT).show();
-    }
-
-    private void setResult(Product product, int flag) {
-        Intent intent = new Intent(AddProductActivity.this, SummaryActivity.class);
-        setResult(flag, intent.putExtra("Calculate", product));
-        startActivity(intent);
-    }
-
-    private static class InsertProductTask extends AsyncTask<Void, Void, Boolean> {
-        private WeakReference<AddProductActivity> activityReference;
-        private Product product;
-
-        // only retain a weak reference to the activity
-        InsertProductTask(AddProductActivity context, Product product) {
-            activityReference = new WeakReference<>(context);
-            this.product = product;
-        }
-
-        // doInBackground methods runs on a worker thread
-        @Override
-        protected Boolean doInBackground(Void... objs) {
-
-            activityReference.get().mDatabase.getProductDao().insertProduct(product);
-            return true;
-        }
-
-        // onPostExecut runs on main thread
-        @Override
-        protected void onPostExecute(Boolean bool) {
-            if (bool) {
-                activityReference.get().setResult(product, 1);
-            }
-        }
     }
 }

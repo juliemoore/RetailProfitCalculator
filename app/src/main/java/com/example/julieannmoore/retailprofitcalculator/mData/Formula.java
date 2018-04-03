@@ -5,12 +5,14 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 
+import java.io.Serializable;
+
 /**
  * Created by Julie Moore on 3/25/2018.
  */
 
 @Entity(tableName = "formulas")
-public class Formula {
+public class Formula implements Serializable {
 
     @PrimaryKey(autoGenerate = false)
     @ColumnInfo(name = "formulaId")
@@ -23,8 +25,7 @@ public class Formula {
     private int mImage;
 
     @Ignore
-    public Formula(int formulaId, String formulaName, int image) {
-        mFormulaId = formulaId;
+    public Formula(String formulaName, int image) {
         mFormulaName = formulaName;
         mImage = image;
     }

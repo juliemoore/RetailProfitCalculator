@@ -42,6 +42,7 @@ public class StoreListActivity extends AppCompatActivity implements StoreListEve
         mTitle = findViewById(R.id.storeList_title);
         // Get data from database
         mDatabase = AppDatabase.getInstance(this);
+        mDatabase.cleanUp();
         mStoreList = mDatabase.getStoreDao().getStores();
         if (mStoreList.size() == 0) {
             mTitle.setText(getString(R.string.empty_store_list));

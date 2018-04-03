@@ -5,7 +5,7 @@
     android:layout_width="350dp"
     android:layout_height="250dp"
     android:layout_gravity="center_horizontal"
-    android:background="@color/secondColorAccent"
+    android:background="@drawable/gradient_blue"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -33,6 +33,7 @@
             android:layout_below="@+id/storeDialog_title"
             android:layout_margin="8dp"
             android:text="@string/product"
+            android:textStyle="bold"
             android:textColor="#FFFFFF"
             android:textSize="24sp"
             android:textAlignment="center"/>
@@ -49,21 +50,13 @@
         android:layout_weight=".25"
         android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/bn_update_product"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/mybutton"
-            android:padding="8dp"
-            android:text="@string/update"
-            android:textSize="18sp" />
+
 
         <Button
             android:id="@+id/bn_delete_product"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight=".25"
+            android:layout_weight="1"
             android:background="@drawable/mybutton"
             android:padding="8dp"
             android:text="@string/delete"

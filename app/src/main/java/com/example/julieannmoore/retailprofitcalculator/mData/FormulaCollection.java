@@ -27,8 +27,6 @@ public class FormulaCollection {
         Formula formula = null;
 
         // Get strings
-        String cost_of_goods = context.getResources().getString(R.string.cost_of_goods);
-        String selling_price = context.getResources().getString(R.string.selling_price);
         String mark_up_dollars = context.getResources().getString(R.string.mark_up_dollars);
         String mark_up_percent = context.getResources().getString(R.string.mark_up_percent);
         String gm_dollars = context.getResources().getString(R.string.gm_dollars);
@@ -45,84 +43,72 @@ public class FormulaCollection {
         // Add Data
         formula = new Formula();
         formula.setFormulaId(1);
-        formula.setFormulaName(cost_of_goods);
-        formula.setImage(R.drawable.formulasquare);
-        formulas.add(formula);
-
-        formula = new Formula();
-        formula.setFormulaId(2);
-        formula.setFormulaName(selling_price);
-        formula.setImage(R.drawable.formulasquare);
-        formulas.add(formula);
-
-        formula = new Formula();
-        formula.setFormulaId(3);
         formula.setFormulaName(mark_up_dollars);
         formula.setImage(R.drawable.mark_up_dollars);
         formulas.add(formula);
 
         formula = new Formula();
-        formula.setFormulaId(4);
+        formula.setFormulaId(2);
         formula.setFormulaName(mark_up_percent);
         formula.setImage(R.drawable.mark_up_percentage);
         formulas.add(formula);
 
         formula = new Formula();
-        formula.setFormulaId(5);
+        formula.setFormulaId(3);
         formula.setFormulaName(gm_dollars);
         formula.setImage(R.drawable.gm_dollars);
         formulas.add(formula);
 
         formula = new Formula();
-        formula.setFormulaId(6);
+        formula.setFormulaId(4);
         formula.setFormulaName(gm_percent);
         formula.setImage(R.drawable.gm_percentage);
         formulas.add(formula);
 
         formula = new Formula();
-        formula.setFormulaId(7);
+        formula.setFormulaId(5);
         formula.setFormulaName(inventory_turnover);
         formula.setImage(R.drawable.inventory_turn);
         formulas.add(formula);
 
         formula = new Formula();
-        formula.setFormulaId(8);
+        formula.setFormulaId(6);
         formula.setFormulaName(weeks_supply_of_inventory);
         formula.setImage(R.drawable.weeks_supply);
         formulas.add(formula);
 
         formula = new Formula();
-        formula.setFormulaId(9);
+        formula.setFormulaId(7);
         formula.setFormulaName(gmroi);
         formula.setImage(R.drawable.gmroi);
         formulas.add(formula);
 
         formula = new Formula();
-        formula.setFormulaId(10);
+        formula.setFormulaId(8);
         formula.setFormulaName(sales_per_feet);
         formula.setImage(R.drawable.sales_per_feet);
         formulas.add(formula);
 
         formula = new Formula();
-        formula.setFormulaId(11);
+        formula.setFormulaId(9);
         formula.setFormulaName(gm_linear_feet);
         formula.setImage(R.drawable.gm_per_linear_ft);
         formulas.add(formula);
 
         formula = new Formula();
-        formula.setFormulaId(12);
+        formula.setFormulaId(10);
         formula.setFormulaName(annual_units_sold);
         formula.setImage(R.drawable.formulasquare);
         formulas.add(formula);
 
         formula = new Formula();
-        formula.setFormulaId(13);
+        formula.setFormulaId(11);
         formula.setFormulaName(ave_weekly_inventory);
         formula.setImage(R.drawable.formulasquare);
         formulas.add(formula);
 
         formula = new Formula();
-        formula.setFormulaId(14);
+        formula.setFormulaId(12);
         formula.setFormulaName(linear_ft_sales_floor);
         formula.setImage(R.drawable.formulasquare);
         formulas.add(formula);

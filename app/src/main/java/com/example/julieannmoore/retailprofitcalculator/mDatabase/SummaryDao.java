@@ -15,11 +15,14 @@ import java.util.List;
 public interface SummaryDao {
 
     @Query("SELECT * FROM summary")
-    public List<Summary> getSummary();
+    public Summary getSummary();
 
     @Query("SELECT * FROM summary WHERE storeId LIKE :storeId AND "
             + "productId LIKE :productId LIMIT 1")
-    Summary findByIds(int storeId, int productId);
+    public Summary findByIds(int storeId, int productId);
+
+    @Query("SELECT * FROM summary")
+    public List<Summary> getAllSummaries();
 
     @Insert
     public void insertSummary(Summary summary);
