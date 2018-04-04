@@ -50,7 +50,15 @@
         android:layout_weight=".25"
         android:orientation="horizontal">
 
-
+        <Button
+            android:id="@+id/bn_update_product"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/mybutton"
+            android:padding="8dp"
+            android:text="@string/update"
+            android:textSize="18sp" />
 
         <Button
             android:id="@+id/bn_delete_product"

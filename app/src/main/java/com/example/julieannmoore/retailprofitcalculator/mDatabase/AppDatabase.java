@@ -19,7 +19,7 @@ import android.content.Context;
  * Created by Julie Moore on 3/25/2018.
  */
 
-@Database(entities = {Store.class, Product.class, Summary.class, Formula.class }, version = 2, exportSchema = false)
+@Database(entities = {Store.class, Product.class, Summary.class, Formula.class }, version = 4, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
 
     public abstract StoreDao getStoreDao();
@@ -35,7 +35,7 @@ public abstract class AppDatabase extends RoomDatabase {
         return mInstance;
     }
 
-    static final Migration MIGRATION_1_2 = new Migration(1, 2) {
+    static final Migration MIGRATION_3_4 = new Migration(3, 4) {
         @Override
         public void migrate(SupportSQLiteDatabase database) {
 

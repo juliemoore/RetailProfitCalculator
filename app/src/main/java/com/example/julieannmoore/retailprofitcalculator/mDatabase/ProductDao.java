@@ -27,7 +27,7 @@ public interface ProductDao {
     @Query("SELECT * FROM products WHERE store_id LIKE :storeId")
     public List<Product> findByStoreId(int storeId);
 
-    @Query("SELECT * FROM products WHERE mProductId LIKE :productId LIMIT 1")
+    @Query("SELECT * FROM products WHERE productId LIKE :productId LIMIT 1")
     Product findByProductId(int productId);
 
     @Insert

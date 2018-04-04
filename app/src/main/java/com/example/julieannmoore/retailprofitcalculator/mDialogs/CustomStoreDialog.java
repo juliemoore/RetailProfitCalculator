@@ -9,6 +9,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.julieannmoore.retailprofitcalculator.AddStoreActivity;
 import com.example.julieannmoore.retailprofitcalculator.ProductListActivity;
 import com.example.julieannmoore.retailprofitcalculator.R;
 import com.example.julieannmoore.retailprofitcalculator.StoreListActivity;
@@ -68,7 +69,7 @@ public class CustomStoreDialog extends Dialog implements View.OnClickListener {
                 @Override
                 public void onClick(View v) {
                     // intent to add store activity
-                    Intent intent = new Intent(mActivity, UpdateStoreActivity.class);
+                    Intent intent = new Intent(mActivity, AddStoreActivity.class);
                     intent.putExtra("Update", mItem);
                     mActivity.startActivity(intent);
                 }

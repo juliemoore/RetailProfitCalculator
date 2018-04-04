@@ -10,6 +10,8 @@ import android.support.annotation.NonNull;
 
 import java.io.Serializable;
 
+import static android.arch.persistence.room.ForeignKey.CASCADE;
+
 /**
  * Created by Julie Moore on 3/25/2018.
  */
@@ -17,12 +19,14 @@ import java.io.Serializable;
 @Entity(tableName = "products",
         foreignKeys = @ForeignKey(entity = Store.class,
                 parentColumns = "storeId",
-                childColumns = "store_id"),
-                indices = {@Index(value = {"store_id"})})
+                childColumns = "store_id",
+                onDelete = CASCADE),
+                indices = {@Index(value = {"productId", "store_id"},
+                unique = true)})
 public class Product implements Serializable {
 
     @PrimaryKey(autoGenerate = true)
-    @NonNull
+    @ColumnInfo(name = "productId")
     private int mProductId;
 
     @ColumnInfo(name = "product_name")
@@ -48,7 +52,6 @@ public class Product implements Serializable {
 
     // Default constructor
     public Product() {
-        mProductId = 0;
         mProductName = null;
         mStoreId = 0;
         mCostOfGoods = 0;
@@ -71,6 +74,20 @@ public class Product implements Serializable {
         mAveWeeklyInventory = aveWeeklyInventory;
         mLinearFeet = linearFeet;
     }
+    // Parameterized constructor
+    @Ignore
+    public Product(String productName, int storeId, double costOfGoods, double sellingPrice,
+                   double annualUnitsSold, double aveWeeklyInventory, double linearFeet) {
+        mProductName = productName;
+        mStoreId = storeId;
+        mCostOfGoods = costOfGoods;
+        mSellingPrice = sellingPrice;
+        mAnnualUnitsSold = annualUnitsSold;
+        mAveWeeklyInventory = aveWeeklyInventory;
+        mLinearFeet = linearFeet;
+    }
+
+
 
     // Getter/setter methods
     public int getProductId() {

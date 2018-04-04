@@ -3,6 +3,7 @@ package com.example.julieannmoore.retailprofitcalculator.mDialogs;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -66,22 +67,20 @@ public class CustomProductDialog extends Dialog implements View.OnClickListener 
         mProduct.setText(mItem.getProductName());
         mProductId.setText("");
 
-        //mUpdateButton = findViewById(R.id.bn_update_product);
+        mUpdateButton = findViewById(R.id.bn_update_product);
         mDeleteButton = findViewById(R.id.bn_delete_product);
         mViewButton = findViewById(R.id.bn_view_product);
 
-        /* This button is voided until able to update/delete works in Summary Activ
         mUpdateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // intent to add store activity
-                Intent intent = new Intent(mActivity, UpdateProductActivity.class);
-                intent.putExtra("Product", mItem);
+                Intent intent = new Intent(mActivity, AddProductActivity.class);
+                intent.putExtra("UpdateProduct", mItem);
+                intent.putExtra("ProductItemId", mItemId);
                 mActivity.startActivity(intent);
-
             }
         });
-        */
         mDeleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -95,11 +94,10 @@ public class CustomProductDialog extends Dialog implements View.OnClickListener 
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mActivity, SummaryActivity.class);
-                intent.putExtra("Calculate", mItem);
+                intent.putExtra("SummaryProduct", mItem);
                 mActivity.startActivity(intent);
             }
         });
-
     }
 
     @Override

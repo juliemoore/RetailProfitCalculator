@@ -65,7 +65,7 @@ public class StoreListActivity extends AppCompatActivity implements StoreListEve
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // Display dialog box
-                Toast.makeText(getApplicationContext(), "Clicked store id = " + view.getTag(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(), "Clicked store id = " + view.getTag(), Toast.LENGTH_SHORT).show();
                 // Get store object and pass to custom dialog
                 if(mListCallbacks == null) { return; }
                 listItem = mAdapter.getStoreItem(position);

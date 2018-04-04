@@ -35,11 +35,11 @@ public class AddProductActivity extends AppCompatActivity {
     private AppDatabase mDatabase;
     private Product mProduct;
     private Store mStore;
-    private int storeId;
+    private int storeId, productId, itemId;
     private String storeName, storeNumber, productName;
     private double costOfGoods, sellingPrice, annualUnitsSold,
             aveWeeklyInventory, linearFt = 0;
-    private Boolean isValid = false;
+    private Boolean isValid, isUpdate = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,16 +50,30 @@ public class AddProductActivity extends AppCompatActivity {
         mProduct = new Product();
         initializeView();
         getStoreData();
+        getProductData();
+
 
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Fetch and create product object
-                mProduct = addProduct(mProduct);
-
-                Intent intent = new Intent(AddProductActivity.this, SummaryActivity.class);
-                intent.putExtra("Calculate", mProduct);
-                startActivity(intent);
+                getTextInput();
+                if (isUpdate == true) {
+                    mProduct = updateProduct();
+                    Intent intent = new Intent(AddProductActivity.this, SummaryActivity.class);
+                    toastMessage(getString(R.string.update_product_successful));
+                    intent.putExtra("UpdatedProduct", mProduct);
+                    startActivity(intent);
+                } else {
+                    // Create new product object
+                    mProduct = new Product(0, productName, storeId, costOfGoods, sellingPrice,
+                            annualUnitsSold, aveWeeklyInventory, linearFt);
+                    new InsertProductTask(AddProductActivity.this, mProduct).execute();
+                    clear();
+                    Intent intent = new Intent(AddProductActivity.this, SummaryActivity.class);
+                    toastMessage(getString(R.string.save_product_successful));
+                    intent.putExtra("Calculate", mProduct);
+                    startActivity(intent);
+                }
             }
         });
     }
@@ -92,7 +106,6 @@ public class AddProductActivity extends AppCompatActivity {
     }
 
     private void getStoreData() {
-
         // Get Store Data and display in textviews
         if( (mStore = (Store) getIntent().getSerializableExtra("Store")) != null) {
             storeId = mStore.getStoreId();
@@ -103,7 +116,48 @@ public class AddProductActivity extends AppCompatActivity {
         }
     }
 
-    public Product addProduct(Product product) {
+    private void getProductData() {
+        // Get Product Data and display in textviews
+        if ((mProduct = (Product) getIntent().getSerializableExtra("UpdateProduct")) != null) {
+            isUpdate = true;
+            setTitle(getString(R.string.update_product));
+            storeId = mProduct.getStoreId();
+            productId = mProduct.getProductId();
+            mStore = mDatabase.getStoreDao().findByStoreId(storeId);
+            storeName = mStore.getStoreName();
+            storeNumber = mStore.getStoreNumber();
+            mStoreName.setText(storeName);
+            mStoreNumber.setText(storeNumber);
+            mProduct.toString();
+
+            if (mProduct.getProductName() != null) {
+                productName = mProduct.getProductName();
+                mProductName.setText(productName);
+            }
+            if (mProduct.getCostOfGoods() > 0) {
+                Double costOfGoods = mProduct.getCostOfGoods();
+                mCostOfGoods.setText(costOfGoods.toString());
+            }
+            if (mProduct.getSellingPrice() > 0) {
+                Double sellingPrice = mProduct.getSellingPrice();
+                mSellingPrice.setText(sellingPrice.toString());
+            }
+            if (mProduct.getAnnualUnitsSold() > 0) {
+                Double annualUnitsSold = mProduct.getAnnualUnitsSold();
+                mAnnualUnitsSold.setText(annualUnitsSold.toString());
+            }
+            if (mProduct.getAveWeeklyInventory() > 0) {
+                Double aveWeeklyInventory = mProduct.getAveWeeklyInventory();
+                mAveWeeklyInventory.setText(aveWeeklyInventory.toString());
+            }
+            if (mProduct.getLinearFeet() > 0) {
+                Double linearFeet = mProduct.getLinearFeet();
+                mLinearFt.setText(linearFeet.toString());
+            }
+        }
+    }
+
+    public void getTextInput() {
         if (mProductNameWrapper.getEditText().getText().toString().isEmpty()) {
             mProductNameWrapper.setError("Product name is required.");
             mProductName.requestFocus();
@@ -114,7 +168,7 @@ public class AddProductActivity extends AppCompatActivity {
         }
         if (mCostOfGoodsWrapper.getEditText().toString().isEmpty()) {
             mCostOfGoodsWrapper.setError("Cost of goods is required.");
-        }else {
+        } else {
             mCostOfGoodsWrapper.setErrorEnabled(false);
         }
         try {
@@ -184,22 +238,32 @@ public class AddProductActivity extends AppCompatActivity {
             isValid = false;
         }
 
-        mProduct = new Product(0, productName, storeId, costOfGoods, sellingPrice,
-                                annualUnitsSold, aveWeeklyInventory, linearFt);
-
         if (isValid == true) {
             hideKeyboard();
-            //Fetch data and create product object
-            mDatabase.getProductDao().insertProduct(mProduct);
-            //mProduct = mDatabase.getProductDao().findByNameAndStoreId(productName, storeId);
-            //mProduct.toString();
-            toastMessage("Product added successfully.");
-            clear();
-            return mProduct;
         } else {
             toastMessage("Invalid data. Try again.");
-            return mProduct;
         }
+    }
+
+    private Product insertProduct() {
+        // Create new product object
+        Product newProduct = new Product(0, productName, storeId, costOfGoods, sellingPrice,
+                annualUnitsSold, aveWeeklyInventory, linearFt);
+
+        // Insert into database
+        mDatabase.getProductDao().insertProduct(newProduct);
+        clear();
+        return newProduct;
+    }
+
+    private Product updateProduct() {
+        // Create new product object
+        Product updateProduct = new Product(productId, productName, storeId, costOfGoods, sellingPrice,
+                annualUnitsSold, aveWeeklyInventory, linearFt);
+        // Update product in database
+        mDatabase.getProductDao().updateProduct(updateProduct);
+        clear();
+        return updateProduct;
     }
 
     private void clear() {
@@ -249,7 +313,7 @@ public class AddProductActivity extends AppCompatActivity {
             return true;
         }
 
-        // onPostExecut runs on main thread
+        // onPostExecute runs on main thread
         @Override
         protected void onPostExecute(Boolean bool) {
             if (bool) {

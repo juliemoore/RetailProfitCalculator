@@ -25,10 +25,9 @@ public class SummaryAdapter extends BaseAdapter {
 
     private LayoutInflater mInflater;
     private FormulaCollection mFormula;
-    private String[] mFormulaNames;
-    private double[] mFormulaAmounts;
+    private String[] mFormulaNames, mFormulaAmounts;
 
-    public SummaryAdapter(Context context, String[] formulaNames, double[] formulaAmounts) {
+    public SummaryAdapter(Context context, String[] formulaNames, String[] formulaAmounts) {
         mFormulaNames = formulaNames;
         mFormulaAmounts = formulaAmounts;
         mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -57,10 +56,10 @@ public class SummaryAdapter extends BaseAdapter {
         TextView formulaTextView = v.findViewById(R.id.textView2);
 
         String formulaName = mFormulaNames[position].toString();
-        double formulaAmount = mFormulaAmounts[position];
+        String formulaAmount = mFormulaAmounts[position].toString();
 
         formulaNameTextView.setText(formulaName);
-        formulaTextView.setText(String.valueOf(formulaAmount));
+        formulaTextView.setText(formulaAmount);
 
         return v;
     }

@@ -23,6 +23,7 @@ import com.example.julieannmoore.retailprofitcalculator.mData.Summary;
 import com.example.julieannmoore.retailprofitcalculator.mDatabase.AppDatabase;
 
 import java.lang.ref.WeakReference;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,15 +32,15 @@ import static com.example.julieannmoore.retailprofitcalculator.mData.FormulaColl
 public class SummaryActivity extends Activity {
 
     private TextView storeNameTextView, storeNumberTextView, productTextView;
-    private Button mButton;
+    private Button mUpdateButton, mSaveButton, mShareButton;
     private ListView mListView;
     private SummaryAdapter mAdapter;
     private AppDatabase mDatabase;
     private Product mProduct;
     private Store mStore;
     private Summary mSummary;
-    private String[] mFormulaNames;
-    private double[] mFormulaAmounts;
+    private String[] mFormulaNames, mFormulaAmounts;
+    private Boolean isUpdate, isSummaryView = false;
     private int storeId, productId;
     private String storeName, storeNumber, productName;
     private double cost_of_goods, selling_price, mark_up_dollars, mark_up_percent, gm_dollars,
@@ -76,11 +77,26 @@ public class SummaryActivity extends Activity {
             }
         });
         */
-        mButton.setOnClickListener(new View.OnClickListener() {
+        mSaveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mDatabase.getSummaryDao().insertSummary(mSummary);
-                Toast.makeText(SummaryActivity.this, "Store data saved", Toast.LENGTH_SHORT).show();
+                if (isUpdate == true) {
+                    mDatabase.getSummaryDao().updateSummary(mSummary);
+                    Toast.makeText(SummaryActivity.this, "Summary results updated",
+                            Toast.LENGTH_LONG).show();
+                } else if (isSummaryView == true) {
+                    finish();
+                } else {
+                    new RetrieveSummaryTask(SummaryActivity.this, mSummary).execute();
+                }
+            }
+        });
+        mUpdateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SummaryActivity.this, AddProductActivity.class);
+                intent.putExtra("UpdateProduct", mProduct);
+                startActivity(intent);
             }
         });
 
@@ -91,15 +107,24 @@ public class SummaryActivity extends Activity {
         storeNumberTextView = findViewById(R.id.textView2);
         productTextView = findViewById(R.id.productSummaryTextView);
         mListView = findViewById(R.id.list_view);
-        mButton = findViewById(R.id.saveButton);
+        mSaveButton = findViewById(R.id.saveButton);
+        mUpdateButton = findViewById(R.id.updateButton);
+        mShareButton = findViewById(R.id.shareButton);
     }
 
     private void getData() {
         // Get Product Data and display in textviews
-        if( (mProduct = (Product) getIntent().getSerializableExtra("Calculate")) != null) {
-            mButton.setVisibility(View.GONE);
+        if ((mProduct = (Product) getIntent().getSerializableExtra("UpdatedProduct")) != null) {
+            isUpdate = true;
+        }
+        if ((mProduct = (Product) getIntent().getSerializableExtra("SummaryProduct")) != null) {
+            isSummaryView = true;
+            mSaveButton.setEnabled(false);
+        }
+        if( ((mProduct = (Product) getIntent().getSerializableExtra("Calculate")) != null) ||
+        ((mProduct = (Product) getIntent().getSerializableExtra("UpdatedProduct")) != null) ||
+        ((mProduct = (Product) getIntent().getSerializableExtra("SummaryProduct")) != null)){
             storeId = mProduct.getStoreId();
-
             mStore = mDatabase.getStoreDao().findByStoreId(storeId);
             storeName = mStore.getStoreName();
             storeNumber = mStore.getStoreNumber();
@@ -115,39 +140,33 @@ public class SummaryActivity extends Activity {
             storeNumberTextView.setText(storeNumber);
             productTextView.setText(productName);
         }
-
     }
 
     // Get Products AsyncTask
-    private class RetrieveSummaryTask extends AsyncTask<Object, Summary, Summary> {
+    private class RetrieveSummaryTask extends AsyncTask<Object, Summary, Object> {
         AppDatabase mDatabase;
         private WeakReference<SummaryActivity> activityReference;
         private Summary summary;
 
         // only retain a weak reference to the activity
-        RetrieveSummaryTask(SummaryActivity context) {
+        RetrieveSummaryTask(SummaryActivity context, Summary summary) {
             activityReference = new WeakReference<>(context);
         }
 
         @Override
         protected Summary doInBackground(Object... params) {
-            // Open the database
-            activityReference.get().mDatabase = AppDatabase.getInstance(SummaryActivity.this);
-            activityReference.get().mDatabase.getSummaryDao().insertSummary(summary);
+            mDatabase.getSummaryDao().insertSummary(mSummary);
+            Toast.makeText(SummaryActivity.this, "Summary results saved",
+                    Toast.LENGTH_SHORT).show();
             return mSummary;
         }
 
-        protected void onPostExecute(double[] summary) {
-            if (summary!=null && summary.length > 0 ){
-                activityReference.get().calculate(mSummary);
-                activityReference.get().getFormulaAmounts();
-                activityReference.get().mAdapter.notifyDataSetChanged();
-            }
+        protected void onPostExecute(String[] summary) {
+
         }
     }
 
     private Summary calculate(Summary summary) {
-        selling_price = sellingPrice();
         mark_up_dollars = markUpDollars();
         mark_up_percent = markUpPercentage(mark_up_dollars);
         gm_dollars = grossMarginDollars();
@@ -167,21 +186,28 @@ public class SummaryActivity extends Activity {
     private void getFormulaAmounts() {
         Resources res = getResources();
         mFormulaNames = res.getStringArray(R.array.formulaNames);
-        mFormulaAmounts = new double[14];
-        mFormulaAmounts[0] = cost_of_goods;
-        mFormulaAmounts[1] = selling_price;
-        mFormulaAmounts[2] = annual_units_sold;
-        mFormulaAmounts[3] = ave_weekly_inventory;
-        mFormulaAmounts[4] = linear_ft;
-        mFormulaAmounts[5] = mark_up_dollars;
-        mFormulaAmounts[6] = mark_up_percent;
-        mFormulaAmounts[7] = gm_dollars;
-        mFormulaAmounts[8] = gm_percent;
-        mFormulaAmounts[9] = inventory_turnover;
-        mFormulaAmounts[10] = weeks_supply_of_inventory;
-        mFormulaAmounts[11] = gmroi;
-        mFormulaAmounts[12] = sales_per_feet;
-        mFormulaAmounts[13] = gm_linear_feet;
+        DecimalFormat dFormat = new DecimalFormat("####,###,###.00");
+        mFormulaAmounts = new String[14];
+        mFormulaAmounts[0] = String.valueOf("$" + cost_of_goods);
+        mFormulaAmounts[1] = String.valueOf("$" + selling_price);
+        mFormulaAmounts[2] = String.valueOf(Math.round(annual_units_sold));
+        mFormulaAmounts[3] = String.valueOf(Math.round(ave_weekly_inventory));
+        mFormulaAmounts[4] = String.valueOf(linear_ft);
+        mFormulaAmounts[5] = String.format("$" + dFormat.format(mark_up_dollars));
+        mFormulaAmounts[6] = String.format(dFormat.format(mark_up_percent)) + "%";
+        mFormulaAmounts[7] = String.format("$" + dFormat.format(gm_dollars));
+        mFormulaAmounts[8] = String.format(dFormat.format(gm_percent)) + "%";
+        mFormulaAmounts[9] = String.format(dFormat.format(inventory_turnover));
+        mFormulaAmounts[10] = String.format(dFormat.format(weeks_supply_of_inventory));
+        mFormulaAmounts[11] = String.format("$" + dFormat.format(gmroi));
+        mFormulaAmounts[12] = String.format("$" + dFormat.format(sales_per_feet));
+        mFormulaAmounts[13] = String.format("$" + dFormat.format(gm_linear_feet));
+    }
+
+    private void saveData(Summary summary) {
+        // Open the database
+        mDatabase = AppDatabase.getInstance(SummaryActivity.this);
+
     }
 
     /* Method to calculate mark-up dollars */
@@ -194,7 +220,7 @@ public class SummaryActivity extends Activity {
     /* Method to calculate mark-up percentage */
     public double markUpPercentage(double markUpDollars) {
         double markUpPercentage = 0;
-        markUpPercentage = markUpDollars - cost_of_goods;
+        markUpPercentage = markUpDollars / cost_of_goods;
         return markUpPercentage;
     }
 
@@ -210,13 +236,6 @@ public class SummaryActivity extends Activity {
         double grossMarginPercentage = 0;
         grossMarginPercentage = grossMarginDollars - cost_of_goods;
         return grossMarginPercentage;
-    }
-
-    /* Method to calculate the selling price of a retail item */
-    public double sellingPrice() {
-        double sellingPrice = 0;
-        sellingPrice = cost_of_goods + mark_up_dollars;
-        return sellingPrice;
     }
 
     /* Method to calculate inventory turnover */
@@ -251,7 +270,7 @@ public class SummaryActivity extends Activity {
         double weeklySales = 0;
         int weeksInYr = 52;
         double salesPerFeet = 0;
-        weeklySales = annual_units_sold * weeksInYr;
+        weeklySales = annual_units_sold / weeksInYr;
         salesPerFeet = weeklySales / linear_ft;
         return salesPerFeet;
     }

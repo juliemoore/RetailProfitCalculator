@@ -14,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.julieannmoore.retailprofitcalculator.mAdapter.ProductAdapter;
 import com.example.julieannmoore.retailprofitcalculator.mData.Product;
@@ -68,7 +69,7 @@ public class ProductListActivity extends AppCompatActivity implements ProductLis
         }
         // Get data from database
         mDatabase = AppDatabase.getInstance(this);
-        mProductsList = new ArrayList<>();
+        mProductsList = mDatabase.getProductDao().findByStoreId(mStoreId);
         if (mProductsList.size() == 0) {
             mTitle.setText(getString(R.string.empty_product_list));
         }

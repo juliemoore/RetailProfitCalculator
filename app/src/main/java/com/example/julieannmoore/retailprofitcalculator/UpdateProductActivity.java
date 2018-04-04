@@ -56,7 +56,7 @@ public class UpdateProductActivity extends AppCompatActivity {
             public void onClick(View v) {
                 updateProduct();
                 Intent intent = new Intent(UpdateProductActivity.this, SummaryActivity.class);
-                intent.putExtra("Calculate", mProduct);
+                intent.putExtra("UpdatedProduct", mProduct);
                 startActivity(intent);
             }
         });
@@ -91,7 +91,7 @@ public class UpdateProductActivity extends AppCompatActivity {
 
     private void getProductData() {
         // Get Store Data and display in textviews
-        if ((mProduct = (Product) getIntent().getSerializableExtra("Product")) != null) {
+        if ((mProduct = (Product) getIntent().getSerializableExtra("UpdateProduct")) != null) {
             setTitle(getString(R.string.update_product));
             storeId = mProduct.getStoreId();
             productId = mProduct.getProductId();
@@ -126,7 +126,6 @@ public class UpdateProductActivity extends AppCompatActivity {
                 Double linearFeet = mProduct.getLinearFeet();
                 mLinearFt.setText(linearFeet.toString());
             }
-            Toast.makeText(this, mStore.toString(), Toast.LENGTH_LONG).show();
         }
     }
 
