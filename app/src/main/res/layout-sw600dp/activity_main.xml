@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorPrimaryLight"
+    tools:context="com.example.julieannmoore.retailprofitcalculator.MainActivity">
+
+    <ImageView
+        android:id="@+id/calculatorImageView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/calculator"
+        android:scaleType="center"
+        android:visibility="visible"
+        app:srcCompat="@drawable/calculator" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/bn_add_store"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/mybutton"
+            android:layout_weight="1"
+            android:paddingTop="32dp"
+            android:paddingBottom="32dp"
+            android:text="@string/add_store"
+            android:textAlignment="center"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF" />
+
+        <Button
+            android:id="@+id/bn_view_store"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/mybutton"
+            android:layout_weight="1"
+            android:paddingTop="32dp"
+            android:paddingBottom="32dp"
+            android:text="@string/view_store"
+            android:textAlignment="center"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF" />
+
+
+    </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/ibn_view_formulas"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/view_formulas_lg"
+        android:onClick="viewFormulas"/>
+</LinearLayout>

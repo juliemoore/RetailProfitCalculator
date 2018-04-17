@@ -20,38 +20,41 @@ import static android.arch.persistence.room.ForeignKey.CASCADE;
         foreignKeys = @ForeignKey(entity = Store.class,
                 parentColumns = "storeId",
                 childColumns = "store_id",
-                onDelete = CASCADE),
-                indices = {@Index(value = {"productId", "store_id"},
+                onDelete = ForeignKey.CASCADE,
+                onUpdate = ForeignKey.CASCADE),
+                indices = {@Index("store_id"),
+                        @Index(value = {"productId", "store_id"},
                 unique = true)})
 public class Product implements Serializable {
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "productId")
-    private int mProductId;
+    public int mProductId;
 
     @ColumnInfo(name = "product_name")
-    private String mProductName;
+    public String mProductName;
 
     @ColumnInfo(name = "store_id")
-    private int mStoreId;
+    public int mStoreId;
 
     @ColumnInfo(name = "cost_of_goods")
-    private double mCostOfGoods;
+    public double mCostOfGoods;
 
     @ColumnInfo(name = "selling_price")
-    private double mSellingPrice;
+    public double mSellingPrice;
 
     @ColumnInfo(name = "annual_units_sold")
-    private double mAnnualUnitsSold;
+    public double mAnnualUnitsSold;
 
     @ColumnInfo(name = "ave_weekly_inventory")
-    private double mAveWeeklyInventory;
+    public double mAveWeeklyInventory;
 
     @ColumnInfo(name = "linear_feet")
-    private double mLinearFeet;
+    public double mLinearFeet;
 
     // Default constructor
     public Product() {
+        mProductId = 0;
         mProductName = null;
         mStoreId = 0;
         mCostOfGoods = 0;
@@ -74,24 +77,10 @@ public class Product implements Serializable {
         mAveWeeklyInventory = aveWeeklyInventory;
         mLinearFeet = linearFeet;
     }
-    // Parameterized constructor
-    @Ignore
-    public Product(String productName, int storeId, double costOfGoods, double sellingPrice,
-                   double annualUnitsSold, double aveWeeklyInventory, double linearFeet) {
-        mProductName = productName;
-        mStoreId = storeId;
-        mCostOfGoods = costOfGoods;
-        mSellingPrice = sellingPrice;
-        mAnnualUnitsSold = annualUnitsSold;
-        mAveWeeklyInventory = aveWeeklyInventory;
-        mLinearFeet = linearFeet;
-    }
-
-
 
     // Getter/setter methods
     public int getProductId() {
-        return mStoreId;
+        return mProductId;
     }
 
     public String getProductName() {
@@ -194,7 +183,7 @@ public class Product implements Serializable {
 
     @Override
     public String toString() {
-        return "String(StoreId: " + mStoreId + "\nProductId: " + mProductId + "\nProductName: " +
+        return "String(Store name: " + mStoreId + "\nProductId: " + mProductId + "\nProductName: " +
                 mProductName + "\nCost of Goods: " + mCostOfGoods + "\nSelling price: " +
                 mSellingPrice + "\nAnnual units sold: " + mAnnualUnitsSold +
                 "\nAve weekly inventory: " + mAveWeeklyInventory + "\nLinear feet: " + mLinearFeet +")";

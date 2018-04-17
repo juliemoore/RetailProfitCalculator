@@ -61,16 +61,12 @@ public class ProductAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        View view = View.inflate(mContext, R.layout.layout_list_item, null);
+        View view = View.inflate(mContext, R.layout.layout_product_item, null);
         TextView textViewProduct = view.findViewById(R.id.textView1);
-        TextView textViewStoreNumber = view.findViewById(R.id.textView2);
+        TextView textViewProductId = view.findViewById(R.id.textView2);
         // Set text for TextView
         textViewProduct.setText(mProductList.get(position).getProductName());
-        textViewStoreNumber.setText("");
-
-        // Save storeId to tag
-        view.setTag(mProductList.get(position).getStoreId());
-        Log.i(TAG, "Index: " + position + " : " + view);
+        textViewProductId.setText("");
 
         return view;
     }

@@ -4,8 +4,11 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -21,6 +24,7 @@ import com.example.julieannmoore.retailprofitcalculator.mData.Store;
 import com.example.julieannmoore.retailprofitcalculator.mData.StoreProductProfits;
 import com.example.julieannmoore.retailprofitcalculator.mData.Summary;
 import com.example.julieannmoore.retailprofitcalculator.mDatabase.AppDatabase;
+import com.example.julieannmoore.retailprofitcalculator.mDialogs.CustomProductDialog;
 
 import java.lang.ref.WeakReference;
 import java.text.DecimalFormat;
@@ -29,18 +33,19 @@ import java.util.List;
 
 import static com.example.julieannmoore.retailprofitcalculator.mData.FormulaCollection.getFormulas;
 
-public class SummaryActivity extends Activity {
+public class SummaryActivity extends AppCompatActivity {
 
     private TextView storeNameTextView, storeNumberTextView, productTextView;
     private Button mUpdateButton, mSaveButton, mShareButton;
     private ListView mListView;
     private SummaryAdapter mAdapter;
+    private Resources mResources;
     private AppDatabase mDatabase;
     private Product mProduct;
     private Store mStore;
     private Summary mSummary;
     private String[] mFormulaNames, mFormulaAmounts;
-    private Boolean isUpdate, isSummaryView = false;
+    private Boolean isUpdate, isSummaryView;
     private int storeId, productId;
     private String storeName, storeNumber, productName;
     private double cost_of_goods, selling_price, mark_up_dollars, mark_up_percent, gm_dollars,
@@ -53,6 +58,16 @@ public class SummaryActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_summary);
 
+        // Set action bar with logo
+        ActionBar actionBar = getSupportActionBar();
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        actionBar.setLogo(R.mipmap.ic_launcher_round);
+        actionBar.setDisplayUseLogoEnabled(true);
+        actionBar.setTitle(R.string.profitability_summary);
+
+        isUpdate = false;
+        isSummaryView = false;
+
         // Get data from database
         mDatabase = AppDatabase.getInstance(this);
         mSummary = new Summary();
@@ -64,31 +79,13 @@ public class SummaryActivity extends Activity {
         mAdapter = new SummaryAdapter(this, mFormulaNames, mFormulaAmounts);
         mListView.setAdapter(mAdapter);
 
-        /*
-        new RetrieveSummaryTask(this).execute();
-
-        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent showFormulaActivity =
-                        new Intent(SummaryActivity.this, FormulaActivity.class);
-                showFormulaActivity.putExtra("com.example.julieannmoore.ITEM_INDEX", i);
-                startActivity(showFormulaActivity);
-            }
-        });
-        */
         mSaveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (isUpdate == true) {
-                    mDatabase.getSummaryDao().updateSummary(mSummary);
-                    Toast.makeText(SummaryActivity.this, "Summary results updated",
-                            Toast.LENGTH_LONG).show();
-                } else if (isSummaryView == true) {
-                    finish();
-                } else {
-                    new RetrieveSummaryTask(SummaryActivity.this, mSummary).execute();
-                }
+                toastMessage(getString(R.string.save_product_successful));
+                Intent intent = new Intent(SummaryActivity.this, MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);    // Clears stack
+                startActivity(intent);
             }
         });
         mUpdateButton.setOnClickListener(new View.OnClickListener() {
@@ -103,8 +100,8 @@ public class SummaryActivity extends Activity {
     }
 
     public void initializeView() {
-        storeNameTextView = findViewById(R.id.textView1);
-        storeNumberTextView = findViewById(R.id.textView2);
+        storeNameTextView = findViewById(R.id.storeNameTextView3);
+        storeNumberTextView = findViewById(R.id.storeNumberTextView3);
         productTextView = findViewById(R.id.productSummaryTextView);
         mListView = findViewById(R.id.list_view);
         mSaveButton = findViewById(R.id.saveButton);
@@ -113,17 +110,7 @@ public class SummaryActivity extends Activity {
     }
 
     private void getData() {
-        // Get Product Data and display in textviews
-        if ((mProduct = (Product) getIntent().getSerializableExtra("UpdatedProduct")) != null) {
-            isUpdate = true;
-        }
-        if ((mProduct = (Product) getIntent().getSerializableExtra("SummaryProduct")) != null) {
-            isSummaryView = true;
-            mSaveButton.setEnabled(false);
-        }
-        if( ((mProduct = (Product) getIntent().getSerializableExtra("Calculate")) != null) ||
-        ((mProduct = (Product) getIntent().getSerializableExtra("UpdatedProduct")) != null) ||
-        ((mProduct = (Product) getIntent().getSerializableExtra("SummaryProduct")) != null)){
+        if( ((mProduct = (Product) getIntent().getSerializableExtra("Calculate")) != null)) {
             storeId = mProduct.getStoreId();
             mStore = mDatabase.getStoreDao().findByStoreId(storeId);
             storeName = mStore.getStoreName();
@@ -139,30 +126,6 @@ public class SummaryActivity extends Activity {
             storeNameTextView.setText(storeName);
             storeNumberTextView.setText(storeNumber);
             productTextView.setText(productName);
-        }
-    }
-
-    // Get Products AsyncTask
-    private class RetrieveSummaryTask extends AsyncTask<Object, Summary, Object> {
-        AppDatabase mDatabase;
-        private WeakReference<SummaryActivity> activityReference;
-        private Summary summary;
-
-        // only retain a weak reference to the activity
-        RetrieveSummaryTask(SummaryActivity context, Summary summary) {
-            activityReference = new WeakReference<>(context);
-        }
-
-        @Override
-        protected Summary doInBackground(Object... params) {
-            mDatabase.getSummaryDao().insertSummary(mSummary);
-            Toast.makeText(SummaryActivity.this, "Summary results saved",
-                    Toast.LENGTH_SHORT).show();
-            return mSummary;
-        }
-
-        protected void onPostExecute(String[] summary) {
-
         }
     }
 
@@ -194,20 +157,14 @@ public class SummaryActivity extends Activity {
         mFormulaAmounts[3] = String.valueOf(Math.round(ave_weekly_inventory));
         mFormulaAmounts[4] = String.valueOf(linear_ft);
         mFormulaAmounts[5] = String.format("$" + dFormat.format(mark_up_dollars));
-        mFormulaAmounts[6] = String.format(dFormat.format(mark_up_percent)) + "%";
+        mFormulaAmounts[6] = String.valueOf(Math.round(mark_up_percent * 100)) + "%";
         mFormulaAmounts[7] = String.format("$" + dFormat.format(gm_dollars));
-        mFormulaAmounts[8] = String.format(dFormat.format(gm_percent)) + "%";
+        mFormulaAmounts[8] = String.valueOf(Math.round(gm_percent * 100)) + "%";
         mFormulaAmounts[9] = String.format(dFormat.format(inventory_turnover));
         mFormulaAmounts[10] = String.format(dFormat.format(weeks_supply_of_inventory));
         mFormulaAmounts[11] = String.format("$" + dFormat.format(gmroi));
         mFormulaAmounts[12] = String.format("$" + dFormat.format(sales_per_feet));
         mFormulaAmounts[13] = String.format("$" + dFormat.format(gm_linear_feet));
-    }
-
-    private void saveData(Summary summary) {
-        // Open the database
-        mDatabase = AppDatabase.getInstance(SummaryActivity.this);
-
     }
 
     /* Method to calculate mark-up dollars */
@@ -234,7 +191,7 @@ public class SummaryActivity extends Activity {
     /* Method to calculate mark-up percentage */
     public double grossMarginPercentage(double grossMarginDollars) {
         double grossMarginPercentage = 0;
-        grossMarginPercentage = grossMarginDollars - cost_of_goods;
+        grossMarginPercentage = grossMarginDollars / selling_price;
         return grossMarginPercentage;
     }
 
@@ -282,4 +239,46 @@ public class SummaryActivity extends Activity {
         return  gmDollarsPerFeet;
     }
 
+    private void toastMessage(String message){
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    public void sendEmail(View view) {
+        Intent emailIntent = new Intent(Intent.ACTION_SENDTO,
+                Uri.fromParts("mailto", "", null));
+        // The intent does not have a URI, so declare the "text/plain" MIME type
+        String subject = getString(R.string.profitability_summary);
+        String info = "Store name: " + storeName + "\nStore number: "  + storeNumber +
+                "\nProduct: " + productName + "\n";
+                for (int i = 0; i < mFormulaNames.length; i++) {
+                    info += mFormulaNames[i] + ":  " + mFormulaAmounts[i].toString() + "\n";
+                }
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, subject);
+        emailIntent.putExtra(Intent.EXTRA_TEXT, info);
+        emailIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse("content://path/to/email/attachment"));
+
+        /* Verify it resolves
+        PackageManager packageManager = getPackageManager();
+        List<ResolveInfo> activities = packageManager.queryIntentActivities(emailIntent, 0);
+        boolean isIntentSafe = activities.size() > 0;
+
+        // Start an activity if it's safe
+        if (!isIntentSafe) {
+            Toast.makeText(MainActivity.this,"There is no activity to handle this " +
+                    "request on your device.", Toast.LENGTH_LONG).show();
+        } else {
+            startActivity(emailIntent);
+        }
+        */
+        // Or let user choose app
+        String title = getResources().getString(R.string.select_app);
+        // Create intent to show chooser
+        Intent chooser = Intent.createChooser(emailIntent, title);
+
+        // Verify the intent will resolve to at least one activity
+        if (emailIntent.resolveActivity(getPackageManager()) != null) {
+            startActivity(chooser);
+        }
+
+    }
 }

@@ -30,6 +30,14 @@ public interface ProductDao {
     @Query("SELECT * FROM products WHERE productId LIKE :productId LIMIT 1")
     Product findByProductId(int productId);
 
+    @Query("UPDATE products SET product_name = :productName AND cost_of_goods = :costOfGoods AND "
+            + "selling_price = :sellingPrice AND annual_units_sold = :annualUnitsSold AND "
+            + "ave_weekly_inventory = :aveWeeklyInventory AND linear_feet = :linearFeet WHERE "
+            + " productId = :productId AND store_id = :storeId")
+    public void updateProduct(String productName, double costOfGoods, double sellingPrice,
+                double annualUnitsSold, double aveWeeklyInventory, double linearFeet, int productId,
+                int storeId);
+
     @Insert
     public void insertProduct(Product product);
 

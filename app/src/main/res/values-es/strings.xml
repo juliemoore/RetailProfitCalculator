@@ -10,6 +10,7 @@
     <string name="store_number">Número de Tienda</string>
     <string name="product_list">Lista de Productos</string>
     <string name="product">Producto</string>
+    <string name="product_id">ID del Producto</string>
     <string name="product_name">El nombre del producto</string>
     <string name="welcome">Bienvenido</string>
     <string name="search">Buscar</string>
@@ -20,9 +21,11 @@
     <string name="delete">Borrar</string>
     <string name="update">Actualizar</string>
     <string name="share">Compartir</string>
-    <string name="add_store">Agregue un Nombre y Número de Tienda</string>
-    <string name="view_store">Ver Tienda</string>
+    <string name="home">El punto inicial</string>
+    <string name="add_store">Agregue Las Tiendas</string>
+    <string name="view_store">Ver Las Tiendas</string>
     <string name="view">Ver</string>
+    <string name="view_formulas">Ver Fórmulas</string>
     <string name="selection">Has una elección</string>
     <string name="update_store">Actualizar Tienda</string>
     <string name="delete_store">Eliminar Tienda</string>
@@ -73,23 +76,5 @@
         <item>GMROI</item>
         <item>Ventas por Pies Lineales</item>
         <item>Margen Bruto $ por Pies Lineales</item>
-    </string-array>
-
-    <string-array name="stores">
-        <item>7-Eleven</item>
-        <item>Uncle Bob's</item>
-        <item>Kip's Chevron</item>
-        <item>BB Exxon</item>
-        <item>Super 7</item>
-        <item>Country Joe's</item>
-    </string-array>
-
-    <string-array name="storeNumbers">
-        <item>48</item>
-        <item>72</item>
-        <item>6</item>
-        <item>1040</item>
-        <item>4</item>
-        <item>33</item>
     </string-array>
 </resources>

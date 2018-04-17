@@ -19,12 +19,11 @@ import android.content.Context;
  * Created by Julie Moore on 3/25/2018.
  */
 
-@Database(entities = {Store.class, Product.class, Summary.class, Formula.class }, version = 4, exportSchema = false)
+@Database(entities = {Store.class, Product.class}, version = 1, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
 
     public abstract StoreDao getStoreDao();
     public abstract ProductDao getProductDao();
-    public abstract SummaryDao getSummaryDao();
 
     // Applies Singleton method
     private static AppDatabase mInstance;
@@ -35,13 +34,15 @@ public abstract class AppDatabase extends RoomDatabase {
         return mInstance;
     }
 
-    static final Migration MIGRATION_3_4 = new Migration(3, 4) {
+/*
+   static final Migration MIGRATION_1_2 = new Migration(1, 2) {
         @Override
         public void migrate(SupportSQLiteDatabase database) {
 
         }
     };
 
+*/
     // Create database with Room Database Builder
     public static AppDatabase createInstance(final Context context) {
         AppDatabase newDatabase = Room.databaseBuilder(context, AppDatabase.class, "storesdb")

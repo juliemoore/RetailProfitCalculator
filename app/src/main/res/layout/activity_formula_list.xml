@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/gradient"
+    tools:context="com.example.julieannmoore.retailprofitcalculator.FormulaListActivity">
+
+    <TextView
+        android:id="@+id/tx_formula_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/formulas"
+        android:textAlignment="center"
+        android:textSize="28sp"
+        android:padding="18dp"
+        android:textColor="@color/secondColorDark"
+        android:textStyle="bold"/>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="330dp"
+        android:layout_margin="10dp"
+        android:background="@drawable/gradient_blue"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="10dp">
+
+        <include
+            layout="@layout/layout_list_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </android.support.v7.widget.CardView>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/calculator_fab"
+        android:layout_width="60dp"
+        android:layout_height="100dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_gravity="right"
+        android:layout_marginBottom="18dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginTop="8dp"
+        android:clickable="true"
+        android:src="@drawable/calculator_fab"
+        app:backgroundTint="@color/secondColorAccent"
+        app:elevation="10dp" />
+
+</android.support.v7.widget.LinearLayoutCompat>

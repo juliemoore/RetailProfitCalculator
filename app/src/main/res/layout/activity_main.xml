@@ -19,18 +19,17 @@
         app:srcCompat="@drawable/calculator" />
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <Button
             android:id="@+id/bn_add_store"
-            android:layout_width="200dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/mybutton"
             android:layout_weight="1"
             android:paddingTop="16dp"
             android:paddingBottom="16dp"
-
             android:text="@string/add_store"
             android:textAlignment="center"
             android:textSize="24sp"
@@ -39,13 +38,12 @@
 
         <Button
             android:id="@+id/bn_view_store"
-            android:layout_width="200dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/mybutton"
             android:layout_weight="1"
             android:paddingTop="16dp"
             android:paddingBottom="16dp"
-
             android:text="@string/view_store"
             android:textAlignment="center"
             android:textSize="24sp"
@@ -55,9 +53,12 @@
 
     </LinearLayout>
 
-    <ImageView
+    <ImageButton
+        android:id="@+id/ibn_view_formulas"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@drawable/formulasquare"
-        android:layout_marginTop="24dp"/>
+        android:src="@drawable/view_formulas"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="24dp"
+        android:onClick="viewFormulas"/>
 </LinearLayout>

@@ -11,6 +11,7 @@
     <string name="store_number">Store Number</string>
     <string name="product_list">Product List</string>
     <string name="product">Product</string>
+    <string name="product_id">Product UPC</string>
     <string name="welcome">Welcome</string>
     <string name="search">Search</string>
     <string name="calculate">Calculate</string>
@@ -27,9 +28,11 @@
     <string name="update_store">Update Store</string>
     <string name="add_data">Add or Edit Product Data</string>
     <string name="edit_data">Edit Product</string>
-    <string name="delete_data">Delet Product</string>
+    <string name="delete_data">Delete Product</string>
     <string name="summary">Retail Profitability Summary</string>
+    <string name="view_formulas">View Formulas</string>
     <string name="formulas">Profitability Formulas</string>
+    <string name="select_app">Select an email app</string>
 
     <!--Formula names-->
     <string name="cost_of_goods">Cost of Goods</string>

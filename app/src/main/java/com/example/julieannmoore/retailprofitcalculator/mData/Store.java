@@ -20,13 +20,13 @@ public class Store implements Serializable {
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "storeId")
-    private int mStoreId;
+    public int mStoreId;
 
     @ColumnInfo(name = "store_name")    // mStoreName will be store_name in table
-    private String mStoreName;
+    public String mStoreName;
 
     @ColumnInfo(name = "store_number")  // mStoreNumber will be store_number in table
-    private String mStoreNumber;
+    public String mStoreNumber;
 
     public Store() {}
 

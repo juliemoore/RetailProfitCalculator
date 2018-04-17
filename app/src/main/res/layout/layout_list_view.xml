@@ -6,7 +6,10 @@
     android:background="#FFFFFF">
 
     <ListView
+        android:id="@+id/list_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/list_view"/>
+        android:divider="@color/colorPrimaryDark"
+        android:dividerHeight="2px"
+        android:scrollbars="vertical" />
 </LinearLayout>

@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -39,10 +40,15 @@ public class StoreListActivity extends AppCompatActivity implements StoreListEve
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_store_list);
 
+        // Set action bar with logo
+        ActionBar actionBar = getSupportActionBar();
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        actionBar.setLogo(R.mipmap.ic_launcher_round);
+        actionBar.setDisplayUseLogoEnabled(true);
+
         mTitle = findViewById(R.id.storeList_title);
         // Get data from database
         mDatabase = AppDatabase.getInstance(this);
-        mDatabase.cleanUp();
         mStoreList = mDatabase.getStoreDao().getStores();
         if (mStoreList.size() == 0) {
             mTitle.setText(getString(R.string.empty_store_list));
@@ -64,9 +70,6 @@ public class StoreListActivity extends AppCompatActivity implements StoreListEve
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // Display dialog box
-                //Toast.makeText(getApplicationContext(), "Clicked store id = " + view.getTag(), Toast.LENGTH_SHORT).show();
-                // Get store object and pass to custom dialog
                 if(mListCallbacks == null) { return; }
                 listItem = mAdapter.getStoreItem(position);
                 mItemId = position;
@@ -74,7 +77,7 @@ public class StoreListActivity extends AppCompatActivity implements StoreListEve
             }
         });
 
-        mFab = (FloatingActionButton) findViewById(R.id.add_store_fab);
+        mFab = findViewById(R.id.add_store_fab);
         mFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -84,11 +87,10 @@ public class StoreListActivity extends AppCompatActivity implements StoreListEve
         });
 
         if(StoreListEventCallbacks.class.isInstance(this)){
-            mListCallbacks = (StoreListEventCallbacks) this;
+            mListCallbacks = this;
         }
 
     }
-
 
     private static class RetrieveTask extends AsyncTask<Void,Void,List<Store>> {
 
@@ -126,9 +128,6 @@ public class StoreListActivity extends AppCompatActivity implements StoreListEve
         mCustomDialog.InitializeData(item, adapter, itemId);
         mCustomDialog.setCancelable(true);
         mCustomDialog.show();
-
-        Toast.makeText(this, "Selected store is " + item.toString(),
-                Toast.LENGTH_LONG).show();
     }
 
 }

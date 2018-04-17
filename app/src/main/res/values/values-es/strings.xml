@@ -27,6 +27,7 @@
     <string name="edit_data">Editar Datos del Producto</string>
     <string name="delete_data">Eliminar Datos del Productos</string>
     <string name="summary">Resumen de Rentabilidad Minorista</string>
+    <string name="view_formulas">Ver Fórmulas</string>
     <string name="formulas">Fórmulas de Rentabilidad</string>
 
     <!--Formula names-->

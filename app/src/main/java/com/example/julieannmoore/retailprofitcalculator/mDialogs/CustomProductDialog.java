@@ -3,7 +3,6 @@ package com.example.julieannmoore.retailprofitcalculator.mDialogs;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -13,17 +12,10 @@ import android.widget.TextView;
 import com.example.julieannmoore.retailprofitcalculator.AddProductActivity;
 import com.example.julieannmoore.retailprofitcalculator.ProductListActivity;
 import com.example.julieannmoore.retailprofitcalculator.R;
-import com.example.julieannmoore.retailprofitcalculator.StoreListActivity;
 import com.example.julieannmoore.retailprofitcalculator.SummaryActivity;
-import com.example.julieannmoore.retailprofitcalculator.UpdateProductActivity;
-import com.example.julieannmoore.retailprofitcalculator.UpdateStoreActivity;
 import com.example.julieannmoore.retailprofitcalculator.mAdapter.ProductAdapter;
-import com.example.julieannmoore.retailprofitcalculator.mAdapter.StoreAdapter;
 import com.example.julieannmoore.retailprofitcalculator.mData.Product;
-import com.example.julieannmoore.retailprofitcalculator.mData.Store;
-import com.example.julieannmoore.retailprofitcalculator.mData.Summary;
 import com.example.julieannmoore.retailprofitcalculator.mDatabase.AppDatabase;
-import com.example.julieannmoore.retailprofitcalculator.mUtilities.InititializeStoreData;
 import com.example.julieannmoore.retailprofitcalculator.mUtilities.ProductListEventCallbacks;
 import com.example.julieannmoore.retailprofitcalculator.mUtilities.StoreListEventCallbacks;
 
@@ -77,7 +69,7 @@ public class CustomProductDialog extends Dialog implements View.OnClickListener 
                 // intent to add store activity
                 Intent intent = new Intent(mActivity, AddProductActivity.class);
                 intent.putExtra("UpdateProduct", mItem);
-                intent.putExtra("ProductItemId", mItemId);
+                intent.putExtra("ItemId", mItemId);
                 mActivity.startActivity(intent);
             }
         });
@@ -94,7 +86,7 @@ public class CustomProductDialog extends Dialog implements View.OnClickListener 
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mActivity, SummaryActivity.class);
-                intent.putExtra("SummaryProduct", mItem);
+                intent.putExtra("Calculate", mItem);
                 mActivity.startActivity(intent);
             }
         });

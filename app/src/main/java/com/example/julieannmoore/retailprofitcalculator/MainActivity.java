@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.IdRes;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -37,6 +38,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Set action bar with logo
+        ActionBar actionBar = getSupportActionBar();
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        actionBar.setLogo(R.mipmap.ic_launcher_round);
+        actionBar.setDisplayUseLogoEnabled(true);
+
         mAddStore = findViewById(R.id.bn_add_store);
         mViewStore = findViewById(R.id.bn_view_store);
 
@@ -55,5 +62,10 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(viewStoreIntent);
             }
         });
+    }
+
+    public void viewFormulas(View view) {
+        Intent viewFormulasIntent = new Intent(this, FormulaListActivity.class);
+        startActivity(viewFormulasIntent);
     }
 }

@@ -7,6 +7,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -31,7 +32,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
-public class ProductListActivity extends AppCompatActivity implements ProductListEventCallbacks{
+public class ProductListActivity extends AppCompatActivity implements ProductListEventCallbacks {
 
     private TextView mTitle, mStoreName, mStoreNumber;
     private Button mButton;
@@ -43,7 +44,7 @@ public class ProductListActivity extends AppCompatActivity implements ProductLis
     private ProductListEventCallbacks mListCallbacks;
     private CustomProductDialog mCustomDialog;
     private View mView;
-    private Product listItem;
+    private Product listItem, product;
     private Store mStore;
     private int mStoreId, mItemId;
     private String storeName, storeNumber;
@@ -54,10 +55,24 @@ public class ProductListActivity extends AppCompatActivity implements ProductLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_list);
 
+        // Set action bar with logo
+        ActionBar actionBar = getSupportActionBar();
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        actionBar.setLogo(R.mipmap.ic_launcher_round);
+        actionBar.setDisplayUseLogoEnabled(true);
+
         mView = findViewById(android.R.id.content);
         mTitle = findViewById(R.id.productList_title);
         mStoreName = findViewById(R.id.storeNameTextView);
         mStoreNumber = findViewById(R.id.storeNumberTextView);
+        mListView = findViewById(R.id.list_view);
+        mFab = findViewById(R.id.add_product_fab);
+        product = new Product();
+        listItem = new Product();
+
+
+        // Get data from database
+        mDatabase = AppDatabase.getInstance(this);
 
         // Get Store Data and display in textviews
         if( (mStore = (Store) getIntent().getSerializableExtra("Store")) != null) {
@@ -66,26 +81,27 @@ public class ProductListActivity extends AppCompatActivity implements ProductLis
             storeNumber = mStore.getStoreNumber();
             mStoreName.setText(storeName);
             mStoreNumber.setText(storeNumber);
+            mProductsList = mDatabase.getProductDao().findByStoreId(mStoreId);
+        } else if( (product = (Product) getIntent().getSerializableExtra("Updated Product")) != null) {
+            int storeId = product.getStoreId();
+            mStore = mDatabase.getStoreDao().findByStoreId(storeId);
+            storeName = mStore.getStoreName();
+            storeNumber = mStore.getStoreNumber();
+            mStoreName.setText(storeName);
+            mStoreNumber.setText(storeNumber);
+            mStoreId = product.getStoreId();
+            mProductsList = mDatabase.getProductDao().findByStoreId(mStoreId);
         }
-        // Get data from database
-        mDatabase = AppDatabase.getInstance(this);
         mProductsList = mDatabase.getProductDao().findByStoreId(mStoreId);
         if (mProductsList.size() == 0) {
             mTitle.setText(getString(R.string.empty_product_list));
         }
-        mListView = findViewById(R.id.list_view);
 
         //Initiate adapter
         mAdapter = new ProductAdapter(getApplicationContext(), mProductsList);
-        // Update product list if product updated
-        if( (listItem = (Product) getIntent().getSerializableExtra("UpdateProduct")) != null) {
-            mAdapter.EditItem(mItemId, listItem);
-            mAdapter.notifyDataSetChanged();
-        }
-
         mListView.setAdapter(mAdapter);
+
         mListCallbacks = (ProductListEventCallbacks)this;
-        listItem = new Product();
 
         new RetrieveProductTask(this).execute();
 
@@ -101,8 +117,8 @@ public class ProductListActivity extends AppCompatActivity implements ProductLis
             }
         });
 
-        mButton = findViewById(R.id.bn_add_product);
-        mButton.setOnClickListener(new View.OnClickListener() {
+        //mButton = findViewById(R.id.bn_add_product);
+        mFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ProductListActivity.this, AddProductActivity.class);
@@ -144,6 +160,20 @@ public class ProductListActivity extends AppCompatActivity implements ProductLis
         }
     }
 
+    public void getData() {
+        AsyncTask.execute(new Runnable() {
+            @Override
+            public void run() {
+                AsyncTask.execute(new Runnable() {
+                    @Override
+                    public void run() {
+
+                    }
+                });
+            }
+        });
+    }
+
     @Override
     public void Select(Product item, ProductAdapter adapter, int itemId) {
         // Create custom dialog
@@ -166,6 +196,10 @@ public class ProductListActivity extends AppCompatActivity implements ProductLis
         if ( mCustomDialog!=null && mCustomDialog.isShowing() ){
             mCustomDialog.cancel();
         }
+    }
+
+    private void toastMessage(String message){
+        Toast.makeText(this,message, Toast.LENGTH_SHORT).show();
     }
 
 }

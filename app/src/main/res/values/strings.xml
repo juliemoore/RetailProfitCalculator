@@ -11,6 +11,7 @@
     <string name="store_number">Store Number</string>
     <string name="product_list">Product List</string>
     <string name="product">Product</string>
+    <string name="product_id">Product UPC</string>
     <string name="product_name">Product Name</string>
     <string name="welcome">Welcome</string>
     <string name="search">Search</string>
@@ -21,10 +22,12 @@
     <string name="delete">Delete</string>
     <string name="update">Update</string>
     <string name="share">Share</string>
+    <string name="home">Home</string>
     <string name="modify_store">Modify</string>
     <string name="add_store">Add Store</string>
     <string name="view_store">View Store</string>
     <string name="view">View</string>
+    <string name="view_formulas">View Formulas</string>
     <string name="selection">Make a selection</string>
     <string name="delete_store">Delete Store</string>
     <string name="update_store">Update Store</string>
@@ -42,6 +45,7 @@
     <string name="empty_product_list">No Products Found. Let\'s Add Some!</string>
     <string name="summary">Retail Profitability Summary</string>
     <string name="formulas">Profitability Formulas</string>
+    <string name="select_app">Seleccione una aplicación de correo electrónico</string>
 
     <!--Formula names-->
     <string name="cost_of_goods">Cost of Goods</string>
@@ -74,6 +78,6 @@
         <item>Weeks Supply of Inventory</item>
         <item>GMROI</item>
         <item>Sales per Linear Feet</item>
-        <item>GM $'s per Linear Feet</item>
+        <item>GM $\'s per Linear Feet</item>
     </string-array>
 </resources>

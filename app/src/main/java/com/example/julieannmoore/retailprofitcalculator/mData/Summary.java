@@ -6,41 +6,28 @@ import android.arch.persistence.room.Ignore;
 
 import java.io.Serializable;
 
-@Entity(tableName = "summary",
-        primaryKeys = {"storeId","productId"})
 public class Summary implements Serializable {
 
-    @ColumnInfo(name = "storeId")
-    private int mStoreId;
+    public int mStoreId;
 
-    @ColumnInfo (name = "productId")
-    private int mProductId;
+    public int mProductId;
 
-    @ColumnInfo (name = "mark_up_dollars")
     private double mMarkUpDollars = 0;
 
-    @ColumnInfo (name = "mark_up_percent")
     private double mMarkUpPercent = 0;
 
-    @ColumnInfo (name = "gm_dollars")
     private double mGMDollars = 0;
 
-    @ColumnInfo (name = "gm_percent")
     private double mGMPercent = 0;
 
-    @ColumnInfo (name = "inventory_turnover")
     private double mInventoryTurnover = 0;
 
-    @ColumnInfo (name = "weeks_supply_of_inventory")
     private double mWeeksSupplyOfInventory = 0;
 
-    @ColumnInfo (name = "GMROI")
     private double mGMROI = 0;
 
-    @ColumnInfo (name = "sales_per_feet")
     private double mSalesPerFeet = 0;
 
-    @ColumnInfo (name = "gm_dollars_per_feet")
     private double mGMDollarsPerFeet = 0;
 
     // Parameterized constructor

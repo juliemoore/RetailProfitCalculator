@@ -27,13 +27,10 @@
         </activity>
         <activity
             android:name=".SummaryActivity"
-            android:parentActivityName=".UpdateProductActivity" />
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".AddStoreActivity"
             android:parentActivityName=".MainActivity" />
-        <activity
-            android:name=".FormulaActivity"
-            android:parentActivityName=".SummaryActivity" />
         <activity
             android:name=".StoreListActivity"
             android:parentActivityName=".MainActivity" />
@@ -42,11 +39,12 @@
             android:parentActivityName=".StoreListActivity" />
         <activity
             android:name=".AddProductActivity"
-            android:parentActivityName=".ProductListActivity" />
-        <activity
-            android:name=".UpdateStoreActivity"
             android:parentActivityName=".StoreListActivity" />
-        <activity android:name=".UpdateProductActivity"></activity>
+        <activity
+            android:name=".FormulaListActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity android:name=".CalculatorActivity"
+            android:parentActivityName=".FormulaListActivity"></activity>
     </application>
 
 </manifest>

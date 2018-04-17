@@ -45,7 +45,7 @@ public class StoreAdapter extends BaseAdapter {
     }
 
     @Override
-    public Object getItem(int position) { return null; }
+    public Object getItem(int position) { return mStoreList.get(position); }
 
     public Store getStoreItem(int position) {
         if (mStoreList.size() <= 0) {

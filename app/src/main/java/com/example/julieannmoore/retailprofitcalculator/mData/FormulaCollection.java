@@ -95,24 +95,6 @@ public class FormulaCollection {
         formula.setImage(R.drawable.gm_per_linear_ft);
         formulas.add(formula);
 
-        formula = new Formula();
-        formula.setFormulaId(10);
-        formula.setFormulaName(annual_units_sold);
-        formula.setImage(R.drawable.formulasquare);
-        formulas.add(formula);
-
-        formula = new Formula();
-        formula.setFormulaId(11);
-        formula.setFormulaName(ave_weekly_inventory);
-        formula.setImage(R.drawable.formulasquare);
-        formulas.add(formula);
-
-        formula = new Formula();
-        formula.setFormulaId(12);
-        formula.setFormulaName(linear_ft_sales_floor);
-        formula.setImage(R.drawable.formulasquare);
-        formulas.add(formula);
-
         return formulas;
     }
 }

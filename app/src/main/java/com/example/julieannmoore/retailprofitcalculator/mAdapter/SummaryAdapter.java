@@ -24,7 +24,6 @@ import java.util.Map;
 public class SummaryAdapter extends BaseAdapter {
 
     private LayoutInflater mInflater;
-    private FormulaCollection mFormula;
     private String[] mFormulaNames, mFormulaAmounts;
 
     public SummaryAdapter(Context context, String[] formulaNames, String[] formulaAmounts) {
