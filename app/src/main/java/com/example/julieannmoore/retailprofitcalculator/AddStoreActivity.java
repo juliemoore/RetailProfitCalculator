@@ -108,7 +108,7 @@ public class AddStoreActivity extends AppCompatActivity {
         mStoreNameWrapper = findViewById(R.id.storeNameWrapper);
         mStoreNumberWrapper = findViewById(R.id.storeNumberWrapper);
         mStoreNameWrapper.setHint(getString(R.string.store_name));
-        mStoreNameWrapper.setHint(getString(R.string.store_number));
+        mStoreNumberWrapper.setHint(getString(R.string.store_number));
         mStoreNameEditText = findViewById(R.id.storeNameEditText);
         mStoreNumberEditText = findViewById(R.id.storeNumberEditText);
         mTitle = findViewById(R.id.add_store_title);
