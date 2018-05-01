@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/secondColorAccent"
-    tools:context="com.example.julieannmoore.retailprofitcalculator.SummaryActivity">
+    tools:context="com.example.julieannmoore.retailprofitcalculator.mActivities.SummaryActivity">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
@@ -21,7 +21,7 @@
             android:layout_marginStart="16dp"
             android:text="@string/store_name"
             android:textColor="#FFFFFF"
-            android:textSize="24sp"
+            android:textSize="20sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/productSummary_title" />
 
@@ -33,7 +33,7 @@
             android:layout_marginRight="16dp"
             android:text="@string/store_number"
             android:textColor="#FFFFFF"
-            android:textSize="24sp"
+            android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/productSummary_title" />
 
@@ -90,7 +90,8 @@
             android:background="@drawable/mybutton"
             android:text="@string/save"
             android:textColor="#FFFFFF"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:onClick="writeFile"/>
 
         <Button
             android:id="@+id/shareButton"

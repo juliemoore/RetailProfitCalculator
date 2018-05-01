@@ -5,6 +5,8 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -12,12 +14,15 @@ import com.example.julieannmoore.retailprofitcalculator.R;
 import com.example.julieannmoore.retailprofitcalculator.mData.Product;
 import com.example.julieannmoore.retailprofitcalculator.mData.Store;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class ProductAdapter extends BaseAdapter {
+public class ProductAdapter extends BaseAdapter implements Filterable {
 
     private static final String TAG = ProductAdapter.class.getSimpleName();
     List<Product> mProductList;
+    List<Product> mStringFilterList;
+    ValueFilter valueFilter;
     Context mContext;
 
     //Constructor
@@ -57,6 +62,50 @@ public class ProductAdapter extends BaseAdapter {
     @Override
     public long getItemId(int position) {
         return position;
+    }
+
+    @Override
+    public Filter getFilter() {
+        if (valueFilter == null) {
+            valueFilter = new ValueFilter();
+        }
+        return valueFilter;
+    }
+
+    private class ValueFilter extends Filter {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            FilterResults results = new FilterResults();
+
+            mStringFilterList = mProductList;
+            if (constraint != null && constraint.length() > 0) {
+                List<Product> filterList = new ArrayList<>();
+                for (int i = 0; i < mStringFilterList.size(); i++) {
+                    if ((mStringFilterList.get(i).getProductName().toUpperCase()).contains(constraint.toString().toUpperCase())) {
+                        filterList.add(mStringFilterList.get(i));
+                    }
+                }
+                results.count = filterList.size();
+                results.values = filterList;
+            } else {
+                results.count = mStringFilterList.size();
+                results.values = mStringFilterList;
+            }
+            return results;
+
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint,
+                                      FilterResults results) {
+            mProductList = (List<Product>) results.values;
+            notifyDataSetChanged();
+        }
+
+    }
+
+    public void notifyDataSetChanged() {
+        super.notifyDataSetChanged();
     }
 
     @Override

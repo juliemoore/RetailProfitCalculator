@@ -8,7 +8,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@drawable/mybutton"
-    tools:context="com.example.julieannmoore.retailprofitcalculator.AddProductActivity">
+    tools:context="com.example.julieannmoore.retailprofitcalculator.mActivities.AddProductActivity">
 
     <android.support.v7.widget.CardView
         android:id="@+id/cardView2"

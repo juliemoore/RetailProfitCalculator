@@ -1,22 +1,27 @@
-package com.example.julieannmoore.retailprofitcalculator;
+package com.example.julieannmoore.retailprofitcalculator.mActivities;
 
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
-import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.Filter;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.julieannmoore.retailprofitcalculator.R;
 import com.example.julieannmoore.retailprofitcalculator.mAdapter.ProductAdapter;
 import com.example.julieannmoore.retailprofitcalculator.mData.Product;
 import com.example.julieannmoore.retailprofitcalculator.mData.Store;
@@ -26,14 +31,12 @@ import com.example.julieannmoore.retailprofitcalculator.mUtilities.ProductListEv
 import com.example.julieannmoore.retailprofitcalculator.mUtilities.StoreListEventCallbacks;
 
 import java.lang.ref.WeakReference;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 
-public class ProductListActivity extends AppCompatActivity implements ProductListEventCallbacks {
+public class ProductListActivity extends AppCompatActivity implements ProductListEventCallbacks, SearchView.OnQueryTextListener {
 
+    private ActionBar mActionBar;
+    private Filter mFilter;
     private TextView mTitle, mStoreName, mStoreNumber;
     private Button mButton;
     private FloatingActionButton mFab;
@@ -56,10 +59,10 @@ public class ProductListActivity extends AppCompatActivity implements ProductLis
         setContentView(R.layout.activity_product_list);
 
         // Set action bar with logo
-        ActionBar actionBar = getSupportActionBar();
+        mActionBar = getSupportActionBar();
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        actionBar.setLogo(R.mipmap.ic_launcher_round);
-        actionBar.setDisplayUseLogoEnabled(true);
+        mActionBar.setLogo(R.mipmap.ic_launcher_round);
+        mActionBar.setDisplayUseLogoEnabled(true);
 
         mView = findViewById(android.R.id.content);
         mTitle = findViewById(R.id.productList_title);
@@ -80,7 +83,7 @@ public class ProductListActivity extends AppCompatActivity implements ProductLis
             storeName = mStore.getStoreName();
             storeNumber = mStore.getStoreNumber();
             mStoreName.setText(storeName);
-            mStoreNumber.setText(storeNumber);
+            mStoreNumber.setText("#" + storeNumber);
             mProductsList = mDatabase.getProductDao().findByStoreId(mStoreId);
         } else if( (product = (Product) getIntent().getSerializableExtra("Updated Product")) != null) {
             int storeId = product.getStoreId();
@@ -88,7 +91,7 @@ public class ProductListActivity extends AppCompatActivity implements ProductLis
             storeName = mStore.getStoreName();
             storeNumber = mStore.getStoreNumber();
             mStoreName.setText(storeName);
-            mStoreNumber.setText(storeNumber);
+            mStoreNumber.setText("#" + storeNumber);
             mStoreId = product.getStoreId();
             mProductsList = mDatabase.getProductDao().findByStoreId(mStoreId);
         }
@@ -130,6 +133,35 @@ public class ProductListActivity extends AppCompatActivity implements ProductLis
         if(StoreListEventCallbacks.class.isInstance(this)){
             mListCallbacks = (ProductListEventCallbacks) this;
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater mMenuInflater = getMenuInflater();
+        mMenuInflater.inflate(R.menu.menu_search, menu);
+        MenuItem mMenuItem = menu.findItem(R.id.menuSearch);
+        SearchView mSearchView = (SearchView) mMenuItem.getActionView();
+        mSearchView.setOnQueryTextListener(this);
+        mSearchView.setQueryHint(getString(R.string.search));
+        mListView.setTextFilterEnabled(true);
+        mFilter = mAdapter.getFilter();
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        if(TextUtils.isEmpty(newText)) {
+            mFilter.filter(null);
+        } else {
+            mFilter.filter(newText);
+        }
+        return true;
     }
 
     // Get Products AsyncTask

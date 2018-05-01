@@ -1,31 +1,24 @@
-package com.example.julieannmoore.retailprofitcalculator;
+package com.example.julieannmoore.retailprofitcalculator.mActivities;
 
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.PersistableBundle;
-import android.provider.ContactsContract;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.julieannmoore.retailprofitcalculator.mAdapter.StoreAdapter;
+import com.example.julieannmoore.retailprofitcalculator.R;
 import com.example.julieannmoore.retailprofitcalculator.mData.Store;
 import com.example.julieannmoore.retailprofitcalculator.mDatabase.AppDatabase;
-import com.example.julieannmoore.retailprofitcalculator.mUtilities.InititializeStoreData;
-import com.example.julieannmoore.retailprofitcalculator.mUtilities.StoreListEventCallbacks;
 
-import java.io.Serializable;
 import java.lang.ref.WeakReference;
 
 public class AddStoreActivity extends AppCompatActivity {
@@ -64,7 +57,7 @@ public class AddStoreActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // Fetch data and create store object
                 if (mStoreNameWrapper.getEditText().getText().toString().isEmpty()) {
-                    mStoreNameWrapper.setError("Store name is required.");
+                    mStoreNameWrapper.setError(getString(R.string.store_name_required));
                     mStoreNameEditText.requestFocus();
                     isValid = false;
                 } else {
@@ -72,7 +65,7 @@ public class AddStoreActivity extends AppCompatActivity {
                     mStoreNameWrapper.setErrorEnabled(false);
                 }
                 if (mStoreNumberWrapper.getEditText().getText().toString().isEmpty()) {
-                    mStoreNumberWrapper.setError("Store number is required.");
+                    mStoreNumberWrapper.setError(getString(R.string.store_number_required));
                     mStoreNumberEditText.requestFocus();
                     isValid = false;
                 } else {
@@ -98,7 +91,8 @@ public class AddStoreActivity extends AppCompatActivity {
                     mStoreNumberEditText.setText("");
                     hideKeyboard();
                 } else {
-                    toastMessage("Store name and number are required.");
+                    toastMessage(getString(R.string.store_name_required) + "\n" +
+                            getString(R.string.store_number_required));
                 }
            }
         });

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/gradient"
     android:orientation="vertical"
-    tools:context="com.example.julieannmoore.retailprofitcalculator.SplashActivity">
+    tools:context="com.example.julieannmoore.retailprofitcalculator.mActivities.SplashActivity">
 
     <ImageView
         android:id="@+id/calculatorImageView"

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@drawable/gradient"
-    tools:context="com.example.julieannmoore.retailprofitcalculator.FormulaListActivity">
+    tools:context="com.example.julieannmoore.retailprofitcalculator.mActivities.FormulaListActivity">
 
     <TextView
         android:id="@+id/tx_formula_name"

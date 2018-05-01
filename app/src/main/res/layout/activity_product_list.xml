@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@drawable/gradient_dark_orange"
-    tools:context="com.example.julieannmoore.retailprofitcalculator.AddProductActivity">
+    tools:context="com.example.julieannmoore.retailprofitcalculator.mActivities.AddProductActivity">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"

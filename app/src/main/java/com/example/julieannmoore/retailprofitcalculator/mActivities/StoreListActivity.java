@@ -1,4 +1,4 @@
-package com.example.julieannmoore.retailprofitcalculator;
+package com.example.julieannmoore.retailprofitcalculator.mActivities;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -8,12 +8,18 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Filter;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.example.julieannmoore.retailprofitcalculator.R;
 import com.example.julieannmoore.retailprofitcalculator.mAdapter.StoreAdapter;
 import com.example.julieannmoore.retailprofitcalculator.mDialogs.CustomStoreDialog;
 import com.example.julieannmoore.retailprofitcalculator.mUtilities.StoreListEventCallbacks;
@@ -23,8 +29,9 @@ import com.example.julieannmoore.retailprofitcalculator.mDatabase.AppDatabase;
 import java.lang.ref.WeakReference;
 import java.util.List;
 
-public class StoreListActivity extends AppCompatActivity implements StoreListEventCallbacks{
+public class StoreListActivity extends AppCompatActivity implements StoreListEventCallbacks, SearchView.OnQueryTextListener {
 
+    private Filter mFilter;
     private TextView mTitle;
     private FloatingActionButton mFab;
     private ListView mListView;
@@ -90,6 +97,35 @@ public class StoreListActivity extends AppCompatActivity implements StoreListEve
             mListCallbacks = this;
         }
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater mMenuInflater = getMenuInflater();
+        mMenuInflater.inflate(R.menu.menu_search, menu);
+        MenuItem mMenuItem = menu.findItem(R.id.menuSearch);
+        SearchView mSearchView = (SearchView) mMenuItem.getActionView();
+        mSearchView.setOnQueryTextListener(this);
+        mSearchView.setQueryHint(getString(R.string.search));
+        mListView.setTextFilterEnabled(true);
+        mFilter = mAdapter.getFilter();
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        if(TextUtils.isEmpty(newText)) {
+            mFilter.filter(null);
+        } else {
+            mFilter.filter(newText);
+        }
+        return true;
     }
 
     private static class RetrieveTask extends AsyncTask<Void,Void,List<Store>> {

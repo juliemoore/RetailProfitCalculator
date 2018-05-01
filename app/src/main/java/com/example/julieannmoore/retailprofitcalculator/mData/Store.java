@@ -4,10 +4,6 @@ import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
-import android.content.Context;
-import android.widget.TextView;
-
-import com.example.julieannmoore.retailprofitcalculator.StoreListActivity;
 
 import java.io.Serializable;
 

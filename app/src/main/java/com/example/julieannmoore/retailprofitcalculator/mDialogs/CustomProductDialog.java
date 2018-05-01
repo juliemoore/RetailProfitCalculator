@@ -9,10 +9,10 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.julieannmoore.retailprofitcalculator.AddProductActivity;
-import com.example.julieannmoore.retailprofitcalculator.ProductListActivity;
+import com.example.julieannmoore.retailprofitcalculator.mActivities.AddProductActivity;
+import com.example.julieannmoore.retailprofitcalculator.mActivities.ProductListActivity;
 import com.example.julieannmoore.retailprofitcalculator.R;
-import com.example.julieannmoore.retailprofitcalculator.SummaryActivity;
+import com.example.julieannmoore.retailprofitcalculator.mActivities.SummaryActivity;
 import com.example.julieannmoore.retailprofitcalculator.mAdapter.ProductAdapter;
 import com.example.julieannmoore.retailprofitcalculator.mData.Product;
 import com.example.julieannmoore.retailprofitcalculator.mDatabase.AppDatabase;

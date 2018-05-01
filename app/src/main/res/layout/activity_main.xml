@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/colorPrimaryLight"
-    tools:context="com.example.julieannmoore.retailprofitcalculator.MainActivity">
+    tools:context="com.example.julieannmoore.retailprofitcalculator.mActivities.MainActivity">
 
     <ImageView
         android:id="@+id/calculatorImageView"

@@ -1,15 +1,15 @@
-package com.example.julieannmoore.retailprofitcalculator;
+package com.example.julieannmoore.retailprofitcalculator.mActivities;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.julieannmoore.retailprofitcalculator.R;
 
 /**
  * Created by Julie Ann Moore on 2/5/2018.

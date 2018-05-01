@@ -3,6 +3,7 @@
     package="com.example.julieannmoore.retailprofitcalculator">
     // Give permission to connect with internet to connect to mySQL database
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
         android:allowBackup="true"
@@ -11,14 +12,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SplashActivity">
+        <activity android:name=".mActivities.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity">
+        <activity android:name=".mActivities.MainActivity">
             <intent-filter>
                 <action android:name="com.example.julieannmoore.MAINACTIVITY" />
 
@@ -26,25 +27,23 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SummaryActivity"
-            android:parentActivityName=".MainActivity" />
+            android:name=".mActivities.SummaryActivity"
+            android:parentActivityName=".mActivities.MainActivity" />
         <activity
-            android:name=".AddStoreActivity"
-            android:parentActivityName=".MainActivity" />
+            android:name=".mActivities.AddStoreActivity"
+            android:parentActivityName=".mActivities.MainActivity" />
         <activity
-            android:name=".StoreListActivity"
-            android:parentActivityName=".MainActivity" />
+            android:name=".mActivities.StoreListActivity" />
         <activity
-            android:name=".ProductListActivity"
-            android:parentActivityName=".StoreListActivity" />
+            android:name=".mActivities.ProductListActivity"/>
         <activity
-            android:name=".AddProductActivity"
-            android:parentActivityName=".StoreListActivity" />
+            android:name=".mActivities.AddProductActivity"
+            android:parentActivityName=".mActivities.StoreListActivity" />
         <activity
-            android:name=".FormulaListActivity"
-            android:parentActivityName=".MainActivity" />
-        <activity android:name=".CalculatorActivity"
-            android:parentActivityName=".FormulaListActivity"></activity>
+            android:name=".mActivities.FormulaListActivity"
+            android:parentActivityName=".mActivities.MainActivity" />
+        <activity android:name=".mActivities.CalculatorActivity"
+            android:parentActivityName=".mActivities.FormulaListActivity"></activity>
     </application>
 
 </manifest>

@@ -29,11 +29,15 @@
     <string name="selection">Has una elección</string>
     <string name="update_store">Actualizar Tienda</string>
     <string name="delete_store">Eliminar Tienda</string>
+    <string name="save_file">Guardar Archivo</string>
+    <string name="cannot_save_file">No se puede escribir en almacenamiento externo</string>
+    <string name="file_name">AlmacenarDatos.txt</string>
     <string name="update_store_successful">Tienda actualizada con éxito</string>
     <string name="save_store_successful">Tienda guardada con éxito</string>
     <string name="delete_store_successful">Tienda eliminada con éxito</string>
     <string name="update_product_successful">Product updated successfully</string>
     <string name="save_product_successful">Producto actualizado con éxito</string>
+    <string name="save_file_successful">Guardar correctamente el archivo</string>
     <string name="delete_product_successful">Producto eliminado con éxito</string>
     <string name="delete_prompt">¿Estás seguro que quieres eliminar esto?</string>
     <string name="empty_store_list">No se encontraron tiendas. ¡Vamos a agregar algunas!</string>
@@ -43,6 +47,22 @@
     <string name="delete_data">Eliminar Datos del Productos</string>
     <string name="summary">Resumen de Rentabilidad Minorista</string>
     <string name="formulas">Fórmulas de Rentabilidad</string>
+
+    <!--Validate data-->
+    <string name="invalid_data">Invalid data. Try again.</string>
+    <string name="store_name_required">Se requiere el nombre de la tienda</string>
+    <string name="store_number_required">Se requiere el número de tienda</string>
+    <string name="product_name_required">Nombre del producto es requerido.</string>
+    <string name="cog_required">El costo de los bienes es requerido.</string>
+    <string name="sp_required">Se requiere el precio de venta.</string>
+    <string name="cog_nan">El costo de los bienes no es un número.</string>
+    <string name="sp_nan">El precio de venta no es un número.</string>
+    <string name="aus_nan">Unidades anuales vendidas no es un número.</string>
+    <string name="awi_nan">El inventario semanal promedio no es un número.</string>
+    <string name="lf_nan">Pies lineales no es un número.</string>
+    <string name="divide_by_zero">Dividir por excepción cero.</string>
+    <string name="awi_greater_than_zero">El inventario semanal promedio debe ser mayor que 0.</string>
+    <string name="lf_greater_than_zero">Los pies lineales deben ser mayores que 0.</string>
 
     <!--Formula names-->
     <string name="cost_of_goods">Coste de Bienes</string>

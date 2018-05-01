@@ -2,30 +2,17 @@ package com.example.julieannmoore.retailprofitcalculator.mDialogs;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.view.View;
 import android.view.Window;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.julieannmoore.retailprofitcalculator.AddProductActivity;
-import com.example.julieannmoore.retailprofitcalculator.FormulaListActivity;
-import com.example.julieannmoore.retailprofitcalculator.ProductListActivity;
 import com.example.julieannmoore.retailprofitcalculator.R;
-import com.example.julieannmoore.retailprofitcalculator.SummaryActivity;
 import com.example.julieannmoore.retailprofitcalculator.mAdapter.FormulaAdapter;
-import com.example.julieannmoore.retailprofitcalculator.mAdapter.ProductAdapter;
 import com.example.julieannmoore.retailprofitcalculator.mData.Formula;
-import com.example.julieannmoore.retailprofitcalculator.mData.Product;
-import com.example.julieannmoore.retailprofitcalculator.mDatabase.AppDatabase;
 import com.example.julieannmoore.retailprofitcalculator.mUtilities.FormulaListEventCallbacks;
-import com.example.julieannmoore.retailprofitcalculator.mUtilities.ProductListEventCallbacks;
-import com.example.julieannmoore.retailprofitcalculator.mUtilities.StoreListEventCallbacks;
 
 public class CustomFormulaDialog extends Dialog implements View.OnClickListener {
 

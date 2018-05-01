@@ -1,40 +1,39 @@
-package com.example.julieannmoore.retailprofitcalculator;
+package com.example.julieannmoore.retailprofitcalculator.mActivities;
 
-import android.app.Activity;
-import android.content.Context;
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.julieannmoore.retailprofitcalculator.R;
 import com.example.julieannmoore.retailprofitcalculator.mAdapter.SummaryAdapter;
-import com.example.julieannmoore.retailprofitcalculator.mData.Formula;
-import com.example.julieannmoore.retailprofitcalculator.mData.FormulaCollection;
 import com.example.julieannmoore.retailprofitcalculator.mData.Product;
 import com.example.julieannmoore.retailprofitcalculator.mData.Store;
-import com.example.julieannmoore.retailprofitcalculator.mData.StoreProductProfits;
 import com.example.julieannmoore.retailprofitcalculator.mData.Summary;
 import com.example.julieannmoore.retailprofitcalculator.mDatabase.AppDatabase;
-import com.example.julieannmoore.retailprofitcalculator.mDialogs.CustomProductDialog;
 
-import java.lang.ref.WeakReference;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.List;
-
-import static com.example.julieannmoore.retailprofitcalculator.mData.FormulaCollection.getFormulas;
 
 public class SummaryActivity extends AppCompatActivity {
 
+    private static final int PERMISSIONS_REQUEST_WRITE_TO_FILE = 100;
     private TextView storeNameTextView, storeNumberTextView, productTextView;
     private Button mUpdateButton, mSaveButton, mShareButton;
     private ListView mListView;
@@ -47,7 +46,7 @@ public class SummaryActivity extends AppCompatActivity {
     private String[] mFormulaNames, mFormulaAmounts;
     private Boolean isUpdate, isSummaryView;
     private int storeId, productId;
-    private String storeName, storeNumber, productName;
+    private String storeName, storeNumber, productName, fileName, subject, info;
     private double cost_of_goods, selling_price, mark_up_dollars, mark_up_percent, gm_dollars,
             gm_percent, inventory_turnover, weeks_supply_of_inventory, gmroi,
             sales_per_feet, gm_linear_feet, annual_units_sold, ave_weekly_inventory,
@@ -67,6 +66,8 @@ public class SummaryActivity extends AppCompatActivity {
 
         isUpdate = false;
         isSummaryView = false;
+        fileName = getString(R.string.file_name);
+        subject = getString(R.string.profitability_summary);
 
         // Get data from database
         mDatabase = AppDatabase.getInstance(this);
@@ -79,15 +80,13 @@ public class SummaryActivity extends AppCompatActivity {
         mAdapter = new SummaryAdapter(this, mFormulaNames, mFormulaAmounts);
         mListView.setAdapter(mAdapter);
 
-        mSaveButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                toastMessage(getString(R.string.save_product_successful));
-                Intent intent = new Intent(SummaryActivity.this, MainActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);    // Clears stack
-                startActivity(intent);
-            }
-        });
+        // Get string data for output
+        info = "\nStore name: " + storeName + "\nStore number: "  + storeNumber +
+                "\nProduct: " + productName + "\n";
+        for (int i = 0; i < mFormulaNames.length; i++) {
+            info += mFormulaNames[i] + ":  " + mFormulaAmounts[i].toString() + "\n";
+        }
+
         mUpdateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -124,7 +123,7 @@ public class SummaryActivity extends AppCompatActivity {
             linear_ft = mProduct.getLinearFeet();
 
             storeNameTextView.setText(storeName);
-            storeNumberTextView.setText(storeNumber);
+            storeNumberTextView.setText("#" + storeNumber);
             productTextView.setText(productName);
         }
     }
@@ -246,30 +245,10 @@ public class SummaryActivity extends AppCompatActivity {
     public void sendEmail(View view) {
         Intent emailIntent = new Intent(Intent.ACTION_SENDTO,
                 Uri.fromParts("mailto", "", null));
-        // The intent does not have a URI, so declare the "text/plain" MIME type
-        String subject = getString(R.string.profitability_summary);
-        String info = "Store name: " + storeName + "\nStore number: "  + storeNumber +
-                "\nProduct: " + productName + "\n";
-                for (int i = 0; i < mFormulaNames.length; i++) {
-                    info += mFormulaNames[i] + ":  " + mFormulaAmounts[i].toString() + "\n";
-                }
         emailIntent.putExtra(Intent.EXTRA_SUBJECT, subject);
         emailIntent.putExtra(Intent.EXTRA_TEXT, info);
         emailIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse("content://path/to/email/attachment"));
 
-        /* Verify it resolves
-        PackageManager packageManager = getPackageManager();
-        List<ResolveInfo> activities = packageManager.queryIntentActivities(emailIntent, 0);
-        boolean isIntentSafe = activities.size() > 0;
-
-        // Start an activity if it's safe
-        if (!isIntentSafe) {
-            Toast.makeText(MainActivity.this,"There is no activity to handle this " +
-                    "request on your device.", Toast.LENGTH_LONG).show();
-        } else {
-            startActivity(emailIntent);
-        }
-        */
         // Or let user choose app
         String title = getResources().getString(R.string.select_app);
         // Create intent to show chooser
@@ -279,6 +258,74 @@ public class SummaryActivity extends AppCompatActivity {
         if (emailIntent.resolveActivity(getPackageManager()) != null) {
             startActivity(chooser);
         }
+    }
 
+    private boolean isExternalStorageWritable() {
+        if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
+            Log.i("State", "Yes, it is writable!");
+            return true;
+        } else {
+            Log.i("State", "No, not writable!");
+            return false;
+        }
+    }
+
+    private boolean isExternalStorageReadable() {
+        if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())
+                || Environment.MEDIA_MOUNTED_READ_ONLY.equals(Environment.getExternalStorageState())) {
+            Log.i("State", "Yes, it is readable!");
+            return true;
+        } else {
+            Log.i("State", "No, not readable!");
+            return false;
+        }
+    }
+
+    public boolean checkPermission(String permission) {
+        int check = ContextCompat.checkSelfPermission(this, permission);
+        Log.i("State", "Permission code" + check);
+        return  (check == PackageManager.PERMISSION_GRANTED);
+    }
+
+    public void writeFile(View view) {
+        // Here, thisActivity is the current activity
+        if (ContextCompat.checkSelfPermission(SummaryActivity.this,
+                Manifest.permission.READ_CONTACTS)
+                != PackageManager.PERMISSION_GRANTED) {
+            // No explanation needed; request the permission
+            ActivityCompat.requestPermissions(SummaryActivity.this,
+                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                    PERMISSIONS_REQUEST_WRITE_TO_FILE);
+        }
+        if (isExternalStorageWritable()&& checkPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+            String baseDir = Environment.getExternalStorageDirectory().getAbsolutePath();
+            File textFile = new File(baseDir, fileName);
+
+            try {
+                if (!textFile.isFile()) {
+                    try {
+
+                        FileOutputStream file = new FileOutputStream(textFile);
+                        file.write(info.getBytes());
+                        file.flush();
+                        file.close();
+                        toastMessage(getString(R.string.save_file_successful));
+                    } catch (IOException e) {
+                        toastMessage("Error: " + e);
+                    }
+                } else {
+                    // Write to end of file
+                    FileOutputStream outputStream = new FileOutputStream(textFile, true);
+                    OutputStreamWriter outputFile = new OutputStreamWriter(outputStream);
+                    outputFile.append(info);
+                    outputFile.flush();
+                    toastMessage(getString(R.string.save_file_successful));
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            Toast.makeText(this, getString(R.string.cannot_save_file), Toast.LENGTH_SHORT).show();
+        }
     }
 }

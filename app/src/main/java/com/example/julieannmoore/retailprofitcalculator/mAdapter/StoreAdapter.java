@@ -5,22 +5,27 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.julieannmoore.retailprofitcalculator.R;
 import com.example.julieannmoore.retailprofitcalculator.mData.Store;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by Julie Moore on 3/26/2018.
  */
 
-public class StoreAdapter extends BaseAdapter {
+public class StoreAdapter extends BaseAdapter implements Filterable {
 
     private static final String TAG = StoreAdapter.class.getSimpleName();
     List<Store> mStoreList;
+    List<Store> mStringFilterList;
+    ValueFilter valueFilter;
     Context mContext;
 
     //Constructor
@@ -61,6 +66,51 @@ public class StoreAdapter extends BaseAdapter {
     public long getItemId(int position) {
         return position;
     }
+
+    @Override
+    public Filter getFilter() {
+        if (valueFilter == null) {
+            valueFilter = new ValueFilter();
+        }
+        return valueFilter;
+    }
+
+    private class ValueFilter extends Filter {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            FilterResults results = new FilterResults();
+
+            mStringFilterList = mStoreList;
+            if (constraint != null && constraint.length() > 0) {
+                List<Store> filterList = new ArrayList<>();
+                for (int i = 0; i < mStringFilterList.size(); i++) {
+                    if ((mStringFilterList.get(i).getStoreName().toUpperCase()).contains(constraint.toString().toUpperCase())) {
+                        filterList.add(mStringFilterList.get(i));
+                    }
+                }
+                results.count = filterList.size();
+                results.values = filterList;
+            } else {
+                results.count = mStringFilterList.size();
+                results.values = mStringFilterList;
+            }
+            return results;
+
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint,
+                                      FilterResults results) {
+            mStoreList = (List<Store>) results.values;
+            notifyDataSetChanged();
+        }
+
+    }
+
+    public void notifyDataSetChanged() {
+        super.notifyDataSetChanged();
+    }
+
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {

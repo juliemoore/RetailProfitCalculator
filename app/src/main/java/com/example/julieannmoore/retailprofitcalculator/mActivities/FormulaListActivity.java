@@ -1,4 +1,4 @@
-package com.example.julieannmoore.retailprofitcalculator;
+package com.example.julieannmoore.retailprofitcalculator.mActivities;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -11,15 +11,12 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.example.julieannmoore.retailprofitcalculator.R;
 import com.example.julieannmoore.retailprofitcalculator.mAdapter.FormulaAdapter;
-import com.example.julieannmoore.retailprofitcalculator.mAdapter.StoreAdapter;
 import com.example.julieannmoore.retailprofitcalculator.mData.Formula;
 import com.example.julieannmoore.retailprofitcalculator.mData.FormulaCollection;
-import com.example.julieannmoore.retailprofitcalculator.mData.Store;
 import com.example.julieannmoore.retailprofitcalculator.mDialogs.CustomFormulaDialog;
-import com.example.julieannmoore.retailprofitcalculator.mDialogs.CustomStoreDialog;
 import com.example.julieannmoore.retailprofitcalculator.mUtilities.FormulaListEventCallbacks;
-import com.example.julieannmoore.retailprofitcalculator.mUtilities.StoreListEventCallbacks;
 
 import java.util.List;
 

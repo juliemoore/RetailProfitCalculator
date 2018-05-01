@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@drawable/gradient"
-    tools:context="com.example.julieannmoore.retailprofitcalculator.AddStoreActivity">
+    tools:context="com.example.julieannmoore.retailprofitcalculator.mActivities.AddStoreActivity">
 
     <TextView
         android:id="@+id/add_store_title"

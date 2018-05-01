@@ -1,32 +1,25 @@
-package com.example.julieannmoore.retailprofitcalculator;
+package com.example.julieannmoore.retailprofitcalculator.mActivities;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.os.Looper;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.julieannmoore.retailprofitcalculator.mAdapter.ProductAdapter;
+import com.example.julieannmoore.retailprofitcalculator.R;
 import com.example.julieannmoore.retailprofitcalculator.mData.Product;
 import com.example.julieannmoore.retailprofitcalculator.mData.Store;
 import com.example.julieannmoore.retailprofitcalculator.mDatabase.AppDatabase;
-import com.example.julieannmoore.retailprofitcalculator.mUtilities.ProductListEventCallbacks;
 
 import java.lang.ref.WeakReference;
-import java.util.List;
-import java.util.Random;
 
 public class AddProductActivity extends AppCompatActivity {
 
@@ -95,8 +88,8 @@ public class AddProductActivity extends AppCompatActivity {
                             annualUnitsSold, aveWeeklyInventory, linearFt);
                     mDatabase.getProductDao().updateProduct(mProduct);
                     toastMessage(getString(R.string.update_product_successful));
-                    Intent intent = new Intent(AddProductActivity.this, ProductListActivity.class);
-                    intent.putExtra("Updated Product", mProduct);
+                    Intent intent = new Intent(AddProductActivity.this, SummaryActivity.class);
+                    intent.putExtra("Calculate", mProduct);
                     startActivity(intent);
                     clear();
                 } else {
@@ -111,7 +104,7 @@ public class AddProductActivity extends AppCompatActivity {
                     clear();
                 }
             } else {
-                toastMessage("Invalid data. Try again.");
+                toastMessage(getString(R.string.invalid_data));
             }
         }
         });
@@ -184,7 +177,7 @@ public class AddProductActivity extends AppCompatActivity {
 
     public void getTextInput() {
         if (mProductNameWrapper.getEditText().getText().toString().isEmpty()) {
-            mProductNameWrapper.setError("Product name is required.");
+            mProductNameWrapper.setError(getString(R.string.product_name_required));
             mProductName.requestFocus();
             isValid = false;
         } else {
@@ -192,20 +185,20 @@ public class AddProductActivity extends AppCompatActivity {
             mProductNameWrapper.setErrorEnabled(false);
         }
         if (mCostOfGoodsWrapper.getEditText().toString().isEmpty()) {
-            mCostOfGoodsWrapper.setError("Cost of goods is required.");
+            mCostOfGoodsWrapper.setError(getString(R.string.cog_required));
         } else {
             mCostOfGoodsWrapper.setErrorEnabled(false);
         }
         try {
             costOfGoods = Double.parseDouble(mCostOfGoods.getText().toString());
         } catch (NumberFormatException ex) {
-            toastMessage("Cost of goods is not a number");
+            toastMessage(getString(R.string.cog_nan));
             mCostOfGoods.setText("");
             mCostOfGoods.requestFocus();
             isValid = false;
         }
         if (mSellingPriceWrapper.getEditText().getText().toString().isEmpty()) {
-            mSellingPriceWrapper.setError("Selling price is required.");
+            mSellingPriceWrapper.setError(getString(R.string.sp_required));
         } else {
             mSellingPriceWrapper.setErrorEnabled(false);
         }
@@ -213,7 +206,7 @@ public class AddProductActivity extends AppCompatActivity {
             sellingPrice = Double.parseDouble(mSellingPrice.getText().toString());
             isValid = true;
         } catch (NumberFormatException ex) {
-            toastMessage("Selling price is not a number");
+            toastMessage(getString(R.string.sp_nan));
             mSellingPrice.setText("");
             mSellingPrice.requestFocus();
             isValid = false;
@@ -223,7 +216,7 @@ public class AddProductActivity extends AppCompatActivity {
             isValid = true;
             mAnnualUnitsSoldWrapper.setErrorEnabled(false);
         } catch (NumberFormatException ex) {
-            mAnnualUnitsSoldWrapper.setError("Average weekly inventory is not a number");
+            mAnnualUnitsSoldWrapper.setError(getString(R.string.aus_nan));
             mAnnualUnitsSold.setText("");
             mAveWeeklyInventory.requestFocus();
             isValid = false;
@@ -236,13 +229,13 @@ public class AddProductActivity extends AppCompatActivity {
                 aveWeeklyInventory = .001; // if set to 0, will return divide by zero exception
             }
         } catch (NumberFormatException ex) {
-            mAveWeeklyInventoryWrapper.setError("Average weekly inventory is not a number");
+            mAveWeeklyInventoryWrapper.setError(getString(R.string.awi_nan));
             mAveWeeklyInventory.setText("");
             mAveWeeklyInventory.requestFocus();
             isValid = false;
         } catch (ArithmeticException e) {
-            mAveWeeklyInventoryWrapper.setError("Divide by zero exception. \n" +
-                    "Average weekly inventory must be greater than 0");
+            mAveWeeklyInventoryWrapper.setError(getString(R.string.divide_by_zero) + ".\n" +
+                    getString(R.string.awi_greater_than_zero));
             mAveWeeklyInventory.setText("");
             mAveWeeklyInventory.requestFocus();
             isValid = false;
@@ -252,13 +245,13 @@ public class AddProductActivity extends AppCompatActivity {
             isValid = true;
             mLinearFtWrapper.setErrorEnabled(false);
         } catch (NumberFormatException ex) {
-            mLinearFtWrapper.setError("Linear feet is not a number");
+            mLinearFtWrapper.setError(getString(R.string.lf_nan));
             mLinearFt.setText("");
             mLinearFt.requestFocus();
             isValid = false;
         } catch (ArithmeticException e) {
-            mLinearFtWrapper.setError("Divide by zero exception. \n" +
-                    "Linear feet must be greater than 0");
+            mLinearFtWrapper.setError(getString(R.string.divide_by_zero) + ".\n" +
+                    getString(R.string.lf_greater_than_zero));
             mAveWeeklyInventory.requestFocus();
             isValid = false;
         }
