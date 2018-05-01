@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.example.julieannmoore.retailprofitcalculator.mActivities.AddProductActivity;
 import com.example.julieannmoore.retailprofitcalculator.mActivities.ProductListActivity;
 import com.example.julieannmoore.retailprofitcalculator.R;
+import com.example.julieannmoore.retailprofitcalculator.mActivities.StoreListActivity;
 import com.example.julieannmoore.retailprofitcalculator.mActivities.SummaryActivity;
 import com.example.julieannmoore.retailprofitcalculator.mAdapter.ProductAdapter;
 import com.example.julieannmoore.retailprofitcalculator.mData.Product;
@@ -78,7 +79,7 @@ public class CustomProductDialog extends Dialog implements View.OnClickListener 
             public void onClick(View v) {
                 mDatabase.getProductDao().deleteProduct(mItem);
                 mAdapter.notifyDataSetChanged();
-                Intent intent = new Intent(mActivity, ProductListActivity.class);
+                Intent intent = new Intent(mActivity, StoreListActivity.class);
                 mActivity.startActivity(intent);
             }
         });

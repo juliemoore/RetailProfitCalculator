@@ -36,7 +36,7 @@ public class AddProductActivity extends AppCompatActivity {
     private int storeId, productId;
     private String storeName, storeNumber, productName;
     private double costOfGoods, sellingPrice, annualUnitsSold,
-            aveWeeklyInventory, linearFt = 0;
+            aveWeeklyInventory, linearFt;
     private Boolean isValid, isUpdate;
 
 
@@ -186,6 +186,8 @@ public class AddProductActivity extends AppCompatActivity {
         }
         if (mCostOfGoodsWrapper.getEditText().toString().isEmpty()) {
             mCostOfGoodsWrapper.setError(getString(R.string.cog_required));
+            mCostOfGoods.requestFocus();
+            isValid = false;
         } else {
             mCostOfGoodsWrapper.setErrorEnabled(false);
         }
@@ -199,6 +201,8 @@ public class AddProductActivity extends AppCompatActivity {
         }
         if (mSellingPriceWrapper.getEditText().getText().toString().isEmpty()) {
             mSellingPriceWrapper.setError(getString(R.string.sp_required));
+            mSellingPrice.requestFocus();
+            isValid = false;
         } else {
             mSellingPriceWrapper.setErrorEnabled(false);
         }
@@ -206,7 +210,7 @@ public class AddProductActivity extends AppCompatActivity {
             sellingPrice = Double.parseDouble(mSellingPrice.getText().toString());
             isValid = true;
         } catch (NumberFormatException ex) {
-            toastMessage(getString(R.string.sp_nan));
+            toastMessage("Selling price is not a number");
             mSellingPrice.setText("");
             mSellingPrice.requestFocus();
             isValid = false;
@@ -216,42 +220,40 @@ public class AddProductActivity extends AppCompatActivity {
             isValid = true;
             mAnnualUnitsSoldWrapper.setErrorEnabled(false);
         } catch (NumberFormatException ex) {
-            mAnnualUnitsSoldWrapper.setError(getString(R.string.aus_nan));
+            mAnnualUnitsSoldWrapper.setError("Annual units sold inventory is not a number");
             mAnnualUnitsSold.setText("");
             mAveWeeklyInventory.requestFocus();
             isValid = false;
         }
         try {
             aveWeeklyInventory = Double.parseDouble(mAveWeeklyInventory.getText().toString());
-            isValid = true;
             mAveWeeklyInventoryWrapper.setErrorEnabled(false);
             if (aveWeeklyInventory == 0) {
                 aveWeeklyInventory = .001; // if set to 0, will return divide by zero exception
             }
         } catch (NumberFormatException ex) {
-            mAveWeeklyInventoryWrapper.setError(getString(R.string.awi_nan));
+            mAveWeeklyInventoryWrapper.setError("Average weekly inventory is not a number");
             mAveWeeklyInventory.setText("");
             mAveWeeklyInventory.requestFocus();
             isValid = false;
         } catch (ArithmeticException e) {
-            mAveWeeklyInventoryWrapper.setError(getString(R.string.divide_by_zero) + ".\n" +
-                    getString(R.string.awi_greater_than_zero));
+            mAveWeeklyInventoryWrapper.setError("Divide by zero exception. \n" +
+                    "Average weekly inventory must be greater than 0");
             mAveWeeklyInventory.setText("");
             mAveWeeklyInventory.requestFocus();
             isValid = false;
         }
         try {
             linearFt = Double.parseDouble(mLinearFt.getText().toString());
-            isValid = true;
             mLinearFtWrapper.setErrorEnabled(false);
         } catch (NumberFormatException ex) {
-            mLinearFtWrapper.setError(getString(R.string.lf_nan));
+            mLinearFtWrapper.setError("Linear feet is not a number");
             mLinearFt.setText("");
             mLinearFt.requestFocus();
             isValid = false;
         } catch (ArithmeticException e) {
-            mLinearFtWrapper.setError(getString(R.string.divide_by_zero) + ".\n" +
-                    getString(R.string.lf_greater_than_zero));
+            mLinearFtWrapper.setError("Divide by zero exception. \n" +
+                    "Linear feet must be greater than 0");
             mAveWeeklyInventory.requestFocus();
             isValid = false;
         }

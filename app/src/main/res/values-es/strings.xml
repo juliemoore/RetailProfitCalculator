@@ -49,7 +49,7 @@
     <string name="formulas">Fórmulas de Rentabilidad</string>
 
     <!--Validate data-->
-    <string name="invalid_data">Invalid data. Try again.</string>
+    <string name="invalid_data">Datos no válidos. Vuelve a intentarlo.</string>
     <string name="store_name_required">Se requiere el nombre de la tienda</string>
     <string name="store_number_required">Se requiere el número de tienda</string>
     <string name="product_name_required">Nombre del producto es requerido.</string>

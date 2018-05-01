@@ -57,7 +57,7 @@
     <string name="store_number_required">Store number is required</string>
     <string name="product_name_required">Product name is required</string>
     <string name="cog_required">Cost of goods is required</string>
-    <string name="sp_required">Selling is required</string>
+    <string name="sp_required">Selling price is required</string>
     <string name="cog_nan">Cost of goods is not a number.</string>
     <string name="sp_nan">Selling price is not a number.</string>
     <string name="aus_nan">Annual units sold is not a number.</string>
